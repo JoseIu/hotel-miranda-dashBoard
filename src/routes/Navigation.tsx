@@ -1,6 +1,8 @@
 import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../components/Logo';
+import UserProfile from '../components/UserProfile';
+import { Room, User } from '../pages';
 import { routes } from './routes';
 
 const Navigation = () => {
@@ -14,19 +16,26 @@ const Navigation = () => {
               {routes.map(({ to, name, Icon }) => (
                 <li key={to}>
                   <StyledNavLink className={({ isActive }) => (isActive ? 'active' : '')} to={to}>
-                    {<Icon />}
+                    {Icon && <Icon />}
                     {name}
                   </StyledNavLink>
                 </li>
               ))}
             </AsideUl>
           </nav>
+          <UserProfile />
+          <div>
+            <span>Travl Hotel Admin Dashboard</span>
+            <span>© 2020 All Rights Reserved</span>
+          </div>
         </Aside>
 
         <Routes>
           {routes.map(({ to, path, Component }) => (
             <Route key={to} path={path} element={<Component />} />
           ))}
+          <Route path="/rooms/:id" element={<Room />} />
+          <Route path="/users/:id" element={<User />} />
 
           <Route path="/*" element={<Navigate to={routes[0].to} replace />} />
         </Routes>
@@ -38,19 +47,20 @@ const Navigation = () => {
 export default Navigation;
 
 const Aside = styled.aside`
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+  padding: 1rem 2rem;
   background-color: #202020;
   box-shadow: 0.8125rem 0.1875rem 5rem #0000006e;
+
+  display: flex;
+  flex-direction: column;
+  /* gap: 3rem; */
+  justify-content: space-between;
 `;
 
 const MainLayout = styled.main`
   display: grid;
   grid-template-columns: 17.125rem auto;
-  /* gap: 1em; */
   height: 100dvh;
-  background-color: lightblue;
 `;
 
 const AsideUl = styled.ul`
@@ -61,7 +71,7 @@ const AsideUl = styled.ul`
 
   gap: 1rem;
   li {
-    padding: 0.8rem;
+    padding: 0.8rem 0;
 
     svg {
       width: 1.5rem;
