@@ -30,7 +30,7 @@ const Header = () => {
           </li>
         </DashboardUl>
 
-        <img src="#" alt="IMAGE" />
+        <img src="./images/user2.webp" alt="IMAGE" />
         <select name="lang" id="lang">
           <option value="en">EN</option>
           <option value="es">ES</option>
@@ -73,14 +73,15 @@ const DashboardOptions = styled.div`
 
   input {
     width: 21.875rem;
-    height: 3.5rem;
+    /* height: 3.5rem; */
+    padding: 1rem 0.5rem;
     background-color: #171717;
     border-radius: 0.75rem;
   }
 
   img {
     width: 3.75rem;
-    height: 3.75rem;
+    /* height: 3.75rem; */
     background-color: #c5c5c5;
     border-radius: 0.5rem;
   }
