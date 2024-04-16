@@ -12,7 +12,7 @@ interface Route {
   path: string;
   Component: () => JSX.Element;
   name: string;
-  Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  Icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
 export const routes: Route[] = [
