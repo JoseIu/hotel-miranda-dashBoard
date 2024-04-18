@@ -30,7 +30,7 @@ const Header = () => {
           </li>
         </DashboardUl>
 
-        <img src="./images/user2.webp" alt="IMAGE" />
+        <img src="/images/user2.webp" alt="IMAGE" />
         <select name="lang" id="lang">
           <option value="en">EN</option>
           <option value="es">ES</option>
