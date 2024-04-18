@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const UserProfile = () => {
   return (
     <UserCard>
-      <img src="./images/user2.webp" alt="user profile image" />
+      <img src="/images/user2.webp" alt="user profile image" />
       <div>
         <h2>William Johanson</h2>
         <span>williamjohn@mail.com</span>
