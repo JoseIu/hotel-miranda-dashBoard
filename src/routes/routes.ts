@@ -4,7 +4,7 @@ import BuildIcond from '../components/icons/BuildIcond';
 import GridIcon from '../components/icons/GridIcon';
 import KeyIcon from '../components/icons/KeyIcon';
 import UsersIcon from '../components/icons/UsersIcon';
-import { Bookings, Contact, Dashboard, Rooms } from '../pages';
+import { Bookings, Contact, DashboardPage, Rooms } from '../pages';
 import Users from '../pages/Users';
 
 interface Route {
@@ -17,35 +17,35 @@ interface Route {
 
 export const routes: Route[] = [
   {
-    to: '/dashboard',
+    to: 'dashboard',
     path: 'dashboard',
-    Component: Dashboard,
+    Component: DashboardPage,
     name: 'Dashboard',
     Icon: GridIcon,
   },
   {
-    to: '/bookings',
+    to: 'bookings',
     path: 'bookings',
     Component: Bookings,
     name: 'Bookings',
     Icon: BookIcon,
   },
   {
-    to: '/rooms',
+    to: 'rooms',
     path: 'rooms',
     Component: Rooms,
     name: 'Rooms',
     Icon: KeyIcon,
   },
   {
-    to: '/contact',
+    to: 'contact',
     path: 'contact',
     Component: Contact,
     name: 'Contact',
     Icon: BuildIcond,
   },
   {
-    to: '/users',
+    to: 'users',
     path: 'users',
     Component: Users,
     name: 'Users',
