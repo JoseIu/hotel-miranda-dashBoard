@@ -1,0 +1,202 @@
+[
+  {
+    "orderDate": "2024-04-01",
+    "checkin": {
+      "date": "Nov 1th, 2020",
+      "time": "8.30 AM"
+    },
+    "checkOut": {
+      "date": "Nov 5th, 2020",
+      "time": "11.00 AM"
+    },
+    "specialRequest": "Late check-in",
+    "roomType": "Single Bed - Room 101",
+    "status": "Check In",
+    "guest": {
+      "name": "Juan",
+      "lastName": "Pérez",
+      "reservationID": "ABC123",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-03-25",
+    "checkin": {
+      "date": "Oct 30th, 2020",
+      "time": "10.00 PM"
+    },
+    "checkOut": {
+      "date": "Nov 3rd, 2020",
+      "time": "12.00 PM"
+    },
+    "specialRequest": "Early check-out",
+    "roomType": "Double Bed - Room 205",
+    "status": "Check Out",
+    "guest": {
+      "name": "María",
+      "lastName": "López",
+      "reservationID": "DEF456",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-03",
+    "checkin": {
+      "date": "Nov 5th, 2020",
+      "time": "3.00 PM"
+    },
+    "checkOut": {
+      "date": "Nov 8th, 2020",
+      "time": "10.30 AM"
+    },
+    "specialRequest": "Room upgrade",
+    "roomType": "Double Superior - Room 306",
+    "status": "In Progress",
+    "guest": {
+      "name": "Pedro",
+      "lastName": "Martínez",
+      "reservationID": "GHI789",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-07",
+    "checkin": {
+      "date": "Nov 10th, 2020",
+      "time": "11.00 AM"
+    },
+    "checkOut": {
+      "date": "Nov 14th, 2020",
+      "time": "1.00 PM"
+    },
+    "specialRequest": "Late check-out",
+    "roomType": "Suite - Room 401",
+    "status": "Check In",
+    "guest": {
+      "name": "Ana",
+      "lastName": "González",
+      "reservationID": "JKL012",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-03-30",
+    "checkin": {
+      "date": "Oct 29th, 2020",
+      "time": "9.00 PM"
+    },
+    "checkOut": {
+      "date": "Nov 2nd, 2020",
+      "time": "10.00 AM"
+    },
+    "specialRequest": "Extra pillows",
+    "roomType": "Single Bed - Room 102",
+    "status": "Check Out",
+    "guest": {
+      "name": "Carlos",
+      "lastName": "Rodríguez",
+      "reservationID": "MNO345",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-05",
+    "checkin": {
+      "date": "Nov 15th, 2020",
+      "time": "2.30 PM"
+    },
+    "checkOut": {
+      "date": "Nov 20th, 2020",
+      "time": "9.00 AM"
+    },
+    "specialRequest": "Baby crib",
+    "roomType": "Double Bed - Room 207",
+    "status": "In Progress",
+    "guest": {
+      "name": "Laura",
+      "lastName": "Hernández",
+      "reservationID": "PQR678",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-10",
+    "checkin": {
+      "date": "Nov 18th, 2020",
+      "time": "12.00 PM"
+    },
+    "checkOut": {
+      "date": "Nov 22nd, 2020",
+      "time": "3.00 PM"
+    },
+    "specialRequest": "High-speed WiFi",
+    "roomType": "Double Superior - Room 308",
+    "status": "Check In",
+    "guest": {
+      "name": "Francisco",
+      "lastName": "Díaz",
+      "reservationID": "STU901",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-12",
+    "checkin": {
+      "date": "Nov 25th, 2020",
+      "time": "5.30 PM"
+    },
+    "checkOut": {
+      "date": "Nov 28th, 2020",
+      "time": "11.30 AM"
+    },
+    "specialRequest": "Breakfast included",
+    "roomType": "Suite - Room 403",
+    "status": "Check Out",
+    "guest": {
+      "name": "Elena",
+      "lastName": "Sánchez",
+      "reservationID": "VWX234",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-15",
+    "checkin": {
+      "date": "Nov 30th, 2020",
+      "time": "8.00 AM"
+    },
+    "checkOut": {
+      "date": "Dec 4th, 2020",
+      "time": "10.00 AM"
+    },
+    "specialRequest": "Extra bed",
+    "roomType": "Single Bed - Room 103",
+    "status": "In Progress",
+    "guest": {
+      "name": "Diego",
+      "lastName": "Gómez",
+      "reservationID": "YZA567",
+      "img": "/images/user2.webp"
+    }
+  },
+  {
+    "orderDate": "2024-04-18",
+    "checkin": {
+      "date": "Dec 5th, 2020",
+      "time": "10.30 AM"
+    },
+    "checkOut": {
+      "date": "Dec 10th, 2020",
+      "time": "1.00 PM"
+    },
+    "specialRequest": "Late check-in",
+    "roomType": "Deluxe A - 02",
+    "status": "Check In",
+    "guest": {
+      "name": "Sofía",
+      "lastName": "Martín",
+      "reservationID": "BCD890",
+      "img": "/images/user2.webp"
+    }
+  }
+]
