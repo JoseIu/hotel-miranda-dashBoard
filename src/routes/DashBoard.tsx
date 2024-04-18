@@ -50,7 +50,6 @@ const Aside = styled.aside`
 
   display: flex;
   flex-direction: column;
-  /* gap: 3rem; */
   justify-content: space-between;
 `;
 
@@ -58,6 +57,7 @@ const MainLayout = styled.main`
   display: grid;
   grid-template-columns: 17.125rem auto;
   height: 100dvh;
+  overflow: hidden;
 `;
 
 const AsideUl = styled.ul`
