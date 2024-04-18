@@ -1,13 +1,18 @@
-import { BrowserRouter, NavLink, Navigate, Route, Routes } from 'react-router-dom';
+import { NavLink, Navigate, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../components/Logo';
 import UserProfile from '../components/UserProfile';
-import { Room, User } from '../pages';
+import useAuth from '../hooks/useAuth';
 import { routes } from './routes';
 
-const Navigation = () => {
+const DashBoard = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
   return (
-    <BrowserRouter>
+    <>
       <MainLayout>
         <Aside>
           <Logo />
@@ -30,21 +35,13 @@ const Navigation = () => {
           </div>
         </Aside>
 
-        <Routes>
-          {routes.map(({ to, path, Component }) => (
-            <Route key={to} path={path} element={<Component />} />
-          ))}
-          <Route path="/rooms/:id" element={<Room />} />
-          <Route path="/users/:id" element={<User />} />
-
-          <Route path="/*" element={<Navigate to={routes[0].to} replace />} />
-        </Routes>
+        <Outlet />
       </MainLayout>
-    </BrowserRouter>
+    </>
   );
 };
 
-export default Navigation;
+export default DashBoard;
 
 const Aside = styled.aside`
   padding: 1rem 2rem;
