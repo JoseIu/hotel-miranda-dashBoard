@@ -2,6 +2,7 @@
 :root {
   /* Colores */
   --negro: #393939;
+  --bg-color: #171717;
 
   /* Tipografía */
   --tipo-principal: Helvetica, Arial, sans-serif;
@@ -152,6 +153,7 @@ body {
   font-size: 100%;
   font-family: var(--tipo-principal);
   color: var(--negro);
+  background-color: var(--bg-color);
   /* (Opcional) */
   hyphens: auto;
   /* (Opcional) */
