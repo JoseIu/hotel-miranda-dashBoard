@@ -14,17 +14,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  // const storedLogin = localStorage.getItem('login');
-  // const [login, setLogin] = useState(storedLogin ? true : false);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('login') !== null);
-
-  // useEffect(() => {
-  //   const loginInStorage = localStorage.getItem('login');
-  //   console.log(loginInStorage);
-  //   if (loginInStorage) {
-  //     setLogin(true);
-  //   }
-  // }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>{children}</AuthContext.Provider>
