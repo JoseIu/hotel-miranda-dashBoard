@@ -16,7 +16,7 @@ const columns = [
   { label: 'Offer Price', key: 'offer price' },
   { label: 'Status', key: 'status' },
 ];
-const Rooms = () => {
+const RoomsPage = () => {
   const [rooms] = useState<Room[]>(roomList as Room[]);
   return (
     <ContainerSection>
@@ -48,7 +48,7 @@ const Rooms = () => {
   );
 };
 
-export default Rooms;
+export default RoomsPage;
 
 const RoomStatus = styled.td<{ $status: boolean }>`
   color: ${(props) => (props.$status ? '#4CAF50' : '#F44336')};

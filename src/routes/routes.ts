@@ -4,8 +4,7 @@ import BuildIcond from '../components/icons/BuildIcond';
 import GridIcon from '../components/icons/GridIcon';
 import KeyIcon from '../components/icons/KeyIcon';
 import UsersIcon from '../components/icons/UsersIcon';
-import { Bookings, Contact, DashboardPage, Rooms } from '../pages';
-import Users from '../pages/Users';
+import { BookingsPage, ContactPage, DashboardPage, RoomsPage, UsersPage } from '../pages';
 
 interface Route {
   to: string;
@@ -26,28 +25,28 @@ export const routes: Route[] = [
   {
     to: 'bookings',
     path: 'bookings',
-    Component: Bookings,
+    Component: BookingsPage,
     name: 'Bookings',
     Icon: BookIcon,
   },
   {
     to: 'rooms',
     path: 'rooms',
-    Component: Rooms,
+    Component: RoomsPage,
     name: 'Rooms',
     Icon: KeyIcon,
   },
   {
     to: 'contact',
     path: 'contact',
-    Component: Contact,
+    Component: ContactPage,
     name: 'Contact',
     Icon: BuildIcond,
   },
   {
     to: 'users',
     path: 'users',
-    Component: Users,
+    Component: UsersPage,
     name: 'Users',
     Icon: UsersIcon,
   },

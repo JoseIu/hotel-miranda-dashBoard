@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useAuth from '../hooks/useAuth';
 
-const Login = () => {
+const LoginPage = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
   const { form, setEmail, setPassword } = useForm();
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Login = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <LoginPage className="wrapper">
+    <LoginContainer className="wrapper">
       <h2>WellCome to Hotel Miranda Dashboard</h2>
 
       <form onSubmit={handleSumit}>
@@ -47,11 +47,11 @@ const Login = () => {
         />
         <input type="submit" value="Login" />
       </form>
-    </LoginPage>
+    </LoginContainer>
   );
 };
 
-export default Login;
+export default LoginPage;
 const useForm = () => {
   const [form, setForm] = useState({ email: '', password: '' });
 
@@ -65,7 +65,7 @@ const useForm = () => {
   return { form, setEmail, setPassword };
 };
 
-const LoginPage = styled.section`
+const LoginContainer = styled.section`
   background-color: #171717;
   height: 100dvh;
   h2 {

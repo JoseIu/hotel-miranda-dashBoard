@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const User = () => {
+const UserDetails = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -11,4 +11,4 @@ const User = () => {
   return <div>EUSER {id}</div>;
 };
 
-export default User;
+export default UserDetails;

@@ -16,7 +16,7 @@ const columns = [
   { label: 'Status', key: 'status' },
 ];
 
-const Bookings = () => {
+const BookingsPage = () => {
   const [rooms] = useState<Guest[]>(bookings as Guest[]);
 
   return (
@@ -51,7 +51,7 @@ const Bookings = () => {
   );
 };
 
-export default Bookings;
+export default BookingsPage;
 const TdStatus = styled.td<{ $status?: 'Check In' | 'Check Out' | 'In Progress' }>`
   color: ${(props) =>
     props.$status === 'Check In' ? '#4CAF50' : props.$status === 'Check Out' ? '#F44336' : '#FFC107'};

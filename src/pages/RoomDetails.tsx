@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const Room = () => {
+const RoomDetails = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -10,4 +10,4 @@ const Room = () => {
   return <div>EACH ROO {id}</div>;
 };
 
-export default Room;
+export default RoomDetails;

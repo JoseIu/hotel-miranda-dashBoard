@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Header from '../components/Header';
 
-const Contact = () => {
+const ContactPage = () => {
   return (
     <ContainerSection>
       <Header />
@@ -10,7 +10,7 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactPage;
 
 const ContainerSection = styled.section`
   background-color: #171717;
