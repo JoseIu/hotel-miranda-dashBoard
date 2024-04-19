@@ -5,12 +5,16 @@ import ChatIcon from './icons/ChatIcon';
 import HeartIcon from './icons/HeartIcon';
 import InBoxIcon from './icons/InBoxIcon';
 
-const Header = () => {
+interface HeaderProps {
+  title: string;
+}
+
+const Header = ({ title }: HeaderProps) => {
   return (
     <HeaderContainer>
       <DashboardTitle>
         <BurgerIcon />
-        <h2> Dashboard</h2>
+        <h2> {title}</h2>
       </DashboardTitle>
 
       <DashboardOptions>
