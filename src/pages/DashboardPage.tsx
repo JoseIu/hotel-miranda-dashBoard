@@ -4,7 +4,7 @@ import Header from '../components/Header';
 const DashboardPage = () => {
   return (
     <Container>
-      <Header />
+      <Header title={'Dashboard'} />
       <h2>Dashboard PAGE</h2>
     </Container>
   );

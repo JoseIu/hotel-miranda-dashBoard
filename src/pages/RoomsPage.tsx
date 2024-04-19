@@ -20,7 +20,7 @@ const RoomsPage = () => {
   const [rooms] = useState<Room[]>(roomList as Room[]);
   return (
     <ContainerSection>
-      <Header />
+      <Header title={'Rooms'} />
       <Wrapper>
         <Table columns={columns}>
           {rooms.map((room) => (

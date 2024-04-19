@@ -4,7 +4,7 @@ import Header from '../components/Header';
 const ContactPage = () => {
   return (
     <ContainerSection>
-      <Header />
+      <Header title={'Contact'} />
       <h2>Contact</h2>
     </ContainerSection>
   );

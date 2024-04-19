@@ -18,7 +18,7 @@ const UsersPage = () => {
   const [employees] = useState<Employee[]>(employeeList);
   return (
     <ContainerSection>
-      <Header />
+      <Header title={'Users'} />
       <Wrapper>
         <Table columns={columns}>
           {employees.map((employee) => (
