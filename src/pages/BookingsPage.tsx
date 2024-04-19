@@ -21,7 +21,7 @@ const BookingsPage = () => {
 
   return (
     <ContainerSection>
-      <Header />
+      <Header title={'Bookings'} />
       <Wrapper>
         <Table columns={columns}>
           {rooms.map((guest) => (
