@@ -14,7 +14,7 @@ const columns = [
   { label: 'Status', key: 'status' },
 ];
 
-const Users = () => {
+const UsersPage = () => {
   const [employees] = useState<Employee[]>(employeeList);
   return (
     <ContainerSection>
@@ -43,7 +43,7 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersPage;
 
 const RoomStatus = styled.td<{ $status: boolean }>`
   color: ${(props) => (props.$status ? '#4CAF50' : '#F44336')};
