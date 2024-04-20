@@ -14,11 +14,11 @@ const Table = ({ columns, children }: TableProps) => {
     <TableContainer>
       <table>
         <thead>
-          <TableRow>
+          <TableHead>
             {columns.map((colum) => (
               <th key={colum.key}>{colum.label}</th>
             ))}
-          </TableRow>
+          </TableHead>
         </thead>
         <tbody>{children}</tbody>
       </table>
@@ -31,16 +31,19 @@ export default Table;
 const TableContainer = styled.div`
   height: 100%;
   table {
-    height: 100%;
+    max-height: 100%;
 
     color: #e8f2ef;
     width: 100%;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     background-color: #202020;
+    td {
+      /* width: 20rem; */
+    }
   }
 `;
-const TableRow = styled.tr`
+const TableHead = styled.tr`
   border-bottom: 0.0625rem solid #3d3d3d;
 
   th {
