@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerSection = styled.section`
   background-color: #171717;
-  height: 100%;
+  max-height: 100%;
 `;
 export const Wrapper = styled.div`
   padding: 1rem 1rem 0 1rem;
@@ -11,7 +11,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Row = styled.tr`
-  width: 100%;
   border-bottom: 0.0625rem solid #3d3d3d;
 
   td {
