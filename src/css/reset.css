@@ -1,7 +1,7 @@
 /* Definimos las Custom properties */
 :root {
   /* Colores */
-  --negro: #393939;
+  --white: #ffffff;
   --bg-color: #171717;
 
   /* Tipografía */
@@ -152,7 +152,7 @@ body {
   min-height: 100vh;
   font-size: 100%;
   font-family: var(--tipo-principal);
-  color: var(--negro);
+  color: var(--white);
   background-color: var(--bg-color);
   /* (Opcional) */
   hyphens: auto;
