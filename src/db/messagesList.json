@@ -1,0 +1,92 @@
+[
+  {
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "description": "I need assistance with my account settings."
+  },
+  {
+    "fullName": {
+      "firstName": "Alice",
+      "lastName": "Smith"
+    },
+    "email": "alice.smith@example.com",
+    "phone": "+1987654321",
+    "description": "I want to inquire about your products and services."
+  },
+  {
+    "fullName": {
+      "firstName": "Michael",
+      "lastName": "Johnson"
+    },
+    "email": "michael.johnson@example.com",
+    "phone": "+1654321879",
+    "description": "I am experiencing technical difficulties with your website."
+  },
+  {
+    "fullName": {
+      "firstName": "Emily",
+      "lastName": "Brown"
+    },
+    "email": "emily.brown@example.com",
+    "phone": "+1432987654",
+    "description": "I have a question about my recent purchase."
+  },
+  {
+    "fullName": {
+      "firstName": "David",
+      "lastName": "Martinez"
+    },
+    "email": "david.martinez@example.com",
+    "phone": "+1789456123",
+    "description": "I need to update my billing information."
+  },
+  {
+    "fullName": {
+      "firstName": "Sophia",
+      "lastName": "Wilson"
+    },
+    "email": "sophia.wilson@example.com",
+    "phone": "+1546328790",
+    "description": "I want to schedule a product demonstration."
+  },
+  {
+    "fullName": {
+      "firstName": "James",
+      "lastName": "Taylor"
+    },
+    "email": "james.taylor@example.com",
+    "phone": "+1321654987",
+    "description": "I would like to cancel my subscription."
+  },
+  {
+    "fullName": {
+      "firstName": "Emma",
+      "lastName": "Garcia"
+    },
+    "email": "emma.garcia@example.com",
+    "phone": "+1897564231",
+    "description": "I need assistance with my account login."
+  },
+  {
+    "fullName": {
+      "firstName": "Liam",
+      "lastName": "Lopez"
+    },
+    "email": "liam.lopez@example.com",
+    "phone": "+1765432987",
+    "description": "I want to request a refund for my recent purchase."
+  },
+  {
+    "fullName": {
+      "firstName": "Olivia",
+      "lastName": "Hernandez"
+    },
+    "email": "olivia.hernandez@example.com",
+    "phone": "+1112223333",
+    "description": "I am interested in your upcoming promotions."
+  }
+]
