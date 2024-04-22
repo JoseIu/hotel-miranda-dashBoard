@@ -1,22 +1,58 @@
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useReducer } from 'react';
 
 interface AuthProviderProps {
   children: ReactNode;
 }
+
 interface AuthContextProps {
-  isAuthenticated: boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  userData: UserAuthState;
+  dispatch: React.Dispatch<UserAuthAction>;
 }
 
+interface UserAuthState {
+  isAuthenticated: boolean;
+  userName: string;
+  userEmail: string;
+}
+
+type UserAuthAction =
+  | { type: 'SET_AUTH'; payload: boolean }
+  | { type: 'LOGOUT' }
+  | { type: 'UPDATE_USER'; payload: { name: string; email: string } };
+
 export const AuthContext = createContext<AuthContextProps>({
-  isAuthenticated: false,
-  setIsAuthenticated: () => {},
+  userData: {
+    isAuthenticated: false,
+    userName: '',
+    userEmail: '',
+  },
+
+  dispatch: () => {},
 });
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('login') !== null);
+  const userAuthReducer = (state: UserAuthState, action: UserAuthAction) => {
+    switch (action.type) {
+      case 'SET_AUTH':
+        localStorage.setItem('login', 'true');
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>{children}</AuthContext.Provider>
-  );
+        return { ...state, isAuthenticated: action.payload };
+
+      case 'LOGOUT':
+        localStorage.removeItem('login');
+        return { ...state, isAuthenticated: false };
+      case 'UPDATE_USER':
+        return { ...state, userName: action.payload.name, userEmail: action.payload.email };
+
+      default:
+        throw new Error('Invalid action type');
+    }
+  };
+  const [userData, dispatch] = useReducer(userAuthReducer, {
+    isAuthenticated: localStorage.getItem('login') !== null,
+    userName: 'Pedrito Perez',
+    userEmail: 'prueba@prueba.com',
+  });
+
+  return <AuthContext.Provider value={{ userData, dispatch }}>{children}</AuthContext.Provider>;
 };
