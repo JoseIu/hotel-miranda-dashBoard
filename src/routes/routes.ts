@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import BookIcon from '../components/icons/BookIcon';
-import BuildIcond from '../components/icons/BuildIcond';
 import GridIcon from '../components/icons/GridIcon';
+import InBoxIcon from '../components/icons/InBoxIcon';
 import KeyIcon from '../components/icons/KeyIcon';
 import UsersIcon from '../components/icons/UsersIcon';
 import { BookingsPage, ContactPage, DashboardPage, RoomsPage, UsersPage } from '../pages';
@@ -41,7 +41,7 @@ export const routes: Route[] = [
     path: 'contact',
     Component: ContactPage,
     name: 'Contact',
-    Icon: BuildIcond,
+    Icon: InBoxIcon,
   },
   {
     to: 'users',
