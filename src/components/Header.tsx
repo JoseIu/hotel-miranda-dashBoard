@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import useAuth from '../hooks/useAuth';
+import HeaderToogle from './HeaderToogle';
+import ArrowBoxRight from './icons/ArrowBoxRight';
 import BellIcon from './icons/BellIcon';
-import BurgerIcon from './icons/BurgerIcon';
-import ChatIcon from './icons/ChatIcon';
-import HeartIcon from './icons/HeartIcon';
 import InBoxIcon from './icons/InBoxIcon';
 
 interface HeaderProps {
@@ -10,19 +10,17 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const { dispatch } = useAuth();
   return (
     <HeaderContainer>
       <DashboardTitle>
-        <BurgerIcon />
+        <HeaderToogle />
+
         <h2> {title}</h2>
       </DashboardTitle>
 
       <DashboardOptions>
-        <input type="text" name="search" id="search" />
         <DashboardUl>
-          <li>
-            <HeartIcon />
-          </li>
           <li>
             <InBoxIcon />
           </li>
@@ -30,15 +28,11 @@ const Header = ({ title }: HeaderProps) => {
             <BellIcon />
           </li>
           <li>
-            <ChatIcon />
+            <button aria-label="button to log out" onClick={() => dispatch({ type: 'LOGOUT' })}>
+              <ArrowBoxRight />
+            </button>
           </li>
         </DashboardUl>
-
-        <img src="/images/user2.webp" alt="IMAGE" />
-        <select name="lang" id="lang">
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
       </DashboardOptions>
     </HeaderContainer>
   );
@@ -60,10 +54,7 @@ const DashboardTitle = styled.div`
   align-items: center;
   gap: 2.3rem;
   color: #ffffff;
-  svg {
-    width: 1.75rem;
-    color: #ffffff;
-  }
+
   h2 {
     font-size: 1.75em;
     font-weight: 600;
@@ -74,23 +65,18 @@ const DashboardOptions = styled.div`
   display: flex;
   align-items: center;
   gap: 3rem;
-
-  input {
-    width: 21.875rem;
-    /* height: 3.5rem; */
-    padding: 1rem 0.5rem;
-    background-color: #171717;
-    border-radius: 0.75rem;
-  }
-
-  img {
-    width: 3.75rem;
-    /* height: 3.75rem; */
-    background-color: #c5c5c5;
-    border-radius: 0.5rem;
-  }
-  select {
-    color: #e23428;
+  button {
+    padding: 0.3rem;
+    background-color: #e234281c;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    svg {
+      color: #e23428;
+    }
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 `;
 
