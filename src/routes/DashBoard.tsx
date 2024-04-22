@@ -3,41 +3,40 @@ import styled from 'styled-components';
 import Logo from '../components/Logo';
 import UserProfile from '../components/UserProfile';
 import useAuth from '../hooks/useAuth';
+import useMenu from '../hooks/useMenu';
 import { routes } from './routes';
 
 const DashBoard = () => {
-  const { isAuthenticated } = useAuth();
+  const { userData } = useAuth();
+  const { isActived } = useMenu();
 
-  if (!isAuthenticated) {
+  if (!userData.isAuthenticated) {
     return <Navigate to="/" replace />;
   }
   return (
-    <>
-      <MainLayout>
-        <Aside>
-          <Logo />
-          <nav>
-            <AsideUl>
-              {routes.map(({ to, name, Icon }) => (
-                <li key={to}>
-                  <StyledNavLink className={({ isActive }) => (isActive ? 'active' : '')} to={to}>
-                    {Icon && <Icon />}
-                    {name}
-                  </StyledNavLink>
-                </li>
-              ))}
-            </AsideUl>
-          </nav>
-          <UserProfile />
-          <div>
-            <span>Travl Hotel Admin Dashboard</span>
-            <span>© 2020 All Rights Reserved</span>
-          </div>
-        </Aside>
-
-        <Outlet />
-      </MainLayout>
-    </>
+    <MainLayout $isActived={isActived}>
+      <Aside>
+        <Logo />
+        <nav>
+          <AsideUl>
+            {routes.map(({ to, name, Icon }) => (
+              <li key={to}>
+                <StyledNavLink className={({ isActive }) => (isActive ? 'active' : '')} to={to}>
+                  {Icon && <Icon className="icon" />}
+                  {name}
+                </StyledNavLink>
+              </li>
+            ))}
+          </AsideUl>
+        </nav>
+        <UserProfile />
+        <div>
+          <span>Travl Hotel Admin Dashboard</span>
+          <span>© 2020 All Rights Reserved</span>
+        </div>
+      </Aside>
+      <Outlet />
+    </MainLayout>
   );
 };
 
@@ -46,6 +45,8 @@ export default DashBoard;
 const Aside = styled.aside`
   padding: 1rem 2rem;
   background-color: #202020;
+  color: #686868;
+
   box-shadow: 0.8125rem 0.1875rem 5rem #0000006e;
 
   display: flex;
@@ -53,15 +54,16 @@ const Aside = styled.aside`
   justify-content: space-between;
 `;
 
-const MainLayout = styled.main`
+const MainLayout = styled.main<{ $isActived: boolean }>`
   display: grid;
-  grid-template-columns: 17.125rem auto;
+  transition: all 0.3s ease;
+  grid-template-columns: ${(props) => (props.$isActived ? '0 auto' : '17.125rem auto')};
+
   height: 100dvh;
   overflow: hidden;
 `;
 
 const AsideUl = styled.ul`
-  color: #686868;
   display: flex;
   flex-direction: column;
   font-weight: 600;
@@ -69,10 +71,10 @@ const AsideUl = styled.ul`
   gap: 1rem;
   li {
     padding: 0.8rem 0;
-
-    svg {
-      width: 1.5rem;
-    }
+  }
+  .icon {
+    width: 1.5rem;
+    color: #686868;
   }
 `;
 const StyledNavLink = styled(NavLink)`
@@ -81,7 +83,11 @@ const StyledNavLink = styled(NavLink)`
   gap: 0.5rem;
 
   transition: all 0.3s ease;
+
   &.active {
     color: red;
+    .icon {
+      color: red;
+    }
   }
 `;
