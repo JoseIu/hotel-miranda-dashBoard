@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useAuth from '../hooks/useAuth';
 
 const LoginPage = () => {
-  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const { userData, dispatch } = useAuth();
   const { form, setEmail, setPassword } = useForm();
   const navigate = useNavigate();
 
@@ -12,17 +12,16 @@ const LoginPage = () => {
     event.preventDefault();
     if (form.email === '' || form.password === '') return;
 
-    if (form.email === 'prueba@prueba.com' && form.password === 'prueba') {
-      setIsAuthenticated(true);
-      localStorage.setItem('login', 'true');
+    if (form.email === userData.userEmail && form.password === 'prueba') {
+      dispatch({ type: 'SET_AUTH', payload: true });
       navigate('/admin');
     }
   };
 
   useEffect(() => {
-    console.log(isAuthenticated);
-    if (isAuthenticated) navigate('/admin');
-  }, [isAuthenticated, navigate]);
+    console.log(userData.isAuthenticated);
+    if (userData.isAuthenticated) navigate('/admin');
+  }, [userData.isAuthenticated, navigate]);
 
   return (
     <LoginContainer className="wrapper">
