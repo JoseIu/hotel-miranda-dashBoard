@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { AuthProvider } from './context/authProvides';
+import { MenuProvider } from './context/menuProvider';
 import {
   BookingsPage,
   ContactPage,
@@ -24,7 +25,14 @@ const App = () => {
             <Route index element={<LoginPage />} />
           </Route>
 
-          <Route path="/admin/*" element={<DashBoard />}>
+          <Route
+            path="/admin/*"
+            element={
+              <MenuProvider>
+                <DashBoard />
+              </MenuProvider>
+            }
+          >
             <Route index path="dashboard" element={<DashboardPage />} />
             <Route path="bookings" element={<BookingsPage />} />
             <Route path="rooms" element={<RoomsPage />} />
