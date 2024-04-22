@@ -1,13 +1,17 @@
 import styled from 'styled-components';
+import useAuth from '../hooks/useAuth';
+import useMenu from '../hooks/useMenu';
 
 const UserProfile = () => {
+  const { userData } = useAuth();
+  const { isActived } = useMenu();
   return (
-    <UserCard>
+    <UserCard $isActived={isActived}>
       <img src="/images/user2.webp" alt="user profile image" />
       <div>
-        <h2>William Johanson</h2>
-        <span>williamjohn@mail.com</span>
-        <button>Contact Us</button>
+        <h2>{userData.userName}</h2>
+        <span>{userData.userEmail}</span>
+        <button>Edit profile</button>
       </div>
     </UserCard>
   );
@@ -15,16 +19,17 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const UserCard = styled.article`
+const UserCard = styled.article<{ $isActived: boolean }>`
   padding: 2.1rem 1.5rem;
   position: relative;
   background-color: #292828;
   color: #ebebeb;
 
   border-radius: 1.125rem;
-  display: flex;
+  display: ${(props) => (props.$isActived ? 'none' : 'flex')};
   flex-direction: column;
   align-items: center;
+  transition: all 0.2s ease;
 
   img {
     position: absolute;
@@ -53,5 +58,10 @@ const UserCard = styled.article`
     border-radius: 0.5rem;
     font-size: 0.875rem;
     background-color: #135846;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;
