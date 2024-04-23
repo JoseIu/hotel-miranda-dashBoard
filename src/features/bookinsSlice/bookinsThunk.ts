@@ -1,58 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import bookins from '../../db/bookins.json';
+import { asyncRequest } from '../../helpers/asyncRequest';
+import {
+  addBookingRequest,
+  deleteBookingRequest,
+  getBookingRequest,
+  updateBookingRequest,
+} from '../../helpers/bookingsRequest';
 import { Guest } from '../../interfaces/guest.interface';
 
-const bookinsDB = bookins as Guest[];
-
-interface AsyncRequest<T> {
-  data: T[];
-  delay?: number;
-}
-const asyncRequest = <T>({ data, delay = 200 }: AsyncRequest<T>) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(data);
-    }, delay);
-  });
-};
-
-const getBookingRequest = (id: string): Promise<Guest | undefined> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(bookinsDB.find((guest) => guest.guest.reservationID === id));
-    }, 200);
-  });
-};
-
-const addBookingRequest = (guest: Guest) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      bookinsDB.push(guest);
-      resolve(true);
-    }, 200);
-  });
-};
-
-const deleteBookingRequest = (id: string): Promise<boolean> => {
-  return new Promise((reolve) => {
-    setTimeout(() => {
-      bookinsDB.filter((guest) => guest.guest.reservationID !== id);
-      reolve(true);
-    }, 200);
-  });
-};
-
-const updateBookingRequest = (id: string, data: Guest) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const guestIndex = bookinsDB.findIndex((guest) => guest.guest.reservationID === id);
-
-      if (guestIndex === -1) return reject('Guest not found');
-      bookinsDB[guestIndex] = data;
-      resolve(true);
-    }, 200);
-  });
-};
+export const bookinsDB = bookins as Guest[];
 
 export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<Guest[]> => {
   const response = await asyncRequest<Guest>({ data: bookinsDB });
