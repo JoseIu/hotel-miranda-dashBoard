@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
 import Table from '../components/Table';
+import DeleteIcon from '../components/icons/DeleteIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
-import bookings from '../db/bookins.json';
+import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
 import { Guest } from '../interfaces/guest.interface';
 const columns = [
   { label: 'Guest', key: 'guest' },
@@ -17,10 +20,17 @@ const columns = [
 ];
 
 const BookingsPage = () => {
-  const [rooms] = useState<Guest[]>(bookings as Guest[]);
+  const { guests } = useSelector((state: RootState) => state.bookings);
+  // const [rooms] = useState<Guest[]>(guests as Guest[]);
+  const dispatch = useDispatch<AppDispatch>();
 
+  //FILTERS
   const { bookingFilter, setType, setOrderBy } = useFiltersBookings();
-  const roomsFiltered = filterByType(rooms, bookingFilter.type);
+  const roomsFiltered = filterByType(guests, bookingFilter.type);
+
+  useEffect(() => {
+    dispatch(getAllBookings());
+  }, []);
 
   return (
     <ContainerSection>
@@ -67,6 +77,11 @@ const BookingsPage = () => {
               <td>{guest.specialRequest}</td>
               <td>{guest.roomType}</td>
               <TdStatus $status={guest.status}>{guest.status}</TdStatus>
+              <td>
+                <button onClick={() => dispatch(deleteBooking(guest.guest.reservationID))}>
+                  <DeleteIcon />
+                </button>
+              </td>
             </Row>
           ))}
         </Table>
