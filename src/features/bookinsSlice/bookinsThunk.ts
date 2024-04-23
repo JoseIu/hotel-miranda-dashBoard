@@ -16,13 +16,13 @@ const asyncRequest = <T>({ data, delay = 200 }: AsyncRequest<T>) => {
   });
 };
 
-// const getBookingRequest = (id: string): Promise<Guest | undefined> => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(bookinsDB.find((guest) => guest.guest.reservationID === id));
-//     }, 200);
-//   });
-// };
+const getBookingRequest = (id: string): Promise<Guest | undefined> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(bookinsDB.find((guest) => guest.guest.reservationID === id));
+    }, 200);
+  });
+};
 
 // const addBookingRequest = (guest: Guest) => {
 //   return new Promise((resolve) => {
@@ -60,11 +60,11 @@ export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<
   return response as Guest[];
 });
 
-// export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<Guest> => {
-//   const response = await getBookingRequest(id);
+export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<Guest> => {
+  const response = await getBookingRequest(id);
 
-//   return response as Guest;
-// });
+  return response as Guest;
+});
 
 // export const addBooking = createAsyncThunk('booking/add', async (guest: Guest): Promise<Guest> => {
 //   const response = await addBookingRequest(guest);
