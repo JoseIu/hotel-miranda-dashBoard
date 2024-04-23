@@ -33,14 +33,14 @@ const addBookingRequest = (guest: Guest) => {
   });
 };
 
-// const deleteBookingRequest = (id: string): Promise<boolean> => {
-//   return new Promise((reolve) => {
-//     setTimeout(() => {
-//       bookinsDB.filter((guest) => guest.guest.reservationID !== id);
-//       reolve(true);
-//     }, 200);
-//   });
-// };
+const deleteBookingRequest = (id: string): Promise<boolean> => {
+  return new Promise((reolve) => {
+    setTimeout(() => {
+      bookinsDB.filter((guest) => guest.guest.reservationID !== id);
+      reolve(true);
+    }, 200);
+  });
+};
 
 // const updateBookingRequest = (id: string, data: Guest) => {
 //   return new Promise((resolve, reject) => {
@@ -72,12 +72,12 @@ export const addBooking = createAsyncThunk('booking/add', async (guest: Guest): 
   return guest;
 });
 
-// export const deleteBooking = createAsyncThunk('booking/delete', async (id: string): Promise<string> => {
-//   console.log(id);
-//   const response = await deleteBookingRequest(id);
-//   if (!response) throw new Error('Error deleting booking');
-//   return id;
-// });
+export const deleteBooking = createAsyncThunk('booking/delete', async (id: string): Promise<string> => {
+  console.log(id);
+  const response = await deleteBookingRequest(id);
+  if (!response) throw new Error('Error deleting booking');
+  return id;
+});
 
 // export const updateBooking = createAsyncThunk(
 //   'booking/update',
