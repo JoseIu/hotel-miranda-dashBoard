@@ -24,14 +24,14 @@ const getBookingRequest = (id: string): Promise<Guest | undefined> => {
   });
 };
 
-// const addBookingRequest = (guest: Guest) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       bookinsDB.push(guest);
-//       resolve(true);
-//     }, 200);
-//   });
-// };
+const addBookingRequest = (guest: Guest) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      bookinsDB.push(guest);
+      resolve(true);
+    }, 200);
+  });
+};
 
 // const deleteBookingRequest = (id: string): Promise<boolean> => {
 //   return new Promise((reolve) => {
@@ -66,11 +66,11 @@ export const getBooking = createAsyncThunk('booking/get', async (id: string): Pr
   return response as Guest;
 });
 
-// export const addBooking = createAsyncThunk('booking/add', async (guest: Guest): Promise<Guest> => {
-//   const response = await addBookingRequest(guest);
-//   if (!response) throw new Error('Error adding booking');
-//   return guest;
-// });
+export const addBooking = createAsyncThunk('booking/add', async (guest: Guest): Promise<Guest> => {
+  const response = await addBookingRequest(guest);
+  if (!response) throw new Error('Error adding booking');
+  return guest;
+});
 
 // export const deleteBooking = createAsyncThunk('booking/delete', async (id: string): Promise<string> => {
 //   console.log(id);
