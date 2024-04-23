@@ -28,6 +28,7 @@ const App = () => {
               <Route index element={<LoginPage />} />
             </Route>
 
+
             <Route
               path="/admin/*"
               element={
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="rooms" element={<RoomsPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="users" element={<UsersPage />} />
+
 
               <Route path="rooms/:id" element={<RoomDetails />} />
               <Route path="users/:id" element={<UserDetails />} />
