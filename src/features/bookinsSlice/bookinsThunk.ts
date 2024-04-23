@@ -42,17 +42,17 @@ const deleteBookingRequest = (id: string): Promise<boolean> => {
   });
 };
 
-// const updateBookingRequest = (id: string, data: Guest) => {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       const guestIndex = bookinsDB.findIndex((guest) => guest.guest.reservationID === id);
+const updateBookingRequest = (id: string, data: Guest) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const guestIndex = bookinsDB.findIndex((guest) => guest.guest.reservationID === id);
 
-//       if (guestIndex === -1) return reject('Guest not found');
-//       bookinsDB[guestIndex] = data;
-//       resolve(true);
-//     }, 200);
-//   });
-// };
+      if (guestIndex === -1) return reject('Guest not found');
+      bookinsDB[guestIndex] = data;
+      resolve(true);
+    }, 200);
+  });
+};
 
 export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<Guest[]> => {
   const response = await asyncRequest<Guest>({ data: bookinsDB });
@@ -79,14 +79,14 @@ export const deleteBooking = createAsyncThunk('booking/delete', async (id: strin
   return id;
 });
 
-// export const updateBooking = createAsyncThunk(
-//   'booking/update',
-//   async (payload: { id: string; data: Guest }) => {
-//     const { id, data } = payload;
+export const updateBooking = createAsyncThunk(
+  'booking/update',
+  async (payload: { id: string; data: Guest }) => {
+    const { id, data } = payload;
 
-//     const response = await updateBookingRequest(id, data);
+    const response = await updateBookingRequest(id, data);
 
-//     if (!response) throw new Error('Error updating booking');
-//     return payload;
-//   }
-// );
+    if (!response) throw new Error('Error updating booking');
+    return payload;
+  }
+);
