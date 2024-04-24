@@ -19,10 +19,10 @@ export const addBookingRequest = (guest: Guest) => {
 };
 
 export const deleteBookingRequest = (id: string): Promise<boolean> => {
-  return new Promise((reolve) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       bookinsDB.filter((guest) => guest.guest.reservationID !== id);
-      reolve(true);
+      resolve(true);
     }, 200);
   });
 };

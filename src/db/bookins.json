@@ -2,11 +2,11 @@
   {
     "orderDate": "2024-04-01",
     "checkin": {
-      "date": "Nov 1th, 2020",
+      "date": "2020-11-01",
       "time": "8.30 AM"
     },
     "checkOut": {
-      "date": "Nov 5th, 2020",
+      "date": "2020-11-05",
       "time": "11.00 AM"
     },
     "specialRequest": "Late check-in",
@@ -22,11 +22,11 @@
   {
     "orderDate": "2024-03-25",
     "checkin": {
-      "date": "Oct 30th, 2020",
+      "date": "2020-10-30",
       "time": "10.00 PM"
     },
     "checkOut": {
-      "date": "Nov 3rd, 2020",
+      "date": "2020-11-03",
       "time": "12.00 PM"
     },
     "specialRequest": "Early check-out",
@@ -42,11 +42,11 @@
   {
     "orderDate": "2024-04-03",
     "checkin": {
-      "date": "Nov 5th, 2020",
+      "date": "2020-11-05",
       "time": "3.00 PM"
     },
     "checkOut": {
-      "date": "Nov 8th, 2020",
+      "date": "2020-11-08",
       "time": "10.30 AM"
     },
     "specialRequest": "Room upgrade",
@@ -62,11 +62,11 @@
   {
     "orderDate": "2024-04-07",
     "checkin": {
-      "date": "Nov 10th, 2020",
+      "date": "2020-11-10",
       "time": "11.00 AM"
     },
     "checkOut": {
-      "date": "Nov 14th, 2020",
+      "date": "2020-11-14",
       "time": "1.00 PM"
     },
     "specialRequest": "Late check-out",
@@ -82,11 +82,11 @@
   {
     "orderDate": "2024-03-30",
     "checkin": {
-      "date": "Oct 29th, 2020",
+      "date": "2020-10-29",
       "time": "9.00 PM"
     },
     "checkOut": {
-      "date": "Nov 2nd, 2020",
+      "date": "2020-11-02",
       "time": "10.00 AM"
     },
     "specialRequest": "Extra pillows",
@@ -102,11 +102,11 @@
   {
     "orderDate": "2024-04-05",
     "checkin": {
-      "date": "Nov 15th, 2020",
+      "date": "2020-11-15",
       "time": "2.30 PM"
     },
     "checkOut": {
-      "date": "Nov 20th, 2020",
+      "date": "2020-11-20",
       "time": "9.00 AM"
     },
     "specialRequest": "Baby crib",
@@ -122,11 +122,11 @@
   {
     "orderDate": "2024-04-10",
     "checkin": {
-      "date": "Nov 18th, 2020",
+      "date": "2020-11-18",
       "time": "12.00 PM"
     },
     "checkOut": {
-      "date": "Nov 22nd, 2020",
+      "date": "2020-11-22",
       "time": "3.00 PM"
     },
     "specialRequest": "High-speed WiFi",
@@ -142,11 +142,11 @@
   {
     "orderDate": "2024-04-12",
     "checkin": {
-      "date": "Nov 25th, 2020",
+      "date": "2020-11-25",
       "time": "5.30 PM"
     },
     "checkOut": {
-      "date": "Nov 28th, 2020",
+      "date": "2020-11-28",
       "time": "11.30 AM"
     },
     "specialRequest": "Breakfast included",
@@ -162,11 +162,11 @@
   {
     "orderDate": "2024-04-15",
     "checkin": {
-      "date": "Nov 30th, 2020",
+      "date": "2020-11-30",
       "time": "8.00 AM"
     },
     "checkOut": {
-      "date": "Dec 4th, 2020",
+      "date": "2020-12-04",
       "time": "10.00 AM"
     },
     "specialRequest": "Extra bed",
@@ -182,11 +182,11 @@
   {
     "orderDate": "2024-04-18",
     "checkin": {
-      "date": "Dec 5th, 2020",
+      "date": "2020-12-05",
       "time": "10.30 AM"
     },
     "checkOut": {
-      "date": "Dec 10th, 2020",
+      "date": "2020-12-10",
       "time": "1.00 PM"
     },
     "specialRequest": "Late check-in",

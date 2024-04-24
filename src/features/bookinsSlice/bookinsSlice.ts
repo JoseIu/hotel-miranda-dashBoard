@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Guest } from '../../interfaces/guest.interface';
-import { addBooking, deleteBooking, getAllBookings, updateBooking } from './bookinsThunk';
+import { addBooking, deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
 
 interface Bookings {
   guests: Guest[];
@@ -29,6 +29,10 @@ export const bookinsSlice = createSlice({
 
     builder.addCase(getAllBookings.rejected, (state) => {
       state.loading = 'failed';
+    });
+
+    builder.addCase(getBooking.fulfilled, (state, action) => {
+      state.guest = action.payload;
     });
 
     builder.addCase(deleteBooking.fulfilled, (state, action) => {
