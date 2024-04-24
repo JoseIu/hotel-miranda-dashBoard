@@ -14,6 +14,7 @@ import {
   UserDetails,
   UsersPage,
 } from './pages';
+import BookingDetails from './pages/BookingDetails';
 import DashBoard from './routes/DashBoard';
 import { routes } from './routes/routes';
 import AuthTemplate from './template/AuthTemplate';
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="contact" element={<ContactPage />} />
               <Route path="users" element={<UsersPage />} />
 
+              <Route path="bookings/:id" element={<BookingDetails />} />
               <Route path="rooms/:id" element={<RoomDetails />} />
               <Route path="users/:id" element={<UserDetails />} />
               <Route path="*" element={<Navigate to={routes[0].to} replace />} />
