@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
+import BookingsOrder from '../components/BookingsOrder';
 import Header from '../components/Header';
+import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
@@ -21,12 +24,13 @@ const columns = [
 
 const BookingsPage = () => {
   const { guests } = useSelector((state: RootState) => state.bookings);
-  // const [rooms] = useState<Guest[]>(guests as Guest[]);
   const dispatch = useDispatch<AppDispatch>();
 
   //FILTERS
-  const { bookingFilter, setType, setOrderBy } = useFiltersBookings();
-  const roomsFiltered = filterByType(guests, bookingFilter.type);
+  const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
+
+  let bookingsFiltered = filterByType(guests, bookingFilter.type);
+  bookingsFiltered = filterByName(bookingsFiltered, bookingFilter.search);
 
   useEffect(() => {
     dispatch(getAllBookings());
@@ -37,12 +41,15 @@ const BookingsPage = () => {
       <Header title={'Bookings'} />
 
       <BookingsFilter>
-        <div>
-          <button onClick={() => setType(0)}>All Bookings</button>
-          <button onClick={() => setType(1)}>Checking In</button>
-          <button onClick={() => setType(2)}>Checking Out</button>
-          <button onClick={() => setType(3)}> In Progress</button>
-        </div>
+        <BookingsOrder setType={setType} />
+
+        <InputSearh
+          name="search"
+          id="search"
+          value={bookingFilter.search}
+          placeholder="search a booking...."
+          onChange={(event) => setSearch(event.target.value)}
+        />
 
         <select
           name="orderBy"
@@ -58,27 +65,29 @@ const BookingsPage = () => {
       </BookingsFilter>
       <Wrapper>
         <Table columns={columns}>
-          {roomsFiltered.map((guest) => (
-            <Row key={guest.guest.reservationID}>
-              <TableGuest
-                img={guest.guest.img}
-                name={guest.guest.name}
-                lastName={guest.guest.lastName}
-                id={guest.guest.reservationID}
-              />
-              <td>{guest.orderDate}</td>
+          {bookingsFiltered.map((booking) => (
+            <Row key={booking.guest.reservationID}>
+              <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
+                <TableGuest
+                  img={booking.guest.img}
+                  name={booking.guest.name}
+                  lastName={booking.guest.lastName}
+                  id={booking.guest.reservationID}
+                />
+              </Link>
+              <td>{booking.orderDate}</td>
               <td>
-                {guest.checkin.date} {guest.checkin.time}
+                {booking.checkin.date} {booking.checkin.time}
               </td>
               <td>
-                {guest.checkOut.date}
-                {guest.checkOut.time}
+                {booking.checkOut.date}
+                {booking.checkOut.time}
               </td>
-              <td>{guest.specialRequest}</td>
-              <td>{guest.roomType}</td>
-              <TdStatus $status={guest.status}>{guest.status}</TdStatus>
+              <td>{booking.specialRequest}</td>
+              <td>{booking.roomType}</td>
+              <TdStatus $status={booking.status}>{booking.status}</TdStatus>
               <td>
-                <button onClick={() => dispatch(deleteBooking(guest.guest.reservationID))}>
+                <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
                   <DeleteIcon />
                 </button>
               </td>
@@ -103,18 +112,6 @@ const BookingsFilter = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  div {
-    display: flex;
-    gap: 1rem;
-    padding: 0 0.5rem 1rem 0.5rem;
-    border-bottom: 0.0625rem solid #3d3d3d;
-    button {
-      cursor: pointer;
-      &:focus {
-        color: #135846;
-      }
-    }
-  }
   select {
     outline: 0.0625rem solid #135846;
     color: #135846;
@@ -139,19 +136,27 @@ const useFiltersBookings = () => {
   return { bookingFilter, setSearch, setType, setOrderBy };
 };
 
-const filterByType = (rooms: Guest[], type: number) => {
-  const roomsToFilter = rooms;
+const filterByType = (bookings: Guest[], type: number) => {
+  const roomsToFilter = [...bookings].sort(
+    (a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime()
+  );
 
   switch (type) {
     case 1:
-      return roomsToFilter.filter((room) => room.status.toLowerCase() === 'check in');
+      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'check in');
     case 2:
-      return roomsToFilter.filter((room) => room.status.toLowerCase() === 'check out');
-
+      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'check out');
     case 3:
-      return roomsToFilter.filter((room) => room.status.toLowerCase() === 'in progress');
+      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'in progress');
 
     default:
       return roomsToFilter;
   }
+};
+
+const filterByName = (bookings: Guest[], search: string) => {
+  if (!search) return [...bookings];
+  const serachNormalized = search.toLowerCase();
+
+  return bookings.filter((booking) => booking.guest.name.toLowerCase().includes(serachNormalized));
 };
