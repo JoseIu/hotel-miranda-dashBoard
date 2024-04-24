@@ -160,3 +160,21 @@ const filterByName = (bookings: Guest[], search: string) => {
 
   return bookings.filter((booking) => booking.guest.name.toLowerCase().includes(serachNormalized));
 };
+
+const orderBy = (bookings: Guest[], orderBy: number) => {
+  const bookingsToOrder = [...bookings];
+
+  switch (orderBy) {
+    case 1:
+      return bookingsToOrder.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
+
+    case 2:
+      return bookingsToOrder.sort(
+        (a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime()
+      );
+    case 3:
+      return bookingsToOrder.sort(
+        (a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime()
+      );
+  }
+};
