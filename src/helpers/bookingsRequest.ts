@@ -4,6 +4,7 @@ import { Guest } from '../interfaces/guest.interface';
 export const getBookingRequest = (id: string): Promise<Guest | undefined> => {
   return new Promise((resolve) => {
     setTimeout(() => {
+      console.log('getBookingRequest');
       resolve(bookinsDB.find((guest) => guest.guest.reservationID === id));
     }, 200);
   });
@@ -12,7 +13,8 @@ export const getBookingRequest = (id: string): Promise<Guest | undefined> => {
 export const addBookingRequest = (guest: Guest) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      bookinsDB.push(guest);
+      const newBookingsDB = [...bookinsDB];
+      newBookingsDB.push(guest);
       resolve(true);
     }, 200);
   });
