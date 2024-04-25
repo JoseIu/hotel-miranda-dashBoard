@@ -29,9 +29,9 @@ const BookingsPage = () => {
   //FILTERS
   const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
 
-  let bookingsFiltered = filterByType(guests, bookingFilter.type);
-  bookingsFiltered = filterByName(bookingsFiltered, bookingFilter.search);
+  let bookingsFiltered = filterByName(guests, bookingFilter.search);
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
+  bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
 
   useEffect(() => {
     dispatch(getAllBookings());
@@ -151,7 +151,7 @@ const filterByType = (bookings: Guest[], type: number) => {
       return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'in progress');
 
     default:
-      return roomsToFilter;
+      return bookings;
   }
 };
 
@@ -163,23 +163,27 @@ const filterByName = (bookings: Guest[], search: string) => {
 };
 
 const orderBy = (bookings: Guest[], orderBy: number) => {
-  const bookingsToOrder = [...bookings];
-
+  const bookingsToSort = [...bookings];
   switch (orderBy) {
+    case 0:
+      return bookingsToSort.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
     case 1:
-      return bookingsToOrder.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
-
+      return bookingsToSort.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+    case 2:
+      return bookingsToSort.sort((a, b) => {
+        if (a.status === b.status) return 0;
+        if (a.status === 'Check In') return -1;
+        if (a.status === 'Check Out' && b.status === 'In Progress') return -1;
+        return 0;
+      });
     case 3:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime()
-      );
-    case 4:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.checkOut.date).getTime() - new Date(b.checkOut.date).getTime()
-      );
+      return bookingsToSort.sort((a, b) => {
+        if (a.status === b.status) return 0;
+        if (a.status === 'Check Out') return -1;
+        if (a.status === 'Check In' && b.status === 'In Progress') return -1;
+        return 0;
+      });
     default:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime()
-      );
+      return bookings;
   }
 };
