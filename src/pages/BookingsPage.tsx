@@ -23,19 +23,20 @@ const columns = [
 ];
 
 const BookingsPage = () => {
-  const { guests } = useSelector((state: RootState) => state.bookings);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { guests, loading } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
 
   //FILTERS
   const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
 
-  let bookingsFiltered = filterByType(guests, bookingFilter.type);
-  bookingsFiltered = filterByName(bookingsFiltered, bookingFilter.search);
+  let bookingsFiltered = filterByName(guests, bookingFilter.search);
+  bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
 
   useEffect(() => {
     dispatch(getAllBookings());
-  }, []);
+  }, [dispatch]);
 
   return (
     <ContainerSection>
@@ -51,6 +52,7 @@ const BookingsPage = () => {
           placeholder="search a booking...."
           onChange={(event) => setSearch(event.target.value)}
         />
+        <button onClick={() => setModalIsOpen(!modalIsOpen)}>ADD</button>
 
         <select
           name="orderBy"
@@ -65,36 +67,42 @@ const BookingsPage = () => {
         </select>
       </BookingsFilter>
       <Wrapper>
-        <Table columns={columns}>
-          {bookingsFiltered.map((booking) => (
-            <Row key={booking.guest.reservationID}>
-              <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
-                <TableGuest
-                  img={booking.guest.img}
-                  name={booking.guest.name}
-                  lastName={booking.guest.lastName}
-                  id={booking.guest.reservationID}
-                />
-              </Link>
-              <td>{booking.orderDate}</td>
-              <td>
-                {booking.checkin.date} {booking.checkin.time}
-              </td>
-              <td>
-                {booking.checkOut.date}
-                {booking.checkOut.time}
-              </td>
-              <td>{booking.specialRequest}</td>
-              <td>{booking.roomType}</td>
-              <TdStatus $status={booking.status}>{booking.status}</TdStatus>
-              <td>
-                <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
-                  <DeleteIcon />
-                </button>
-              </td>
-            </Row>
-          ))}
-        </Table>
+        {loading === 'pending' ? (
+          <p>Loading...</p>
+        ) : (
+          <Table columns={columns}>
+            {bookingsFiltered.map((booking) => (
+              <Row key={booking.guest.reservationID}>
+                <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
+                  <TableGuest
+                    img={booking.guest.img}
+                    name={booking.guest.name}
+                    lastName={booking.guest.lastName}
+                    id={booking.guest.reservationID}
+                  />
+                </Link>
+                <td>{booking.orderDate}</td>
+                <td>
+                  {booking.checkin.date} {booking.checkin.time}
+                </td>
+                <td>
+                  {booking.checkOut.date}
+                  {booking.checkOut.time}
+                </td>
+                <td>{booking.specialRequest}</td>
+                <td>{booking.roomType}</td>
+                <TdStatus $status={booking.status}>{booking.status}</TdStatus>
+                <td>
+                  <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
+                    <DeleteIcon />
+                  </button>
+                </td>
+              </Row>
+            ))}
+          </Table>
+        )}
+
+        {/* <FromAdd modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> */}
       </Wrapper>
 
       <div>PAGINATION</div>
@@ -138,17 +146,21 @@ const useFiltersBookings = () => {
 };
 
 const filterByType = (bookings: Guest[], type: number) => {
-  const roomsToFilter = [...bookings].sort(
-    (a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime()
-  );
+  const roomsToFilter = [...bookings];
 
   switch (type) {
     case 1:
-      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'check in');
+      return roomsToFilter
+        .filter((booking) => booking.status.toLowerCase() === 'check in')
+        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
     case 2:
-      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'check out');
+      return roomsToFilter
+        .filter((booking) => booking.status.toLowerCase() === 'check out')
+        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
     case 3:
-      return roomsToFilter.filter((booking) => booking.status.toLowerCase() === 'in progress');
+      return roomsToFilter
+        .filter((booking) => booking.status.toLowerCase() === 'in progress')
+        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
 
     default:
       return roomsToFilter;
@@ -163,23 +175,27 @@ const filterByName = (bookings: Guest[], search: string) => {
 };
 
 const orderBy = (bookings: Guest[], orderBy: number) => {
-  const bookingsToOrder = [...bookings];
-
+  const bookingsToSort = [...bookings];
   switch (orderBy) {
+    case 0:
+      return bookingsToSort.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
     case 1:
-      return bookingsToOrder.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
-
+      return bookingsToSort.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+    case 2:
+      return bookingsToSort.sort((a, b) => {
+        if (a.status === b.status) return 0;
+        if (a.status === 'Check In') return -1;
+        if (a.status === 'Check Out' && b.status === 'In Progress') return -1;
+        return 0;
+      });
     case 3:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime()
-      );
-    case 4:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.checkOut.date).getTime() - new Date(b.checkOut.date).getTime()
-      );
+      return bookingsToSort.sort((a, b) => {
+        if (a.status === b.status) return 0;
+        if (a.status === 'Check Out') return -1;
+        if (a.status === 'Check In' && b.status === 'In Progress') return -1;
+        return 0;
+      });
     default:
-      return bookingsToOrder.sort(
-        (a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime()
-      );
+      return bookingsToSort;
   }
 };

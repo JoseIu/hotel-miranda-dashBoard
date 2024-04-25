@@ -23,16 +23,22 @@ export const bookinsSlice = createSlice({
       state.loading = 'pending';
     });
     builder.addCase(getAllBookings.fulfilled, (state, action) => {
-      state.loading = 'succeeded';
       state.guests = action.payload;
+      state.loading = 'succeeded';
     });
-
     builder.addCase(getAllBookings.rejected, (state) => {
       state.loading = 'failed';
     });
 
+    builder.addCase(getBooking.pending, (state) => {
+      state.loading = 'pending';
+    });
     builder.addCase(getBooking.fulfilled, (state, action) => {
       state.guest = action.payload;
+      state.loading = 'succeeded';
+    });
+    builder.addCase(getBooking.rejected, (state) => {
+      state.loading = 'failed';
     });
 
     builder.addCase(deleteBooking.fulfilled, (state, action) => {

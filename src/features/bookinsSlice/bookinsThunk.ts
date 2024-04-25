@@ -9,7 +9,7 @@ import {
 } from '../../helpers/bookingsRequest';
 import { Guest } from '../../interfaces/guest.interface';
 
-export const bookinsDB = bookins as Guest[];
+export const bookinsDB = [...bookins] as Guest[];
 
 export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<Guest[]> => {
   const response = await asyncRequest<Guest>({ data: bookinsDB });
@@ -19,7 +19,7 @@ export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<
 
 export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<Guest> => {
   const response = await getBookingRequest(id);
-
+  console.log(response);
   return response as Guest;
 });
 

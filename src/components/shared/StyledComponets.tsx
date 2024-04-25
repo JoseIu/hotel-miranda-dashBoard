@@ -5,6 +5,8 @@ export const ContainerSection = styled.section`
   max-height: 100%;
 `;
 export const Wrapper = styled.div`
+  position: relative;
+
   padding: 1rem 1rem 0 1rem;
   height: 80dvh;
   overflow-y: auto;
