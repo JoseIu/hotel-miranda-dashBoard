@@ -219,7 +219,7 @@ const FormContainert = styled.div<{ modalIsOpen: boolean }>`
   width: 100%;
   background-color: #050505e1;
   transition: all 0.3s ease;
-  transform: scale(${(props) => (props.modalIsOpen ? '0' : '1')});
+  transform: scale(${(props) => (props.modalIsOpen ? '1' : '0')});
 
   display: flex;
   align-items: center;
