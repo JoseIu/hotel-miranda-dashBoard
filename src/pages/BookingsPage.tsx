@@ -25,8 +25,13 @@ const columns = [
 
 const BookingsPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { guests, loading } = useSelector((state: RootState) => state.bookings);
+  const [loading, setLoading] = useState(true);
+  const { guests } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
+  const getBooking = async () => {
+    await dispatch(getAllBookings()).unwrap();
+    setLoading(false);
+  };
 
   //FILTERS
   const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
@@ -36,8 +41,12 @@ const BookingsPage = () => {
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
 
   useEffect(() => {
-    dispatch(getAllBookings());
-  }, [dispatch]);
+    getBooking();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ContainerSection>
@@ -68,41 +77,36 @@ const BookingsPage = () => {
         </select>
       </BookingsFilter>
       <Wrapper>
-        {loading === 'pending' ? (
-          <p>Loading...</p>
-        ) : (
-          <Table columns={columns}>
-            {bookingsFiltered.map((booking) => (
-              <Row key={booking.guest.reservationID}>
-                <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
-                  <TableGuest
-                    img={booking.guest.img}
-                    name={booking.guest.name}
-                    lastName={booking.guest.lastName}
-                    id={booking.guest.reservationID}
-                  />
-                </Link>
-                <td>{booking.orderDate}</td>
-                <td>
-                  {booking.checkin.date} {booking.checkin.time}
-                </td>
-                <td>
-                  {booking.checkOut.date}
-                  {booking.checkOut.time}
-                </td>
-                <td>{booking.specialRequest}</td>
-                <td>{booking.roomType}</td>
-                <TdStatus $status={booking.status}>{booking.status}</TdStatus>
-                <td>
-                  <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
-                    <DeleteIcon />
-                  </button>
-                </td>
-              </Row>
-            ))}
-          </Table>
-        )}
-
+        <Table columns={columns}>
+          {bookingsFiltered.map((booking) => (
+            <Row key={booking.guest.reservationID}>
+              <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
+                <TableGuest
+                  img={booking.guest.img}
+                  name={booking.guest.name}
+                  lastName={booking.guest.lastName}
+                  id={booking.guest.reservationID}
+                />
+              </Link>
+              <td>{booking.orderDate}</td>
+              <td>
+                {booking.checkin.date} {booking.checkin.time}
+              </td>
+              <td>
+                {booking.checkOut.date}
+                {booking.checkOut.time}
+              </td>
+              <td>{booking.specialRequest}</td>
+              <td>{booking.roomType}</td>
+              <TdStatus $status={booking.status}>{booking.status}</TdStatus>
+              <td>
+                <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
+                  <DeleteIcon />
+                </button>
+              </td>
+            </Row>
+          ))}
+        </Table>
         <FromAdd modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       </Wrapper>
 
