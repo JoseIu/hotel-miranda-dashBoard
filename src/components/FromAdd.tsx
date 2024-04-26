@@ -59,7 +59,7 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
     setModalIsOpen(!modalIsOpen);
   };
   return (
-    <FormContainert modalIsOpen={modalIsOpen}>
+    <FormContainert $modalIsOpen={modalIsOpen}>
       <Form onSubmit={handleSubmit}>
         <GuestData>
           <label htmlFor="name">
@@ -211,7 +211,7 @@ const useForm = () => {
     setStatus,
   };
 };
-const FormContainert = styled.div<{ modalIsOpen: boolean }>`
+const FormContainert = styled.div<{ $modalIsOpen: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -219,7 +219,7 @@ const FormContainert = styled.div<{ modalIsOpen: boolean }>`
   width: 100%;
   background-color: #050505e1;
   transition: all 0.3s ease;
-  transform: scale(${(props) => (props.modalIsOpen ? '1' : '0')});
+  transform: scale(${(props) => (props.$modalIsOpen ? '1' : '0')});
 
   display: flex;
   align-items: center;

@@ -4,12 +4,12 @@ import { addBooking, deleteBooking, getAllBookings, getBooking, updateBooking } 
 
 interface Bookings {
   guests: Guest[];
-  guest: Guest;
+  guest: Guest | null;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 const initialState: Bookings = {
   guests: [],
-  guest: {} as Guest,
+  guest: null,
   loading: 'idle',
 };
 

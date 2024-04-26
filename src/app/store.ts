@@ -1,9 +1,11 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import { bookinsSlice } from '../features/bookinsSlice/bookinsSlice';
+import { roomsSlice } from '../features/roomsSlice/roomsSlice';
 
 export const store = configureStore({
   reducer: {
     bookings: bookinsSlice.reducer,
+    rooms: roomsSlice.reducer,
   },
 });
 

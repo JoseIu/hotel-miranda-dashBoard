@@ -12,7 +12,7 @@ import { Guest } from '../../interfaces/guest.interface';
 export const bookinsDB = [...bookins] as Guest[];
 
 export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<Guest[]> => {
-  const response = await asyncRequest<Guest>({ data: bookinsDB });
+  const response = await asyncRequest<Guest>({ data: bookins as Guest[] });
 
   return response as Guest[];
 });
