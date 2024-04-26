@@ -14,7 +14,9 @@ const BookingDetails = () => {
   }, [id, distpatch]);
 
   return (
-    <section>{loading === 'pending' ? <p>Loading...</p> : <p>{guest.guest && guest.guest.name}</p>}</section>
+    <section>
+      {loading === 'pending' ? <p>Loading...</p> : <p>{guest?.guest && guest?.guest.name}</p>}
+    </section>
   );
 };
 
