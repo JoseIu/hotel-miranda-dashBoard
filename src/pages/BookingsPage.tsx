@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import BookingsOrder from '../components/BookingsOrder';
+import FromAdd from '../components/FromAdd';
 import Header from '../components/Header';
 import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
@@ -102,7 +103,7 @@ const BookingsPage = () => {
           </Table>
         )}
 
-        {/* <FromAdd modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> */}
+        <FromAdd modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       </Wrapper>
 
       <div>PAGINATION</div>
