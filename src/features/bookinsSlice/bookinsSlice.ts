@@ -3,18 +3,18 @@ import { Guest } from '../../interfaces/guest.interface';
 import { addBooking, deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
 
 interface Bookings {
-  guests: Guest[];
-  guest: Guest | null;
+  bookins: Guest[];
+  bookin: Guest | null;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 const initialState: Bookings = {
-  guests: [],
-  guest: null,
+  bookins: [],
+  bookin: null,
   loading: 'idle',
 };
 
 export const bookinsSlice = createSlice({
-  name: 'bookins',
+  name: 'bookings',
   initialState,
   reducers: {},
 
@@ -23,7 +23,7 @@ export const bookinsSlice = createSlice({
       state.loading = 'pending';
     });
     builder.addCase(getAllBookings.fulfilled, (state, action) => {
-      state.guests = action.payload;
+      state.bookins = action.payload;
       state.loading = 'succeeded';
     });
     builder.addCase(getAllBookings.rejected, (state) => {
@@ -34,7 +34,7 @@ export const bookinsSlice = createSlice({
       state.loading = 'pending';
     });
     builder.addCase(getBooking.fulfilled, (state, action) => {
-      state.guest = action.payload;
+      state.bookin = action.payload;
       state.loading = 'succeeded';
     });
     builder.addCase(getBooking.rejected, (state) => {
@@ -42,16 +42,16 @@ export const bookinsSlice = createSlice({
     });
 
     builder.addCase(deleteBooking.fulfilled, (state, action) => {
-      state.guests = state.guests.filter((guest) => guest.guest.reservationID !== action.payload);
+      state.bookins = state.bookins.filter((guest) => guest.guest.reservationID !== action.payload);
     });
     builder.addCase(addBooking.fulfilled, (state, action) => {
-      state.guests.push(action.payload);
+      state.bookins.push(action.payload);
     });
     builder.addCase(updateBooking.fulfilled, (state, action) => {
-      const guestIndex = state.guests.findIndex((guest) => guest.guest.reservationID === action.payload.id);
+      const guestIndex = state.bookins.findIndex((guest) => guest.guest.reservationID === action.payload.id);
 
       if (guestIndex === -1) return;
-      state.guests[guestIndex] = action.payload.data;
+      state.bookins[guestIndex] = action.payload.data;
     });
   },
 });
