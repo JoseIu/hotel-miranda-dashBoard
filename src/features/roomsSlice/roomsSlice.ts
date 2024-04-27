@@ -30,11 +30,17 @@ export const roomsSlice = createSlice({
       state.loading = 'failed';
     });
 
+    builder.addCase(getRom.pending, (state) => {
+      state.loading = 'pending';
+    });
     builder.addCase(getRom.fulfilled, (state, action) => {
       const findRoom = state.rooms.find((room) => room.room.id === action.payload);
       if (!findRoom) return;
       state.room = findRoom;
       state.loading = 'succeeded';
+    });
+    builder.addCase(getRom.rejected, (state) => {
+      state.loading = 'failed';
     });
   },
 });
