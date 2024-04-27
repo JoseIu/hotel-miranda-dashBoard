@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from '../app/store';
 import { getBooking } from '../features/bookinsSlice/bookinsThunk';
 
 const BookingDetails = () => {
-  const { guest, loading } = useSelector((state: RootState) => state.bookings);
+  const { bookin, loading } = useSelector((state: RootState) => state.bookings);
   const { id } = useParams<{ id: string }>();
   const distpatch = useDispatch<AppDispatch>();
 
@@ -15,7 +15,7 @@ const BookingDetails = () => {
 
   return (
     <section>
-      {loading === 'pending' ? <p>Loading...</p> : <p>{guest?.guest && guest?.guest.name}</p>}
+      {loading === 'pending' ? <p>Loading...</p> : <p>{bookin?.guest && bookin.guest?.name}</p>}
     </section>
   );
 };
