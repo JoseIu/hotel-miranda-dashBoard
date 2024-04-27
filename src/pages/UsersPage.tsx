@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
-import employeeList from '../db/employeeList.json';
-import { Employee } from '../interfaces/employee.interface';
+import { getUsers } from '../features/usersSlice/usersThunk';
 
 const columns = [
   { label: 'Employee', key: 'employee ' },
@@ -15,21 +17,36 @@ const columns = [
 ];
 
 const UsersPage = () => {
-  const [employees] = useState<Employee[]>(employeeList);
+  const [loading, setLoading] = useState(true);
+
+  const { users } = useSelector((state: RootState) => state.users);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const getAllUsers = async () => {
+      await dispatch(getUsers()).unwrap();
+      setLoading(false);
+    };
+    getAllUsers();
+  }, [dispatch]);
+
+  if (loading) return <div>Loading...</div>;
   return (
     <ContainerSection>
       <Header title={'Users'} />
       <Wrapper>
         <Table columns={columns}>
-          {employees.map((employee) => (
+          {users.map((employee) => (
             <Row key={employee.employee.employeeId}>
-              <TableGuest
-                img={employee.employee.image}
-                id={employee.employee.employeeId}
-                name={employee.employee.firstName}
-                lastName={employee.employee.lastName}
-                startDate={employee.employee.startDate}
-              />
+              <Link to={`/admin/users/${employee.employee.employeeId}`}>
+                <TableGuest
+                  img={employee.employee.image}
+                  id={employee.employee.employeeId}
+                  name={employee.employee.firstName}
+                  lastName={employee.employee.lastName}
+                  startDate={employee.employee.startDate}
+                />
+              </Link>
               <td>{employee.description}</td>
               <td>
                 {employee.contact.phone} {employee.contact.email}
