@@ -26,23 +26,23 @@ const columns = [
 const BookingsPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { guests } = useSelector((state: RootState) => state.bookings);
+  const { bookins } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
-  const getBooking = async () => {
-    await dispatch(getAllBookings()).unwrap();
-    setLoading(false);
-  };
 
   //FILTERS
   const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
 
-  let bookingsFiltered = filterByName(guests, bookingFilter.search);
+  let bookingsFiltered = filterByName(bookins, bookingFilter.search);
   bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
 
   useEffect(() => {
-    getBooking();
-  }, []);
+    const getBookings = async () => {
+      await dispatch(getAllBookings()).unwrap();
+      setLoading(false);
+    };
+    getBookings();
+  }, [dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
