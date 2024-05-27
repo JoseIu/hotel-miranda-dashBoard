@@ -1,29 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import bookins from '../../db/bookins.json';
-import { asyncRequest } from '../../helpers/asyncRequest';
+import apiFetch from '../../helpers/apiFetch';
 import {
   addBookingRequest,
   deleteBookingRequest,
   getBookingRequest,
   updateBookingRequest,
 } from '../../helpers/bookingsRequest';
-import { Guest } from '../../interfaces/guest.interface';
+import { BookingADD, BookingInterface } from '../../interfaces/guest.interface';
 
-export const bookinsDB = [...bookins] as Guest[];
+export const bookinsDB = [...bookins] as BookingInterface[];
 
-export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<Guest[]> => {
-  const response = await asyncRequest<Guest>({ data: bookins as Guest[] });
-
-  return response as Guest[];
+export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<BookingInterface[]> => {
+  // const response = await asyncRequest<BookingInterface>({ data: bookins as BookingInterface[] });
+  const response = await apiFetch('/bookings');
+  return response.data as BookingInterface[];
 });
-
-export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<Guest> => {
+export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<BookingInterface> => {
   const response = await getBookingRequest(id);
   console.log(response);
-  return response as Guest;
+  return response as BookingInterface;
 });
 
-export const addBooking = createAsyncThunk('booking/add', async (guest: Guest): Promise<Guest> => {
+export const addBooking = createAsyncThunk('booking/add', async (guest: BookingADD): Promise<BookingADD> => {
   const response = await addBookingRequest(guest);
   if (!response) throw new Error('Error adding booking');
   return guest;
@@ -38,7 +37,7 @@ export const deleteBooking = createAsyncThunk('booking/delete', async (id: strin
 
 export const updateBooking = createAsyncThunk(
   'booking/update',
-  async (payload: { id: string; data: Guest }) => {
+  async (payload: { id: string; data: BookingInterface }) => {
     const { id, data } = payload;
 
     const response = await updateBookingRequest(id, data);
