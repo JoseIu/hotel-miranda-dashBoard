@@ -1,4 +1,5 @@
-export interface Guest {
+export interface BookingInterface {
+  _id: string;
   orderDate: string;
   checkin: Check;
   checkOut: Check;
@@ -21,3 +22,13 @@ export interface GuestClass {
 }
 
 export type Status = 'Check In' | 'Check Out' | 'In Progress';
+
+export interface BookingADD {
+  orderDate: string;
+  checkin: Check;
+  checkOut: Check;
+  specialRequest: string;
+  roomType: string;
+  status: Status;
+  guest: GuestClass;
+}
