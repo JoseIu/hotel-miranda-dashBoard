@@ -16,7 +16,7 @@ interface UserAuthState {
 }
 
 type UserAuthAction =
-  | { type: 'SET_AUTH'; payload: boolean }
+  | { type: 'SET_AUTH'; payload: { isAuthenticated: boolean; userName: string; userEmail: string } }
   | { type: 'LOGOUT' }
   | { type: 'UPDATE_USER'; payload: { name: string; email: string } };
 
@@ -34,12 +34,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const userAuthReducer = (state: UserAuthState, action: UserAuthAction) => {
     switch (action.type) {
       case 'SET_AUTH':
-        localStorage.setItem('login', 'true');
+        localStorage.setItem('isAuth', 'true');
 
-        return { ...state, isAuthenticated: action.payload };
+        return {
+          ...state,
+          isAuthenticated: action.payload.isAuthenticated,
+          userName: action.payload.userName,
+          userEmail: action.payload.userEmail,
+        };
 
       case 'LOGOUT':
-        localStorage.removeItem('login');
+        localStorage.removeItem('isAuth');
         return { ...state, isAuthenticated: false };
       case 'UPDATE_USER':
         return { ...state, userName: action.payload.name, userEmail: action.payload.email };
@@ -49,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
   const [userData, dispatch] = useReducer(userAuthReducer, {
-    isAuthenticated: localStorage.getItem('login') !== null,
+    isAuthenticated: localStorage.getItem('isAuth') !== null,
     userName: 'Pedrito Perez',
     userEmail: 'prueba@prueba.com',
   });
