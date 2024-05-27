@@ -1,7 +1,7 @@
 import { bookinsDB } from '../features/bookinsSlice/bookinsThunk';
-import { Guest } from '../interfaces/guest.interface';
+import { BookingInterface } from '../interfaces/guest.interface';
 
-export const getBookingRequest = (id: string): Promise<Guest | undefined> => {
+export const getBookingRequest = (id: string): Promise<BookingInterface | undefined> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       console.log('getBookingRequest');
@@ -10,7 +10,7 @@ export const getBookingRequest = (id: string): Promise<Guest | undefined> => {
   });
 };
 
-export const addBookingRequest = (guest: Guest) => {
+export const addBookingRequest = (guest: BookingInterface) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const newBookingsDB = [...bookinsDB];
@@ -29,7 +29,7 @@ export const deleteBookingRequest = (id: string): Promise<boolean> => {
   });
 };
 
-export const updateBookingRequest = (id: string, data: Guest) => {
+export const updateBookingRequest = (id: string, data: BookingInterface) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const guestIndex = bookinsDB.findIndex((guest) => guest.guest.reservationID === id);
