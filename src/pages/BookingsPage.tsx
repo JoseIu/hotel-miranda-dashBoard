@@ -12,7 +12,7 @@ import DeleteIcon from '../components/icons/DeleteIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
-import { Guest } from '../interfaces/guest.interface';
+import { BookingInterface } from '../interfaces/guest.interface';
 const columns = [
   { label: 'Guest', key: 'guest' },
   { label: 'Order Date', key: 'orderDate' },
@@ -28,7 +28,6 @@ const BookingsPage = () => {
   const [loading, setLoading] = useState(true);
   const { bookins } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
-
   //FILTERS
   const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
 
@@ -79,21 +78,23 @@ const BookingsPage = () => {
       <Wrapper>
         <Table columns={columns}>
           {bookingsFiltered.map((booking) => (
-            <Row key={booking.guest.reservationID}>
-              <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
-                <TableGuest
-                  img={booking.guest.img}
-                  name={booking.guest.name}
-                  lastName={booking.guest.lastName}
-                  id={booking.guest.reservationID}
-                />
-              </Link>
-              <td>{booking.orderDate}</td>
+            <Row key={booking._id}>
               <td>
-                {booking.checkin.date} {booking.checkin.time}
+                <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
+                  <TableGuest
+                    img={booking.guest.img}
+                    name={booking.guest.name}
+                    lastName={booking.guest.lastName}
+                    id={booking.guest.reservationID}
+                  />
+                </Link>
+              </td>
+              <td>{booking.orderDate.slice(0, 10)}</td>
+              <td>
+                {booking.checkin.date.slice(0, 10)} {booking.checkin.time}
               </td>
               <td>
-                {booking.checkOut.date}
+                {booking.checkOut.date.slice(0, 10)}
                 {booking.checkOut.time}
               </td>
               <td>{booking.specialRequest}</td>
@@ -150,7 +151,7 @@ const useFiltersBookings = () => {
   return { bookingFilter, setSearch, setType, setOrderBy };
 };
 
-const filterByType = (bookings: Guest[], type: number) => {
+const filterByType = (bookings: BookingInterface[], type: number) => {
   const roomsToFilter = [...bookings];
 
   switch (type) {
@@ -172,14 +173,14 @@ const filterByType = (bookings: Guest[], type: number) => {
   }
 };
 
-const filterByName = (bookings: Guest[], search: string) => {
+const filterByName = (bookings: BookingInterface[], search: string) => {
   if (!search) return [...bookings];
   const serachNormalized = search.toLowerCase();
 
   return bookings.filter((booking) => booking.guest.name.toLowerCase().includes(serachNormalized));
 };
 
-const orderBy = (bookings: Guest[], orderBy: number) => {
+const orderBy = (bookings: BookingInterface[], orderBy: number) => {
   const bookingsToSort = [...bookings];
   switch (orderBy) {
     case 0:
