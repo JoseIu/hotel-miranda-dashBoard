@@ -25,7 +25,7 @@ const TableGuest = ({ img, name, lastName, id, startDate }: GuestProps) => {
 
 export default TableGuest;
 
-const GuestTd = styled.td`
+const GuestTd = styled.div`
   display: flex;
   gap: 0.6rem;
   img {
