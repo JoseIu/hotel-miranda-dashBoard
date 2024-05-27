@@ -1,5 +1,5 @@
 import { bookinsDB } from '../features/bookinsSlice/bookinsThunk';
-import { BookingInterface } from '../interfaces/guest.interface';
+import { BookingADD, BookingInterface } from '../interfaces/guest.interface';
 
 export const getBookingRequest = (id: string): Promise<BookingInterface | undefined> => {
   return new Promise((resolve) => {
@@ -10,11 +10,12 @@ export const getBookingRequest = (id: string): Promise<BookingInterface | undefi
   });
 };
 
-export const addBookingRequest = (guest: BookingInterface) => {
+export const addBookingRequest = (guest: BookingADD) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const newBookingsDB = [...bookinsDB];
-      newBookingsDB.push(guest);
+      //FIXME: add new booking to the DB
+      newBookingsDB.push(guest as BookingInterface);
       resolve(true);
     }, 200);
   });
