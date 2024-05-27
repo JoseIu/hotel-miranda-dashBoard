@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AppDispatch } from '../app/store';
 import { addBooking } from '../features/bookinsSlice/bookinsThunk';
 import { getRandomId } from '../helpers/getRandomId';
-import { Guest, Status } from '../interfaces/guest.interface';
+import { BookingADD, Status } from '../interfaces/guest.interface';
 interface FromAddProps {
   modalIsOpen: boolean;
   setModalIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +33,7 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
     const [dateIn, timeIn] = checkInFormat.split('T');
     const checkOutFormat = form.checkIn;
     const [dateOut, timeOut] = checkOutFormat.split('T');
-    const newBooking: Guest = {
+    const newBooking: BookingADD = {
       orderDate: form.orderDate,
       checkin: {
         date: dateIn,

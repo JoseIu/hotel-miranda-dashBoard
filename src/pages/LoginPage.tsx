@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import loginFetch from '../helpers/loginFetch';
 import useAuth from '../hooks/useAuth';
 
 const LoginPage = () => {
@@ -8,14 +9,25 @@ const LoginPage = () => {
   const { form, setEmail, setPassword } = useForm();
   const navigate = useNavigate();
 
-  const handleSumit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSumit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (form.email === '' || form.password === '') return;
 
-    if (form.email === userData.userEmail && form.password === 'prueba') {
-      dispatch({ type: 'SET_AUTH', payload: true });
+    const responseLogin = await loginFetch(form.email, form.password);
+
+    if (responseLogin.error === false) {
+      dispatch({
+        type: 'SET_AUTH',
+        payload: {
+          isAuthenticated: true,
+          userName: responseLogin.data.user.name,
+          userEmail: responseLogin.data.user.email,
+        },
+      });
       navigate('/admin');
     }
+
+    console.log(responseLogin);
   };
 
   useEffect(() => {

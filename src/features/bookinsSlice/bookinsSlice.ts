@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Guest } from '../../interfaces/guest.interface';
-import { addBooking, deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
+import { BookingInterface } from '../../interfaces/guest.interface';
+import { deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
 
 interface Bookings {
-  bookins: Guest[];
-  bookin: Guest | null;
+  bookins: BookingInterface[];
+  bookin: BookingInterface | null;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 const initialState: Bookings = {
@@ -44,9 +44,9 @@ export const bookinsSlice = createSlice({
     builder.addCase(deleteBooking.fulfilled, (state, action) => {
       state.bookins = state.bookins.filter((guest) => guest.guest.reservationID !== action.payload);
     });
-    builder.addCase(addBooking.fulfilled, (state, action) => {
-      state.bookins.push(action.payload);
-    });
+    // builder.addCase(addBooking.fulfilled, (state, action) => {
+    //   state.bookins.push(action.payload);
+    // });
     builder.addCase(updateBooking.fulfilled, (state, action) => {
       const guestIndex = state.bookins.findIndex((guest) => guest.guest.reservationID === action.payload.id);
 
