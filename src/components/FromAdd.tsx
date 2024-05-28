@@ -1,17 +1,12 @@
 import { Dispatch, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { AppDispatch } from '../app/store';
-import { addBooking } from '../features/bookinsSlice/bookinsThunk';
 import { getRandomId } from '../helpers/getRandomId';
-import { BookingADD, Status } from '../interfaces/guest.interface';
 interface FromAddProps {
   modalIsOpen: boolean;
   setModalIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
-  const dispatch = useDispatch<AppDispatch>();
   const {
     form,
     setName,
@@ -33,7 +28,7 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
     const [dateIn, timeIn] = checkInFormat.split('T');
     const checkOutFormat = form.checkIn;
     const [dateOut, timeOut] = checkOutFormat.split('T');
-    const newBooking: BookingADD = {
+    const newBooking = {
       orderDate: form.orderDate,
       checkin: {
         date: dateIn,
@@ -45,7 +40,7 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
       },
       specialRequest: form.specialRequest,
       roomType: form.roomType,
-      status: form.status as Status,
+      status: form.status,
       guest: {
         name: form.name,
         lastName: form.lastName,
@@ -55,7 +50,6 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
     };
 
     console.log(newBooking);
-    dispatch(addBooking(newBooking));
     setModalIsOpen(!modalIsOpen);
   };
   return (

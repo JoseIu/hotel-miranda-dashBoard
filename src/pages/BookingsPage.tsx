@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import BookingsOrder from '../components/BookingsOrder';
-import FromAdd from '../components/FromAdd';
 import Header from '../components/Header';
 import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
@@ -12,7 +11,7 @@ import DeleteIcon from '../components/icons/DeleteIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
-import { BookingInterface } from '../interfaces/guest.interface';
+import { BookingInterface } from '../interfaces/booking.interface';
 const columns = [
   { label: 'Guest', key: 'guest' },
   { label: 'Order Date', key: 'orderDate' },
@@ -24,7 +23,6 @@ const columns = [
 ];
 
 const BookingsPage = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { bookins } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
@@ -61,7 +59,6 @@ const BookingsPage = () => {
           placeholder="search a booking...."
           onChange={(event) => setSearch(event.target.value)}
         />
-        <button onClick={() => setModalIsOpen(!modalIsOpen)}>ADD</button>
 
         <select
           name="orderBy"
@@ -80,7 +77,7 @@ const BookingsPage = () => {
           {bookingsFiltered.map((booking) => (
             <Row key={booking._id}>
               <td>
-                <Link to={`/admin/bookings/${booking.guest.reservationID}`}>
+                <Link to={`/admin/bookings/${booking._id}`}>
                   <TableGuest
                     img={booking.guest.img}
                     name={booking.guest.name}
@@ -108,7 +105,6 @@ const BookingsPage = () => {
             </Row>
           ))}
         </Table>
-        <FromAdd modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       </Wrapper>
 
       <div>PAGINATION</div>

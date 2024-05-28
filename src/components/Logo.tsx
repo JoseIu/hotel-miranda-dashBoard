@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import BuildIcond from './icons/BuildIcond';
+interface LogoProps {
+  isActived: boolean;
+}
 
-const Logo = () => {
+const Logo = ({ isActived }: LogoProps) => {
   return (
-    <LogoContainer>
+    <LogoContainer $isActived={isActived}>
       <BuildIcond />
       <h1>
-        Travel <span>Hotel Admin Dashboard</span>
+        Travel <span>Hotel Miranda</span>
       </h1>
     </LogoContainer>
   );
@@ -14,20 +17,20 @@ const Logo = () => {
 
 export default Logo;
 
-const LogoContainer = styled.div`
-  padding: 1rem;
-  display: flex;
+const LogoContainer = styled.div<{ $isActived: boolean }>`
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: 70px 1fr;
   align-items: center;
-  gap: 1rem;
   svg {
     width: 2.9375rem;
     color: #1c7a61;
   }
 
   h1 {
-    color: #ebebeb;
     display: flex;
     flex-direction: column;
+    color: #ebebeb;
     font-weight: 600;
     span {
       color: #686868;

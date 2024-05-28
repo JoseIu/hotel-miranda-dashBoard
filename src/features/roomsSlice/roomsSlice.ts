@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Room } from '../../interfaces/room';
-import { getAllRooms, getRom } from './roomsThunk';
+import { getAllRooms, getRomById } from './roomsThunk';
 
 interface Bookings {
   rooms: Room[];
@@ -30,16 +30,14 @@ export const roomsSlice = createSlice({
       state.loading = 'failed';
     });
 
-    builder.addCase(getRom.pending, (state) => {
+    builder.addCase(getRomById.pending, (state) => {
       state.loading = 'pending';
     });
-    builder.addCase(getRom.fulfilled, (state, action) => {
-      const findRoom = state.rooms.find((room) => room.room.id === action.payload);
-      if (!findRoom) return;
-      state.room = findRoom;
+    builder.addCase(getRomById.fulfilled, (state, action) => {
+      state.room = action.payload;
       state.loading = 'succeeded';
     });
-    builder.addCase(getRom.rejected, (state) => {
+    builder.addCase(getRomById.rejected, (state) => {
       state.loading = 'failed';
     });
   },

@@ -16,7 +16,7 @@ const DashBoard = () => {
   return (
     <MainLayout $isActived={isActived}>
       <Aside>
-        <Logo />
+        <Logo isActived={isActived} />
         <nav>
           <AsideUl>
             {routes.map(({ to, name, Icon }) => (
@@ -30,10 +30,10 @@ const DashBoard = () => {
           </AsideUl>
         </nav>
         <UserProfile />
-        <div>
+        <CopyRight $isActived={isActived}>
           <span>Travl Hotel Admin Dashboard</span>
           <span>© 2020 All Rights Reserved</span>
-        </div>
+        </CopyRight>
       </Aside>
       <Outlet />
     </MainLayout>
@@ -51,13 +51,13 @@ const Aside = styled.aside`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 3rem;
 `;
 
 const MainLayout = styled.main<{ $isActived: boolean }>`
   display: grid;
   transition: all 0.3s ease;
-  grid-template-columns: ${(props) => (props.$isActived ? '0 auto' : '17.125rem auto')};
+  grid: ${(props) => (props.$isActived ? '1fr / 94px calc(100% - 94px)' : '1fr / 280px calc(100% - 280px)')};
 
   height: 100dvh;
   overflow: hidden;
@@ -67,20 +67,22 @@ const AsideUl = styled.ul`
   display: flex;
   flex-direction: column;
   font-weight: 600;
+  height: 100%;
 
   gap: 1rem;
   li {
     padding: 0.8rem 0;
   }
   .icon {
-    width: 1.5rem;
+    width: 2rem;
     color: #686868;
   }
 `;
 const StyledNavLink = styled(NavLink)`
-  display: flex;
+  display: grid;
+  grid-template-columns: 60px 1fr;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
 
   transition: all 0.3s ease;
 
@@ -89,5 +91,15 @@ const StyledNavLink = styled(NavLink)`
     .icon {
       color: red;
     }
+  }
+`;
+
+const CopyRight = styled.div<{ $isActived: boolean }>`
+  display: ${(props) => (props.$isActived ? 'none' : 'flex')};
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  span {
+    font-size: 0.8rem;
   }
 `;
