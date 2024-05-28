@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppDispatch, RootState } from '../app/store';
-import { getRom } from '../features/roomsSlice/roomsThunk';
+import { getRomById } from '../features/roomsSlice/roomsThunk';
 
 const RoomDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,7 +12,7 @@ const RoomDetails = () => {
 
   const getRoomByID = async () => {
     if (!id) return;
-    await dispatch(getRom(id));
+    await dispatch(getRomById(id));
     setLoading(false);
   };
 
