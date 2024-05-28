@@ -3,6 +3,7 @@ import { asyncRequest, asyncRequestFake } from '../../helpers/asyncRequest';
 import { Room } from '../../interfaces/room';
 
 import roomList from '../../db/roomList.json';
+import apiFetch from '../../helpers/apiFetch';
 // const rooms = [...roomList] as Room[];
 
 export const getAllRooms = createAsyncThunk('rooms/get', async (): Promise<Room[]> => {
@@ -11,11 +12,11 @@ export const getAllRooms = createAsyncThunk('rooms/get', async (): Promise<Room[
   return response as Room[];
 });
 
-export const getRom = createAsyncThunk('room/get', async (id: string): Promise<string> => {
-  const response = await asyncRequestFake();
+export const getRomById = createAsyncThunk('room/get', async (id: string): Promise<Room> => {
+  const response = await apiFetch('room', 'GET', id);
+  console.log(response);
 
-  if (!response) throw new Error('Error getting room');
-  return id;
+  return response.data as Room;
 });
 
 export const addNewRoom = createAsyncThunk('room/add', async (room: Room): Promise<Room> => {
