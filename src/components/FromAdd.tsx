@@ -2,7 +2,6 @@ import { Dispatch, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AppDispatch } from '../app/store';
-import { addBooking } from '../features/bookinsSlice/bookinsThunk';
 import { getRandomId } from '../helpers/getRandomId';
 interface FromAddProps {
   modalIsOpen: boolean;
@@ -54,7 +53,6 @@ const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
     };
 
     console.log(newBooking);
-    dispatch(addBooking(newBooking));
     setModalIsOpen(!modalIsOpen);
   };
   return (
