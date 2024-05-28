@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BookingInterface } from '../../interfaces/guest.interface';
+import { BookingInterface } from '../../interfaces/booking.interface';
 import { deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
 
 interface Bookings {
@@ -55,5 +55,3 @@ export const bookinsSlice = createSlice({
     });
   },
 });
-
-// export const { increment } = bookinsSlice.actions;
