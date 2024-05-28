@@ -1,7 +1,5 @@
 import { Dispatch, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { AppDispatch } from '../app/store';
 import { getRandomId } from '../helpers/getRandomId';
 interface FromAddProps {
   modalIsOpen: boolean;
@@ -9,7 +7,6 @@ interface FromAddProps {
 }
 
 const FromAdd = ({ modalIsOpen, setModalIsOpen }: FromAddProps) => {
-  const dispatch = useDispatch<AppDispatch>();
   const {
     form,
     setName,
