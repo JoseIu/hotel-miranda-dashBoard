@@ -1,30 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import bookins from '../../db/bookins.json';
 import apiFetch from '../../helpers/apiFetch';
-import {
-  addBookingRequest,
-  deleteBookingRequest,
-  getBookingRequest,
-  updateBookingRequest,
-} from '../../helpers/bookingsRequest';
-import { BookingADD, BookingInterface } from '../../interfaces/guest.interface';
+import { deleteBookingRequest, updateBookingRequest } from '../../helpers/bookingsRequest';
+import { BookingInterface } from '../../interfaces/booking.interface';
+import { BookingADD } from '../../interfaces/guest.interface';
 
 export const bookinsDB = [...bookins] as BookingInterface[];
 
 export const getAllBookings = createAsyncThunk('bookins/get', async (): Promise<BookingInterface[]> => {
-  // const response = await asyncRequest<BookingInterface>({ data: bookins as BookingInterface[] });
-  const response = await apiFetch('/bookings');
+  const response = await apiFetch('bookings');
   return response.data as BookingInterface[];
 });
 export const getBooking = createAsyncThunk('booking/get', async (id: string): Promise<BookingInterface> => {
-  const response = await getBookingRequest(id);
-  console.log(response);
-  return response as BookingInterface;
+  const response = await apiFetch('booking', 'GET', id);
+  return response.data as BookingInterface;
 });
 
 export const addBooking = createAsyncThunk('booking/add', async (guest: BookingADD): Promise<BookingADD> => {
-  const response = await addBookingRequest(guest);
-  if (!response) throw new Error('Error adding booking');
   return guest;
 });
 
