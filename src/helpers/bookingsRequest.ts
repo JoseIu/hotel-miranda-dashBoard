@@ -1,22 +1,11 @@
 import { bookinsDB } from '../features/bookinsSlice/bookinsThunk';
-import { BookingADD, BookingInterface } from '../interfaces/guest.interface';
+import { BookingInterface } from '../interfaces/booking.interface';
 
 export const getBookingRequest = (id: string): Promise<BookingInterface | undefined> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       console.log('getBookingRequest');
       resolve(bookinsDB.find((guest) => guest.guest.reservationID === id));
-    }, 200);
-  });
-};
-
-export const addBookingRequest = (guest: BookingADD) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const newBookingsDB = [...bookinsDB];
-      //FIXME: add new booking to the DB
-      newBookingsDB.push(guest as BookingInterface);
-      resolve(true);
     }, 200);
   });
 };
