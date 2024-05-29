@@ -21,7 +21,7 @@ const RoomDetails = () => {
   }, []);
 
   if (loading || !room) return <span>Loading...</span>;
-  return <div>EACH ROO {room.room.id}</div>;
+  return <div>EACH ROO {room._id}</div>;
 };
 
 export default RoomDetails;
