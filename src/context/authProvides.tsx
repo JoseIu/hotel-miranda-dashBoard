@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       case 'LOGOUT':
         localStorage.removeItem('isAuth');
+        localStorage.removeItem('token');
         return { ...state, isAuthenticated: false };
       case 'UPDATE_USER':
         return { ...state, userName: action.payload.name, userEmail: action.payload.email };

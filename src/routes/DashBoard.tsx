@@ -1,14 +1,24 @@
+import { useEffect } from 'react';
 import { NavLink, Navigate, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../components/Logo';
 import UserProfile from '../components/UserProfile';
+import isTokenExpired from '../helpers/isTokenExpired';
 import useAuth from '../hooks/useAuth';
 import useMenu from '../hooks/useMenu';
 import { routes } from './routes';
 
 const DashBoard = () => {
-  const { userData } = useAuth();
+  const { userData, dispatch } = useAuth();
   const { isActived } = useMenu();
+  useEffect(() => {
+    const tokenExpired = isTokenExpired();
+    if (tokenExpired) {
+      dispatch({
+        type: 'LOGOUT',
+      });
+    }
+  }, [dispatch]);
 
   if (!userData.isAuthenticated) {
     return <Navigate to="/" replace />;
