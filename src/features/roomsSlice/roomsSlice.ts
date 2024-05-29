@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Room } from '../../interfaces/room';
+import { RoomInterface } from '../../interfaces/room.interface';
 import { getAllRooms, getRomById } from './roomsThunk';
 
 interface Bookings {
-  rooms: Room[];
-  room: Room | null;
+  rooms: RoomInterface[];
+  room: RoomInterface | null;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 const initialState: Bookings = {
@@ -42,5 +42,3 @@ export const roomsSlice = createSlice({
     });
   },
 });
-
-// export const { increment } = roomsSlice.actions;
