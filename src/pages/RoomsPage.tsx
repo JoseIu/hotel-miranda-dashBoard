@@ -8,7 +8,7 @@ import Table from '../components/Table';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { getAllRooms } from '../features/roomsSlice/roomsThunk';
-import { Room } from '../interfaces/room';
+import { RoomInterface } from '../interfaces/room.interface';
 
 const columns = [
   { label: 'Room', key: 'room ' },
@@ -42,33 +42,35 @@ const RoomsPage = () => {
       <Header title={'Rooms'} />
       <Wrapper>
         <RoomsSort>
-          <SortButtonActive $active={filters.sortActive === 0} onClick={() => setTypeSort(1)}>
+          <SortButtonActive $active={filters.sortActive === 0} onClick={() => setTypeSort(0)}>
             All Rooms
           </SortButtonActive>
-          <SortButtonActive $active={filters.sortActive === 1} onClick={() => setTypeSort(2)}>
+          <SortButtonActive $active={filters.sortActive === 1} onClick={() => setTypeSort(1)}>
             Status
           </SortButtonActive>
-          <SortButtonActive $active={filters.sortActive === 2} onClick={() => setTypeSort(3)}>
+          <SortButtonActive $active={filters.sortActive === 2} onClick={() => setTypeSort(2)}>
             Price
           </SortButtonActive>
         </RoomsSort>
         <Table columns={columns}>
           {roomsFiltered.map((room) => (
-            <Row key={room.room.id}>
-              <Link to={`/admin/rooms/${room.room.id}`}>
-                <TableGuest
-                  img={room.room.image}
-                  id={room.room.id}
-                  name={room.roomType}
-                  lastName={room.room.number}
-                />
-              </Link>
+            <Row key={room._id}>
+              <td>
+                <Link to={`/admin/rooms/${room._id}`}>
+                  <TableGuest
+                    img={room.roomImages}
+                    id={room._id}
+                    name={room.roomType}
+                    lastName={room.roomNumber}
+                  />
+                </Link>
+              </td>
               <td>{room.roomType}</td>
               <td> {room.amenities} </td>
 
               <td>{room.price} </td>
 
-              <td>{room.offer} </td>
+              <td>{room.offerPrice == 0 ? 'No Offer' : room.offerPrice} </td>
               <RoomStatus $status={room.status}>{room.status ? 'Disponible' : 'Ocupada'} </RoomStatus>
             </Row>
           ))}
@@ -88,6 +90,7 @@ const RoomsSort = styled.div`
 
 const SortButtonActive = styled.button<{ $active: boolean }>`
   color: ${(props) => (props.$active ? '#135846' : '#fff')};
+  cursor: pointer;
 `;
 
 const RoomStatus = styled.td<{ $status: boolean }>`
@@ -104,12 +107,12 @@ const useFilters = () => {
   return { filters, setTypeSort };
 };
 
-const roomsSorted = (rooms: Room[], typeSort: number) => {
+const roomsSorted = (rooms: RoomInterface[], typeSort: number) => {
   const roomsToSort = [...rooms];
 
   switch (typeSort) {
     case 0:
-      return roomsToSort.sort((a, b) => Number(a.room?.number) - Number(b.room?.number));
+      return roomsToSort.sort((a, b) => Number(a.roomNumber) - Number(b.roomNumber));
     case 1:
       return roomsToSort.sort((a, b) => {
         if (a.status === b.status) return 0;
