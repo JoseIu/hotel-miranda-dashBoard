@@ -11,7 +11,7 @@ interface GuestProps {
 const TableGuest = ({ img, name, lastName, id, startDate }: GuestProps) => {
   return (
     <GuestTd>
-      {img ? <img src={img} alt={name} /> : 'LOAGING'}
+      {img ? <img loading="lazy" src={img} alt={name} /> : 'LOAGING'}
       {/* <img src={img} alt={name} /> */}
       <div>
         <span>
