@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
+import EditIcon from '../components/icons/EditIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
@@ -59,7 +60,7 @@ const BookingsPage = () => {
           placeholder="search a booking...."
           onChange={(event) => setSearch(event.target.value)}
         />
-
+        <Link to={'/admin/booking-form'}>Add new Booking</Link>
         <select
           name="orderBy"
           id="orderBy"
@@ -98,9 +99,14 @@ const BookingsPage = () => {
               <td>{booking.roomType}</td>
               <TdStatus $status={booking.status}>{booking.status}</TdStatus>
               <td>
-                <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
-                  <DeleteIcon />
-                </button>
+                <Actions>
+                  <Link to={`/admin/booking-form/${booking._id}`}>
+                    <EditIcon className="edit" />
+                  </Link>
+                  <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
+                    <DeleteIcon className="delete" />
+                  </button>
+                </Actions>
               </td>
             </Row>
           ))}
@@ -128,6 +134,20 @@ const BookingsFilter = styled.div`
     color: #135846;
     padding: 0.5rem;
     border-radius: 0.5rem;
+  }
+`;
+const Actions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  .edit,
+  .delete {
+    width: 1.5rem;
+  }
+  .edit {
+    color: #bebeff;
+  }
+  .delete {
+    color: #ff0000;
   }
 `;
 
