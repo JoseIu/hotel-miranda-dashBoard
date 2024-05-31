@@ -14,6 +14,7 @@ import {
   UserDetails,
   UsersPage,
 } from './pages';
+import BookingDeleteAdd from './pages/BookingDeleteAdd';
 import BookingDetails from './pages/BookingDetails';
 import DashBoard from './routes/DashBoard';
 import { routes } from './routes/routes';
@@ -39,6 +40,8 @@ const App = () => {
             >
               <Route index path="dashboard" element={<DashboardPage />} />
               <Route path="bookings" element={<BookingsPage />} />
+              <Route path="booking-form/:id?" element={<BookingDeleteAdd />} />
+
               <Route path="rooms" element={<RoomsPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="users" element={<UsersPage />} />

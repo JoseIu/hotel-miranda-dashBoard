@@ -1,13 +1,8 @@
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { AppDispatch } from '../app/store';
-import { addBooking } from '../features/bookinsSlice/bookinsThunk';
-import { getRandomId } from '../helpers/getRandomId';
-import { BookingToSendInterface, Status } from '../interfaces/booking.interface';
+import { Status } from '../interfaces/booking.interface';
 import { FormInterface } from '../pages/BookingDeleteAdd';
 
-const FromAdd = ({
+const FormBookingEdit = ({
   form,
   setName,
   setLastName,
@@ -18,38 +13,9 @@ const FromAdd = ({
   setRoomType,
   setStatus,
 }: FormInterface) => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // if (Object.values(form).some((value) => value === '')) return alert('Please fill all the fields');
-
-    const newBooking: BookingToSendInterface = {
-      guest: {
-        name: form.guest.name,
-        lastName: form.guest.lastName,
-        reservationID: getRandomId(),
-        img: form.guest.img,
-      },
-      checkin: {
-        date: form.checkin.date,
-        time: form.checkin.time,
-      },
-      checkOut: {
-        date: form.checkOut.date,
-        time: form.checkOut.date,
-      },
-      orderDate: form.orderDate,
-      roomNumber: getRandomId(),
-      roomID: '665606936db0eccd9afd932a',
-      specialRequest: form.specialRequest,
-      roomType: form.roomType,
-      status: form.status as Status,
-    };
-
-    await dispatch(addBooking(newBooking));
-    toast.success('Added Successfully!');
+    console.log('EDITANDO');
   };
 
   return (
@@ -158,13 +124,12 @@ const FromAdd = ({
         ></textarea>
       </label>
 
-      <button type="submit">Add new Bookin</button>
+      <button type="submit">Save</button>
     </Form>
   );
 };
 
-export default FromAdd;
-
+export default FormBookingEdit;
 const Form = styled.form`
   position: relative;
   max-width: 80rem;

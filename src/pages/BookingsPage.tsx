@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import BookingsOrder from '../components/BookingsOrder';
@@ -8,6 +9,7 @@ import Header from '../components/Header';
 import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
+import EditIcon from '../components/icons/EditIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
@@ -32,6 +34,11 @@ const BookingsPage = () => {
   let bookingsFiltered = filterByName(bookins, bookingFilter.search);
   bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
+
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteBooking(id));
+    toast.success('Deleted Successfully!');
+  };
 
   useEffect(() => {
     const getBookings = async () => {
@@ -59,7 +66,7 @@ const BookingsPage = () => {
           placeholder="search a booking...."
           onChange={(event) => setSearch(event.target.value)}
         />
-
+        <Link to={'/admin/booking-form'}>Add new Booking</Link>
         <select
           name="orderBy"
           id="orderBy"
@@ -98,13 +105,29 @@ const BookingsPage = () => {
               <td>{booking.roomType}</td>
               <TdStatus $status={booking.status}>{booking.status}</TdStatus>
               <td>
-                <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
-                  <DeleteIcon />
-                </button>
+                <Actions>
+                  <Link to={`/admin/booking-form/${booking._id}`}>
+                    <EditIcon className="edit" />
+                  </Link>
+                  <button onClick={() => handleDelete(booking._id)}>
+                    <DeleteIcon className="delete" />
+                  </button>
+                </Actions>
               </td>
             </Row>
           ))}
         </Table>
+        <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </Wrapper>
 
       <div>PAGINATION</div>
@@ -128,6 +151,20 @@ const BookingsFilter = styled.div`
     color: #135846;
     padding: 0.5rem;
     border-radius: 0.5rem;
+  }
+`;
+const Actions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  .edit,
+  .delete {
+    width: 1.5rem;
+  }
+  .edit {
+    color: #bebeff;
+  }
+  .delete {
+    color: #ff0000;
   }
 `;
 

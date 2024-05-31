@@ -19,5 +19,6 @@ export const Row = styled.tr`
     padding: 0.5rem 1rem;
     vertical-align: middle;
     text-align: start;
+    max-width: 12rem;
   }
 `;
