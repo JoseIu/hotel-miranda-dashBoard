@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import BookingsOrder from '../components/BookingsOrder';
@@ -33,6 +34,11 @@ const BookingsPage = () => {
   let bookingsFiltered = filterByName(bookins, bookingFilter.search);
   bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
   bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
+
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteBooking(id));
+    toast.success('Deleted Successfully!');
+  };
 
   useEffect(() => {
     const getBookings = async () => {
@@ -103,7 +109,7 @@ const BookingsPage = () => {
                   <Link to={`/admin/booking-form/${booking._id}`}>
                     <EditIcon className="edit" />
                   </Link>
-                  <button onClick={() => dispatch(deleteBooking(booking.guest.reservationID))}>
+                  <button onClick={() => handleDelete(booking._id)}>
                     <DeleteIcon className="delete" />
                   </button>
                 </Actions>
@@ -111,6 +117,17 @@ const BookingsPage = () => {
             </Row>
           ))}
         </Table>
+        <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </Wrapper>
 
       <div>PAGINATION</div>
