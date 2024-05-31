@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch } from '../app/store';
 import { addBooking } from '../features/bookinsSlice/bookinsThunk';
@@ -48,6 +49,7 @@ const FromAdd = ({
     };
 
     await dispatch(addBooking(newBooking));
+    toast.success('Added Successfully!');
   };
 
   return (
