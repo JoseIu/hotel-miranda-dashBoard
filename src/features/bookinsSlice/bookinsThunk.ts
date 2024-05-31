@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import bookins from '../../db/bookins.json';
 import apiFetch from '../../helpers/apiFetch';
-import { deleteBookingRequest, updateBookingRequest } from '../../helpers/bookingsRequest';
+import { updateBookingRequest } from '../../helpers/bookingsRequest';
 import { BookingInterface, BookingToSendInterface } from '../../interfaces/booking.interface';
 
 export const bookinsDB = [...bookins] as BookingInterface[];
@@ -25,9 +25,8 @@ export const addBooking = createAsyncThunk(
 );
 
 export const deleteBooking = createAsyncThunk('booking/delete', async (id: string): Promise<string> => {
-  console.log(id);
-  const response = await deleteBookingRequest(id);
-  if (!response) throw new Error('Error deleting booking');
+  await apiFetch('booking', 'DELETE', id);
+
   return id;
 });
 
