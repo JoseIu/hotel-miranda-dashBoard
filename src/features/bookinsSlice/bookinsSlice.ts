@@ -42,7 +42,7 @@ export const bookinsSlice = createSlice({
     });
 
     builder.addCase(deleteBooking.fulfilled, (state, action) => {
-      state.bookins = state.bookins.filter((guest) => guest.guest.reservationID !== action.payload);
+      state.bookins = state.bookins.filter((guest) => guest._id !== action.payload);
     });
     builder.addCase(addBooking.fulfilled, (state, action) => {
       state.bookins.push(action.payload);
