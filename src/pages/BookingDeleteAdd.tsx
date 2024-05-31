@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import styled from 'styled-components';
 import { RootState } from '../app/store';
 import FormBookingEdit from '../components/FormBookingEdit';
 import FromAdd from '../components/FromAdd';
@@ -38,32 +40,44 @@ const BookingDeleteAdd = () => {
   return (
     <ContainerSection>
       <Header title={isEditing ? 'Editing' : 'Add Booking'} />
-
-      {isEditing ? (
-        <FormBookingEdit
-          form={form}
-          setName={setName}
-          setLastName={setLastName}
-          setOrderDate={setOrderDate}
-          setCheckIn={setCheckIn}
-          setCheckOut={setCheckOut}
-          setRoomType={setRoomType}
-          setStatus={setStatus}
-          setSpecialRequest={setSpecialRequest}
+      <FormsContainer>
+        {isEditing ? (
+          <FormBookingEdit
+            form={form}
+            setName={setName}
+            setLastName={setLastName}
+            setOrderDate={setOrderDate}
+            setCheckIn={setCheckIn}
+            setCheckOut={setCheckOut}
+            setRoomType={setRoomType}
+            setStatus={setStatus}
+            setSpecialRequest={setSpecialRequest}
+          />
+        ) : (
+          <FromAdd
+            form={form}
+            setName={setName}
+            setLastName={setLastName}
+            setOrderDate={setOrderDate}
+            setCheckIn={setCheckIn}
+            setCheckOut={setCheckOut}
+            setRoomType={setRoomType}
+            setStatus={setStatus}
+            setSpecialRequest={setSpecialRequest}
+          ></FromAdd>
+        )}
+        <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
         />
-      ) : (
-        <FromAdd
-          form={form}
-          setName={setName}
-          setLastName={setLastName}
-          setOrderDate={setOrderDate}
-          setCheckIn={setCheckIn}
-          setCheckOut={setCheckOut}
-          setRoomType={setRoomType}
-          setStatus={setStatus}
-          setSpecialRequest={setSpecialRequest}
-        ></FromAdd>
-      )}
+      </FormsContainer>
     </ContainerSection>
   );
 };
@@ -82,6 +96,11 @@ export interface FormInterface {
   setSpecialRequest: (specialRequest: string) => void;
   setStatus: (status: Status) => void;
 }
+const FormsContainer = styled.div`
+  padding-top: 3rem;
+  display: flex;
+  justify-content: center;
+`;
 
 const useForm = () => {
   const [form, setForm] = useState<BookingInterface>({
