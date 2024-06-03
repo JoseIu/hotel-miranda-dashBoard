@@ -26,8 +26,8 @@ export default BookingSummary;
 const BookinCard = styled.article`
   padding: 2rem 2rem;
   border-radius: 0.6rem;
-  background-color: #202020;
-  color: #787878;
+  background: var(--bg-gradient);
+  box-shadow: var(--box-shadow);
 
   display: flex;
   gap: 1rem;

@@ -1,36 +1,19 @@
 /* Definimos las Custom properties */
 :root {
   /* Colores */
-  --white: #ffffff;
-  --bg-color: #171717;
+  --zinc-100: #f4f4f5;
+  --zinc-400: #a1a1aa;
+  --zinc-900: #18181b;
+  --zinc-700: #4f4fb4;
 
+  --zinc-800: #27272a;
+  --bg-gradient: linear-gradient(145deg, #161618, #1a1a1d);
+  --box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
   /* Tipografía */
   --tipo-principal: Helvetica, Arial, sans-serif;
   --tipo-secundaria: Verdana;
 }
 
-/* (Opcional) Las adaptamos al modo oscuro */
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --negro: #ececec;
-  }
-} */
-
-/* (Opcional) Configuramos si un usuario ha activado el modo alto contraste. (WD) */
-/* @media (prefers-contrast: high) {
-  :root {
-  }
-} */
-
-/* (Opcional) Desactivamos los animations en el caso de que el usuario haya configurado el modo sin animation */
-/* @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-} */
-
-/* Reseteamos los margin y paddings de todas las etiquetas */
 *,
 *::before,
 *::after {
@@ -152,8 +135,8 @@ body {
   min-height: 100vh;
   font-size: 100%;
   font-family: var(--tipo-principal);
-  color: var(--white);
-  background-color: var(--bg-color);
+  color: var(--zinc-100);
+  background-color: var(--zinc-900);
   /* (Opcional) */
   hyphens: auto;
   /* (Opcional) */

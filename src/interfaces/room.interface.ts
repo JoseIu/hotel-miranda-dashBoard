@@ -16,6 +16,18 @@ export interface RoomInterface {
   status: boolean;
   amenities: Amenity[];
 }
+export interface RoomToSend {
+  roomImages: string;
+  roomNumber: string;
+  roomType: RoomType;
+  description: string;
+  offer: boolean;
+  offerPrice: number;
+  price: number;
+  discount: number;
+  status: boolean;
+  amenities: Amenity[];
+}
 
 export enum Amenity {
   AirConditioning = 'Air Conditioning',
@@ -25,9 +37,4 @@ export enum Amenity {
   WiFi = 'WiFi',
 }
 
-export enum RoomType {
-  DoubleBed = 'Double Bed',
-  DoubleSuperior = 'Double Superior',
-  SingleBed = 'Single Bed',
-  Suite = 'Suite',
-}
+export type RoomType = 'Double Bed' | 'Double Superior' | 'Single Bed' | 'Suite';

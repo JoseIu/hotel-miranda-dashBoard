@@ -42,9 +42,7 @@ export default Header;
 
 const HeaderContainer = styled.header`
   padding: 2rem 2rem;
-  background-color: #202020;
-  box-shadow: 0px 3px 10px #00000005;
-
+  background: linear-gradient(145deg, #161618, #1a1a1d);
   display: flex;
   justify-content: space-between;
 `;

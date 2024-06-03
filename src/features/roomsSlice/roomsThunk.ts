@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { asyncRequestFake } from '../../helpers/asyncRequest';
-import { Room } from '../../interfaces/room';
 
 import apiFetch from '../../helpers/apiFetch';
-import { RoomInterface } from '../../interfaces/room.interface';
-// const rooms = [...roomList] as Room[];
+import { RoomInterface, RoomToSend } from '../../interfaces/room.interface';
 
 export const getAllRooms = createAsyncThunk('rooms/get', async (): Promise<RoomInterface[]> => {
   const response = await apiFetch('rooms', 'GET');
@@ -19,25 +16,20 @@ export const getRomById = createAsyncThunk('room/get', async (id: string): Promi
   return response.data as RoomInterface;
 });
 
-export const addNewRoom = createAsyncThunk('room/add', async (room: Room): Promise<Room> => {
-  const response = await asyncRequestFake();
-
-  if (!response) throw new Error('Error adding room');
-
-  return room;
+export const addNewRoom = createAsyncThunk('room/post', async (room: RoomToSend) => {
+  const response = await apiFetch('room', 'POST', null, room);
+  console.log(response);
 });
 
 export const deleteRoom = createAsyncThunk('room/delete', async (id: string): Promise<string> => {
-  const response = await asyncRequestFake();
-
-  if (!response) throw new Error('Error deleting room');
+  const response = await apiFetch('room', 'DELETE', id);
+  console.log(response);
   return id;
 });
 
-export const updateRoom = createAsyncThunk('room/update', async (room: Room): Promise<Room> => {
-  const response = await asyncRequestFake();
+export const updateRoom = createAsyncThunk('room/update', async (room: RoomInterface) => {
+  const response = await apiFetch('room', 'PUT', room._id, room);
+  console.log(room);
 
-  if (!response) throw new Error('Error updating room');
-
-  return room;
+  console.log(response);
 });
