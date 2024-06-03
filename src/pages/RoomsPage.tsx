@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
 import Table from '../components/Table';
+import DeleteIcon from '../components/icons/DeleteIcon';
+import EditIcon from '../components/icons/EditIcon';
 import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
-import { getAllRooms } from '../features/roomsSlice/roomsThunk';
+import { deleteRoom, getAllRooms } from '../features/roomsSlice/roomsThunk';
 import { RoomInterface } from '../interfaces/room.interface';
 
 const columns = [
@@ -25,6 +28,10 @@ const RoomsPage = () => {
 
   const { setTypeSort, filters } = useFilters();
   const roomsFiltered = roomsSorted(rooms, filters.typeSort);
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteRoom(id));
+    toast.success('Deleted Successfully!');
+  };
 
   useEffect(() => {
     const getRooms = async () => {
@@ -51,6 +58,8 @@ const RoomsPage = () => {
           <SortButtonActive $active={filters.sortActive === 2} onClick={() => setTypeSort(2)}>
             Price
           </SortButtonActive>
+
+          <Link to={'/admin/rooms-form'}>ADD</Link>
         </RoomsSort>
         <Table columns={columns}>
           {roomsFiltered.map((room) => (
@@ -72,6 +81,16 @@ const RoomsPage = () => {
 
               <td>{room.offerPrice == 0 ? 'No Offer' : room.offerPrice} </td>
               <RoomStatus $status={room.status}>{room.status ? 'Disponible' : 'Ocupada'} </RoomStatus>
+              <td>
+                <Actions>
+                  <Link to={`/admin/rooms-form/${room._id}`}>
+                    <EditIcon className="edit" />
+                  </Link>
+                  <button onClick={() => handleDelete(room._id)}>
+                    <DeleteIcon className="delete" />
+                  </button>
+                </Actions>
+              </td>
             </Row>
           ))}
         </Table>
@@ -95,6 +114,20 @@ const SortButtonActive = styled.button<{ $active: boolean }>`
 
 const RoomStatus = styled.td<{ $status: boolean }>`
   color: ${(props) => (props.$status ? '#4CAF50' : '#F44336')};
+`;
+const Actions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  .edit,
+  .delete {
+    width: 1.5rem;
+  }
+  .edit {
+    color: #bebeff;
+  }
+  .delete {
+    color: #ff0000;
+  }
 `;
 
 const useFilters = () => {
