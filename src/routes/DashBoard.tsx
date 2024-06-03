@@ -54,11 +54,7 @@ export default DashBoard;
 
 const Aside = styled.aside`
   padding: 1rem 2rem;
-  background-color: #202020;
-  color: #686868;
-
-  box-shadow: 0.8125rem 0.1875rem 5rem #0000006e;
-
+  background: linear-gradient(145deg, #161618, #1a1a1d);
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -67,10 +63,9 @@ const Aside = styled.aside`
 const MainLayout = styled.main<{ $isActived: boolean }>`
   display: grid;
   transition: all 0.3s ease;
-  grid: ${(props) => (props.$isActived ? '1fr / 94px calc(100% - 94px)' : '1fr / 280px calc(100% - 280px)')};
+  grid: ${(props) => (props.$isActived ? '1fr / 94px auto' : '1fr / 280px auto')};
 
   height: 100dvh;
-  overflow: hidden;
 `;
 
 const AsideUl = styled.ul`
