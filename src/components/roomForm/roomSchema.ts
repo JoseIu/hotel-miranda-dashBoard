@@ -2,12 +2,6 @@ import { z } from 'zod';
 
 export const AMENITY = ['Air Conditioning', 'Coffee Maker', 'Safe', 'TV', 'WiFi'] as const;
 
-// export enum RoomType {
-//   DoubleBed = 'Double Bed',
-//   DoubleSuperior = 'Double Superior',
-//   SingleBed = 'Single Bed',
-//   Suite = 'Suite',
-// }
 export const ROOMTYPE = ['Double Bed', 'Double Superior', 'Single Bed', 'Suite'] as const;
 
 export const roomSchema = z.object({

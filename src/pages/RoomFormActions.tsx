@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { RootState } from '../app/store';
 import Header from '../components/Header';
 import RoomForm from '../components/roomForm/RoomForm';
+import { ContainerDiv } from '../components/shared/GlobalStyle';
 import { ContainerSection } from '../components/shared/StyledComponets';
 import { RoomInterface } from '../interfaces/room.interface';
 
@@ -33,10 +33,3 @@ const RoomFormActions = () => {
 };
 
 export default RoomFormActions;
-
-const ContainerDiv = styled.div`
-  padding-top: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;

@@ -8,7 +8,7 @@ const UserDetails = () => {
     console.log(`User ID: ${id}`);
   }, [id]);
 
-  return <div>EUSER {id}</div>;
+  return <div>EUSER {id} aaa</div>;
 };
 
 export default UserDetails;
