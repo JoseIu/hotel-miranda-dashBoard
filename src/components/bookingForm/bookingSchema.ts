@@ -28,6 +28,7 @@ export const bookingShema = z.object({
 
   roomType: z.enum(ROOMTYPE),
   status: z.enum(STATUS),
+  specialRequest: z.string().min(1, { message: 'Special Request is required' }),
 });
 
 export type BookingSchema = z.infer<typeof bookingShema>;
