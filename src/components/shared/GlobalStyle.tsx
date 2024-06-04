@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Form = styled.form`
@@ -56,4 +57,44 @@ export const Error = styled.span`
   font-weight: 600;
   line-height: 1rem;
   color: rgb(237, 74, 74);
+`;
+
+export const ButtonAction = styled(Link)`
+  /* width: 8rem; */
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: var(--bg-gradient);
+  box-shadow: var(--box-shadow);
+`;
+
+export const Actions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  .edit,
+  .delete {
+    width: 1.5rem;
+  }
+  .edit {
+    color: #bebeff;
+  }
+  .delete {
+    cursor: pointer;
+
+    color: #ff0000;
+  }
+`;
+
+export const ContainerDiv = styled.div`
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const FilterActive = styled.button<{ $active: boolean }>`
+  cursor: pointer;
+  font-weight: 500;
+  color: ${(props) => (props.$active ? 'var(--zinc-200)' : 'var(--zinc-400)')};
 `;
