@@ -10,10 +10,17 @@ import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
 import EditIcon from '../components/icons/EditIcon';
-import { ContainerSection, Row, Wrapper } from '../components/shared/StyledComponets';
+import { ButtonAction } from '../components/shared/GlobalStyle';
+import {
+  BookingStatus,
+  ContainerSection,
+  Row,
+  TableActions,
+  Wrapper,
+} from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
 import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
-import { BookingInterface } from '../interfaces/booking.interface';
+import { filterByName, filterByType, orderBy, useBookingsFilters } from '../hooks/useBookingsFilters';
 const columns = [
   { label: 'Guest', key: 'guest' },
   { label: 'Order Date', key: 'orderDate' },
@@ -29,7 +36,7 @@ const BookingsPage = () => {
   const { bookins } = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch<AppDispatch>();
   //FILTERS
-  const { bookingFilter, setType, setOrderBy, setSearch } = useFiltersBookings();
+  const { bookingFilter, setType, setOrderBy, setSearch } = useBookingsFilters();
 
   let bookingsFiltered = filterByName(bookins, bookingFilter.search);
   bookingsFiltered = filterByType(bookingsFiltered, bookingFilter.type);
@@ -57,7 +64,7 @@ const BookingsPage = () => {
       <Header title={'Bookings'} />
 
       <BookingsFilter>
-        <BookingsOrder setType={setType} />
+        <BookingsOrder type={bookingFilter.type} setType={setType} />
 
         <InputSearh
           name="search"
@@ -66,7 +73,7 @@ const BookingsPage = () => {
           placeholder="search a booking...."
           onChange={(event) => setSearch(event.target.value)}
         />
-        <Link to={'/admin/booking-form'}>Add new Booking</Link>
+        <ButtonAction to={'/admin/booking-form'}>New Booking +</ButtonAction>
         <select
           name="orderBy"
           id="orderBy"
@@ -103,16 +110,16 @@ const BookingsPage = () => {
               </td>
               <td>{booking.specialRequest}</td>
               <td>{booking.roomType}</td>
-              <TdStatus $status={booking.status}>{booking.status}</TdStatus>
+              <BookingStatus $status={booking.status}>{booking.status}</BookingStatus>
               <td>
-                <Actions>
+                <TableActions>
                   <Link to={`/admin/booking-form/${booking._id}`}>
                     <EditIcon className="edit" />
                   </Link>
                   <button onClick={() => handleDelete(booking._id)}>
                     <DeleteIcon className="delete" />
                   </button>
-                </Actions>
+                </TableActions>
               </td>
             </Row>
           ))}
@@ -125,12 +132,9 @@ const BookingsPage = () => {
 };
 
 export default BookingsPage;
-const TdStatus = styled.td<{ $status?: 'Check In' | 'Check Out' | 'In Progress' }>`
-  color: ${(props) =>
-    props.$status === 'Check In' ? '#4CAF50' : props.$status === 'Check Out' ? '#F44336' : '#FFC107'};
-`;
+
 const BookingsFilter = styled.div`
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -142,88 +146,3 @@ const BookingsFilter = styled.div`
     border-radius: 0.5rem;
   }
 `;
-const Actions = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  .edit,
-  .delete {
-    width: 1.5rem;
-  }
-  .edit {
-    color: #bebeff;
-  }
-  .delete {
-    color: #ff0000;
-  }
-`;
-
-const useFiltersBookings = () => {
-  const [bookingFilter, setBookingFilter] = useState({
-    search: '',
-    type: 0,
-    orderBy: 1,
-  });
-
-  const setSearch = (search: string) => setBookingFilter({ ...bookingFilter, search });
-
-  const setType = (type: number) => setBookingFilter({ ...bookingFilter, type });
-
-  const setOrderBy = (orderBy: number) => setBookingFilter({ ...bookingFilter, orderBy });
-
-  return { bookingFilter, setSearch, setType, setOrderBy };
-};
-
-const filterByType = (bookings: BookingInterface[], type: number) => {
-  const roomsToFilter = [...bookings];
-
-  switch (type) {
-    case 1:
-      return roomsToFilter
-        .filter((booking) => booking.status.toLowerCase() === 'check in')
-        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
-    case 2:
-      return roomsToFilter
-        .filter((booking) => booking.status.toLowerCase() === 'check out')
-        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
-    case 3:
-      return roomsToFilter
-        .filter((booking) => booking.status.toLowerCase() === 'in progress')
-        .sort((a, b) => new Date(a.checkin.date).getTime() - new Date(b.checkin.date).getTime());
-
-    default:
-      return roomsToFilter;
-  }
-};
-
-const filterByName = (bookings: BookingInterface[], search: string) => {
-  if (!search) return [...bookings];
-  const serachNormalized = search.toLowerCase();
-
-  return bookings.filter((booking) => booking.guest.name.toLowerCase().includes(serachNormalized));
-};
-
-const orderBy = (bookings: BookingInterface[], orderBy: number) => {
-  const bookingsToSort = [...bookings];
-  switch (orderBy) {
-    case 0:
-      return bookingsToSort.sort((a, b) => (a.guest.name < b.guest.name ? -1 : 1));
-    case 1:
-      return bookingsToSort.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
-    case 2:
-      return bookingsToSort.sort((a, b) => {
-        if (a.status === b.status) return 0;
-        if (a.status === 'Check In') return -1;
-        if (a.status === 'Check Out' && b.status === 'In Progress') return -1;
-        return 0;
-      });
-    case 3:
-      return bookingsToSort.sort((a, b) => {
-        if (a.status === b.status) return 0;
-        if (a.status === 'Check Out') return -1;
-        if (a.status === 'Check In' && b.status === 'In Progress') return -1;
-        return 0;
-      });
-    default:
-      return bookingsToSort;
-  }
-};

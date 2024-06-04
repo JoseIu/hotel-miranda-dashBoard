@@ -1,19 +1,36 @@
+export interface EmployeeResponse {
+  error: boolean;
+  data: Employee[];
+}
+
 export interface Employee {
-  employee: EmployeeClass;
+  _id: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  image: string;
+  startDate: string;
+  phone: string;
+  email: string;
+  role: Role;
   description: string;
-  contact: Contact;
+  status: boolean;
+}
+export interface EmployeeToSend {
+  firstName: string;
+  lastName: string;
+  password: string;
+  image: string;
+  startDate: string;
+  phone: string;
+  email: string;
+  role: Role;
+  description: string;
   status: boolean;
 }
 
-export interface Contact {
-  phone: string;
-  email: string;
-}
-
-export interface EmployeeClass {
-  image: string;
-  firstName: string;
-  lastName: string;
-  employeeId: string;
-  startDate: string;
+export enum Role {
+  Manager = 'Manager',
+  Receptionist = 'Receptionist',
+  RoomServices = 'Room Services',
 }

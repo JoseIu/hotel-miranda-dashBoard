@@ -22,8 +22,9 @@ export default UserProfile;
 const UserCard = styled.article<{ $isActived: boolean }>`
   padding: 2.1rem 1.5rem;
   position: relative;
-  background-color: #292828;
-  color: #ebebeb;
+  background: var(--bg-gradient);
+  box-shadow: var(--box-shadow);
+  color: var(--zinc-100);
 
   border-radius: 1.125rem;
   display: ${(props) => (props.$isActived ? 'none' : 'flex')};
