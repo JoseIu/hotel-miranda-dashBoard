@@ -69,21 +69,23 @@ const MainLayout = styled.main<{ $isActived: boolean }>`
 `;
 
 const AsideUl = styled.ul`
+  margin-bottom: 3rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
   font-weight: 600;
-  height: 100%;
 
   gap: 1rem;
   li {
     padding: 0.8rem 0;
   }
   .icon {
-    width: 2rem;
+    width: 1.5rem;
     color: #686868;
   }
 `;
 const StyledNavLink = styled(NavLink)`
+  font-size: 1.1em;
   display: grid;
   grid-template-columns: 60px 1fr;
   align-items: center;

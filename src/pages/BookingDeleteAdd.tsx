@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { RootState } from '../app/store';
 import Header from '../components/Header';
 import BookingForm from '../components/bookingForm/BookingForm';
+import { ContainerDiv } from '../components/shared/GlobalStyle';
 import { ContainerSection } from '../components/shared/StyledComponets';
 import { BookingInterface } from '../interfaces/booking.interface';
 
@@ -26,15 +26,9 @@ const BookingDeleteAdd = () => {
   return (
     <ContainerSection>
       <Header title={isEditing ? 'Editing' : 'Add Booking'} />
-      <FormsContainer>{isEditing ? <BookingForm booking={bookingToEdit} /> : <BookingForm />}</FormsContainer>
+      <ContainerDiv>{isEditing ? <BookingForm booking={bookingToEdit} /> : <BookingForm />}</ContainerDiv>
     </ContainerSection>
   );
 };
 
 export default BookingDeleteAdd;
-
-const FormsContainer = styled.div`
-  padding-top: 3rem;
-  display: flex;
-  justify-content: center;
-`;
