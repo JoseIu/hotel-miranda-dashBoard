@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Employee } from '../../interfaces/employee.interface';
-import { getUsers } from './usersThunk';
+import { addNewUser, deleteUser, getUsers } from './usersThunk';
 
 interface Bookings {
   users: Employee[];
@@ -28,6 +28,22 @@ export const usersSlice = createSlice({
 
     builder.addCase(getUsers.rejected, (state) => {
       state.loading = 'failed';
+    });
+
+    builder.addCase(addNewUser.pending, (state) => {
+      state.loading = 'pending';
+    });
+    builder.addCase(addNewUser.fulfilled, (state, action) => {
+      state.users.push(action.payload);
+      state.loading = 'succeeded';
+    });
+
+    builder.addCase(addNewUser.rejected, (state) => {
+      state.loading = 'failed';
+    });
+
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      state.users = state.users.filter((user) => user._id !== action.payload);
     });
   },
 });

@@ -1,10 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import employeeList from '../../db/employeeList.json';
-import { asyncRequest } from '../../helpers/asyncRequest';
-import { Employee } from '../../interfaces/employee.interface';
+import apiFetch from '../../helpers/apiFetch';
+import { Employee, EmployeeToSend } from '../../interfaces/employee.interface';
 
-export const getUsers = createAsyncThunk('users/getUsers', async (): Promise<Employee[]> => {
-  const response = await asyncRequest<Employee>({ data: employeeList as Employee[] });
+export const getUsers = createAsyncThunk('users/get', async (): Promise<Employee[]> => {
+  const response = await apiFetch('employees');
 
-  return response as Employee[];
+  return response.data as Employee[];
+});
+
+export const addNewUser = createAsyncThunk('users/post', async (user: EmployeeToSend): Promise<Employee> => {
+  const response = await apiFetch('employee', 'POST', null, user);
+  console.log(response);
+  return response.data as Employee;
+});
+export const updateUser = createAsyncThunk('users/put', async (user: Employee): Promise<Employee> => {
+  const response = await apiFetch('employee', 'PUT', user._id, user);
+  console.log(response);
+  return response.data as Employee;
+});
+
+export const deleteUser = createAsyncThunk('users/delete', async (id: string): Promise<string> => {
+  const response = await apiFetch('employee', 'Delete', id);
+  console.log(response);
+  return id;
 });
