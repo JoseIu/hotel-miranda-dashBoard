@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import bookins from '../../db/bookins.json';
 import apiFetch from '../../helpers/apiFetch';
-import { updateBookingRequest } from '../../helpers/bookingsRequest';
 import { BookingInterface, BookingToSendInterface } from '../../interfaces/booking.interface';
 
 export const bookinsDB = [...bookins] as BookingInterface[];
@@ -30,14 +29,6 @@ export const deleteBooking = createAsyncThunk('booking/delete', async (id: strin
   return id;
 });
 
-export const updateBooking = createAsyncThunk(
-  'booking/update',
-  async (payload: { id: string; data: BookingInterface }) => {
-    const { id, data } = payload;
-
-    const response = await updateBookingRequest(id, data);
-
-    if (!response) throw new Error('Error updating booking');
-    return payload;
-  }
-);
+export const updateBooking = createAsyncThunk('booking/update', async (data: BookingInterface) => {
+  await apiFetch('booking', 'PUT', data._id, data);
+});
