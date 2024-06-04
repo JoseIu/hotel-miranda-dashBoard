@@ -30,8 +30,9 @@ const GuestTd = styled.div`
   display: flex;
   gap: 0.6rem;
   img {
-    width: 4rem;
+    width: 2.5rem;
     border-radius: 0.3rem;
+    aspect-ratio: 1/1;
   }
   div {
     display: flex;
