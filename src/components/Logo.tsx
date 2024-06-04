@@ -8,9 +8,7 @@ const Logo = ({ isActived }: LogoProps) => {
   return (
     <LogoContainer $isActived={isActived}>
       <BuildIcond />
-      <h1>
-        Travel <span>Hotel Miranda</span>
-      </h1>
+      <h1>Hotel Miranda</h1>
     </LogoContainer>
   );
 };
@@ -22,19 +20,14 @@ const LogoContainer = styled.div<{ $isActived: boolean }>`
   display: grid;
   grid-template-columns: 70px 1fr;
   align-items: center;
+  gap: 0.3rem;
   svg {
-    width: 2.9375rem;
+    width: 2.3rem;
     color: #1c7a61;
   }
 
   h1 {
-    display: flex;
-    flex-direction: column;
     color: #ebebeb;
     font-weight: 600;
-    span {
-      color: #686868;
-      font-size: 0.8em;
-    }
   }
 `;
