@@ -18,6 +18,7 @@ import {
 import BookingDeleteAdd from './pages/BookingDeleteAdd';
 import BookingDetails from './pages/BookingDetails';
 import RoomFormActions from './pages/RoomFormActions';
+import UserFormActions from './pages/UserFormActions';
 import DashBoard from './routes/DashBoard';
 import { routes } from './routes/routes';
 import AuthTemplate from './template/AuthTemplate';
@@ -49,6 +50,7 @@ const App = () => {
 
               <Route path="contact" element={<ContactPage />} />
               <Route path="users" element={<UsersPage />} />
+              <Route path="user-form/:id?" element={<UserFormActions />} />
 
               <Route path="bookings/:id" element={<BookingDetails />} />
               <Route path="rooms/:id" element={<RoomDetails />} />
