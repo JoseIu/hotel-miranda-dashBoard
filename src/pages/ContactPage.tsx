@@ -43,7 +43,6 @@ const ContactPage = () => {
     <ContainerSection>
       <Header title={'Contact'} />
       <LastMessages>
-        <h2>Latest Messages by Customers</h2>
         <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
           {contacts.map((message) => (
             <SwiperSlide key={message._id}>
@@ -96,16 +95,15 @@ const ContactPage = () => {
 export default ContactPage;
 
 const MessageCard = styled.article`
-  background-color: rebeccapurple;
+  background: var(--bg-gradient);
+  box-shadow: var(--box-shadow);
   height: 8rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   border-radius: 0.3rem;
 
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
-  /* background-color: #202020; */
-  border: 0.0625rem solid #3d3d3d;
   h2 {
     font-size: 0.9em;
     font-weight: 600;
@@ -126,7 +124,6 @@ const LastMessages = styled.section`
 
   padding: 1em 2rem;
   border-radius: 0.5rem;
-  background: #202020;
   color: #e8f2ef;
 
   display: flex;
