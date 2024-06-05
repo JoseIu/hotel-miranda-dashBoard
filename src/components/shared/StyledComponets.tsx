@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   position: relative;
 
   padding: 1rem 1rem 0 1rem;
-  height: 74dvh;
+  max-height: 74dvh;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
