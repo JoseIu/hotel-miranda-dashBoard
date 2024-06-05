@@ -8,16 +8,31 @@ import BedIcon from '../components/icons/BedIcon';
 import CalendarIcon from '../components/icons/CalendarIcon';
 import { ContainerSection, Wrapper } from '../components/shared/StyledComponets';
 
-import { useState } from 'react';
-import messagesList from '../db/messagesList.json';
-import { Message } from '../interfaces/message.Interface';
-
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { AppDispatch, RootState } from '../app/store';
+import { getAllContacts } from '../features/contactSlice/contactThunk';
 
 const DashboardPage = () => {
-  const [messages] = useState(messagesList as Message[]);
+  const [loading, setLoading] = useState(true);
+  const { contacts } = useSelector((state: RootState) => state.contacts);
+  const dispatch = useDispatch<AppDispatch>();
+  console.log(contacts);
+
+  useEffect(() => {
+    const getContactsMessage = async () => {
+      await dispatch(getAllContacts()).unwrap();
+      setLoading(false);
+    };
+    getContactsMessage();
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <ContainerSection>
       <Header title={'Dashboard'} />
@@ -34,13 +49,13 @@ const DashboardPage = () => {
         <LastMessages>
           <h2>Latest Messages by Customers</h2>
           <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
-            {messages.map((message) => (
-              <SwiperSlide key={message.email}>
+            {contacts.map((message) => (
+              <SwiperSlide key={message._id}>
                 <MessageCard>
                   <h2>
-                    {message.fullName.firstName} {message.fullName.lastName}
+                    {message.customer.name} {message.customer.name}
                   </h2>
-                  <p>{message.description}</p>
+                  <p>{message.comment}</p>
                 </MessageCard>
               </SwiperSlide>
             ))}

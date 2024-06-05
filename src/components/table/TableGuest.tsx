@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 interface GuestProps {
-  img: string;
-  name: string;
-  lastName: string;
-  id: string;
+  img?: string;
+  name?: string;
+  lastName?: string;
+  id?: string;
   startDate?: string;
 }
 
 const TableGuest = ({ img, name, lastName, id, startDate }: GuestProps) => {
   return (
     <GuestTd>
-      {img ? <img loading="lazy" src={img} alt={name} /> : 'LOAGING'}
+      {img && <img loading="lazy" src={img} alt={name} />}
       {/* <img src={img} alt={name} /> */}
       <div>
         <span>

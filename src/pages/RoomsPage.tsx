@@ -110,7 +110,6 @@ const RoomsPage = () => {
 export default RoomsPage;
 
 const RoomsSort = styled.div`
-  background-color: rebeccapurple;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;

@@ -48,10 +48,8 @@ export const bookinsSlice = createSlice({
       state.bookins.push(action.payload);
     });
     builder.addCase(updateBooking.fulfilled, (state, action) => {
-      const guestIndex = state.bookins.findIndex((guest) => guest.guest.reservationID === action.payload.id);
-
-      if (guestIndex === -1) return;
-      state.bookins[guestIndex] = action.payload.data;
+      console.log(state);
+      console.log(action);
     });
   },
 });
