@@ -1,4 +1,25 @@
 /* Definimos las Custom properties */
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(../assets/font/Poppins-Light.woff) format('woff');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url(../assets/font/Poppins-Regular.woff) format('woff');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url(../assets/font/Poppins-SemiBold.woff) format('woff');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url(../assets/font/Poppins-Bold.woff) format('woff');
+  font-weight: 700;
+}
 :root {
   /* Colores */
   --zinc-100: #f4f4f5;
@@ -10,8 +31,7 @@
   --bg-gradient: linear-gradient(145deg, #161618, #1a1a1d);
   --box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
   /* Tipografía */
-  --tipo-principal: Helvetica, Arial, sans-serif;
-  --tipo-secundaria: Verdana;
+  --tipo-principal: 'Poppins', sans-serif;
 }
 
 *,
