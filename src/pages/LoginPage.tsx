@@ -37,31 +37,34 @@ const LoginPage = () => {
 
   return (
     <LoginContainer>
-      <div className="wrapper">
-        <h2>WellCome to Hotel Miranda Dashboard</h2>
+      <LoginImage></LoginImage>
+      <LoginDiv>
+        <div>
+          <h2>Hotel Miranda Dashboard</h2>
 
-        <LoginForm onSubmit={handleSumit}>
-          <input
-            type="email"
-            placeholder="email"
-            name="email"
-            id="email"
-            autoComplete="email"
-            value={form.email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            id="password"
-            autoComplete="current-password"
-            value={form.password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <button type="submit">Login</button>
-        </LoginForm>
-      </div>
+          <LoginForm onSubmit={handleSumit}>
+            <input
+              type="email"
+              placeholder="email"
+              name="email"
+              id="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              name="password"
+              id="password"
+              autoComplete="current-password"
+              value={form.password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <button type="submit">Login</button>
+          </LoginForm>
+        </div>
+      </LoginDiv>
     </LoginContainer>
   );
 };
@@ -83,20 +86,30 @@ const useForm = () => {
 const LoginContainer = styled.section`
   background-color: #18181b;
   height: 100dvh;
+  display: grid;
+  grid-template-columns: 50rem auto;
 
-  display: flex;
-  justify-content: center;
   h2 {
+    max-width: 30rem;
     text-transform: uppercase;
     font-weight: 600;
     font-size: clamp(2rem, 3vw, 3.5rem);
-    text-align: center;
-    margin-bottom: 10rem;
+    margin-bottom: 3rem;
   }
 `;
-
+const LoginImage = styled.div`
+  background-image: url('images/login-image-2.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
+const LoginDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const LoginForm = styled.form`
-  max-width: 50rem;
+  width: 50rem;
   padding: 2rem;
   margin-inline: auto;
 
