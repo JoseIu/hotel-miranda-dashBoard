@@ -44,10 +44,8 @@ const DashboardPage = () => {
           <BookingSummary Icon={ArrowBoxRight} number={70} title={'Check-outs'} />
         </BookingSummaryContainer>
 
-        <div>CALENMDARIOS</div>
-
         <LastMessages>
-          <h2>Latest Messages by Customers</h2>
+          <LastMessagesTitle>Last messages</LastMessagesTitle>
           <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
             {contacts.map((message) => (
               <SwiperSlide key={message._id}>
@@ -72,22 +70,31 @@ const BookingSummaryContainer = styled.div`
   max-width: 87.5rem;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 1.5rem;
+  margin-bottom: 5rem;
+  padding: 1.5rem;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.2rem;
 `;
 const MessageCard = styled.article`
-  min-height: 8rem;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.3rem;
+  aspect-ratio: 16/9;
+  background: var(--bg-gradient);
+  box-shadow: var(--box-shadow);
 
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
-  background-color: #202020;
-  border: 0.0625rem solid #3d3d3d;
+  h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  p {
+    font-size: 0.8em;
+    color: var(--zinc-400);
+  }
 `;
 
 const SwipertSyled = styled(Swiper)`
@@ -99,16 +106,15 @@ const LastMessages = styled.section`
   margin-left: auto;
   margin-right: auto;
 
-  padding: 2em;
+  padding: 1em 2rem;
   border-radius: 0.5rem;
-  background: #202020;
   color: #e8f2ef;
 
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
-
-  h2 {
-    font-size: 1.25em;
-  }
+  row-gap: 1.5rem;
+`;
+const LastMessagesTitle = styled.h2`
+  font-size: 1.5em;
+  font-weight: 600;
 `;

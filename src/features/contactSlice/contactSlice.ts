@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Message } from '../../interfaces/contact.Interface';
-import { getAllContacts } from './contactThunk';
+import { deleteContact, getAllContacts } from './contactThunk';
 interface Contact {
   contacts: Message[];
 
@@ -28,6 +28,17 @@ export const contactSlice = createSlice({
       state.loading = 'succeeded';
     });
     builder.addCase(getAllContacts.rejected, (state) => {
+      state.loading = 'failed';
+    });
+
+    builder.addCase(deleteContact.pending, (state) => {
+      state.loading = 'pending';
+    });
+    builder.addCase(deleteContact.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.contacts.filter((contact) => contact._id !== action.payload);
+    });
+    builder.addCase(deleteContact.rejected, (state) => {
       state.loading = 'failed';
     });
   },

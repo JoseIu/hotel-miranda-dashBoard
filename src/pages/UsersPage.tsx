@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
@@ -37,6 +38,7 @@ const UsersPage = () => {
   usersFiltered = filterByType(usersFiltered, userFilter.type);
   const handleDelete = async (id: string) => {
     await dispatch(deleteUser(id));
+    toast.success('User deleted successfully');
   };
   useEffect(() => {
     const getAllUsers = async () => {

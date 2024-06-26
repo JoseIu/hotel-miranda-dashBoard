@@ -32,7 +32,29 @@ export const Wrapper = styled.div`
     background: #555;
   }
 `;
+export const Wrapper2 = styled.div`
+  position: relative;
 
+  padding: 1rem 1rem 0 1rem;
+  max-height: 54dvh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--zinc-900);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--zinc-400);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+`;
 export const Row = styled.tr`
   border-bottom: 0.0625rem solid #3d3d3d;
 
