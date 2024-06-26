@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,10 +9,9 @@ import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
-import EditIcon from '../components/icons/EditIcon';
-import { ContainerSection, Row, TableActions, Wrapper } from '../components/shared/StyledComponets';
+import { ContainerSection, Row, TableActions, Wrapper2 } from '../components/shared/StyledComponets';
 import TableGuest from '../components/table/TableGuest';
-import { getAllContacts } from '../features/contactSlice/contactThunk';
+import { deleteContact, getAllContacts } from '../features/contactSlice/contactThunk';
 
 const columns = [
   { label: 'Date', key: 'date ' },
@@ -24,8 +24,10 @@ const ContactPage = () => {
   const { contacts } = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteContact(id));
     console.log(id);
+    toast.success('Contact deleted');
   };
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const ContactPage = () => {
     <ContainerSection>
       <Header title={'Contact'} />
       <LastMessages>
+        <LastMessagesTitle>Last messages</LastMessagesTitle>
         <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
           {contacts.map((message) => (
             <SwiperSlide key={message._id}>
@@ -57,7 +60,7 @@ const ContactPage = () => {
         </SwipertSyled>
       </LastMessages>
 
-      <Wrapper>
+      <Wrapper2>
         <Table columns={columns}>
           {contacts.slice(0, 10).map((message) => (
             <Row key={message._id}>
@@ -76,9 +79,6 @@ const ContactPage = () => {
               <td>{message.subject}</td>
               <td>
                 <TableActions>
-                  <Link to={`/admin/rooms-form/${message._id}`}>
-                    <EditIcon className="edit" />
-                  </Link>
                   <button onClick={() => handleDelete(message._id)}>
                     <DeleteIcon className="delete" />
                   </button>
@@ -87,7 +87,7 @@ const ContactPage = () => {
             </Row>
           ))}
         </Table>
-      </Wrapper>
+      </Wrapper2>
     </ContainerSection>
   );
 };
@@ -95,21 +95,22 @@ const ContactPage = () => {
 export default ContactPage;
 
 const MessageCard = styled.article`
+  padding: 1rem;
+  border-radius: 0.3rem;
+  aspect-ratio: 16/9;
   background: var(--bg-gradient);
   box-shadow: var(--box-shadow);
-  height: 8rem;
-  padding: 1rem 2rem;
-  border-radius: 0.3rem;
 
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
   h2 {
-    font-size: 0.9em;
+    font-size: 1.1em;
     font-weight: 600;
   }
   p {
     font-size: 0.8em;
+    color: var(--zinc-400);
   }
 `;
 
@@ -128,9 +129,9 @@ const LastMessages = styled.section`
 
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
-
-  h2 {
-    font-size: 1.25em;
-  }
+  row-gap: 1.5rem;
+`;
+const LastMessagesTitle = styled.h2`
+  font-size: 1.5em;
+  font-weight: 600;
 `;
