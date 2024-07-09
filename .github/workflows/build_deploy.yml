@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -26,7 +26,7 @@ jobs:
       - name: Compile dist
         run: npm run build
       - name: Connect to AWS
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-session-name: awssyncsession
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
