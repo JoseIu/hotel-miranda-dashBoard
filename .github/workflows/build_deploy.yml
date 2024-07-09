@@ -16,23 +16,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20.11.1
+          node-version: '20.11.1'
           cache: 'npm'
-
-      - name: compile dist
+      - name: Install dependencies
+        run: npm install
+      - name: Compile dist
         run: npm run build
-     
       - name: Connect to AWS
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-seesion-name: awssyncsession
+          role-session-name: awssyncsession
           role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
-          aws-sergion: ${{ secrets.AWS_REGION }}
-      
-      - name: synx bucket
-        run: aws s3 sync  ./files/ s3.//${{ secrets.AWS_BUCKET_NAME }} --delete
-
-
-     
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Sync to S3 bucket
+        run: aws s3 sync ./files/ s3://${{ secrets.AWS_BUCKET_NAME }} --delete
