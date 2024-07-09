@@ -1,0 +1,33 @@
+name: 'Hotel Miranda'
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: compile dist
+        run: npm run build
+     
+      - name: Connect to AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-seesion-name: awssyncsession
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE }}
+          aws-sergion: ${{ secrets.AWS_REGION }}
+      
+      - name: synx bucket
+        run: aws s3 sync  ./files/ s3.//${{ secrets.AWS_BUCKET_NAME }} --delete
+
+
+     
