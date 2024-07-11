@@ -25,6 +25,8 @@ jobs:
         run: npm install
       - name: Compile dist
         run: npm run build
+        env: 
+          VITE_BACK_URL: ${{ secrets.VITE_BACK_URL }} # URL of the backend
       - uses: jakejarvis/s3-sync-action@master
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
