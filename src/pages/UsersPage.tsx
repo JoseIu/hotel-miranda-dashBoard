@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
+import InputSearh from '../components/InputSearch';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
 import EditIcon from '../components/icons/EditIcon';
@@ -16,6 +16,7 @@ import {
   TableStatus,
   Wrapper,
 } from '../components/shared/StyledComponets';
+import { TableSkeleton } from '../components/shared/skeleton/TableSkeleton';
 import TableGuest from '../components/table/TableGuest';
 import { deleteUser, getUsers } from '../features/usersSlice/usersThunk';
 import { filterByName, filterByType, useUsersFilters } from '../hooks/useUsersFilters';
@@ -34,11 +35,15 @@ const UsersPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { setSearch, setType, userFilter } = useUsersFilters();
 
-  let usersFiltered = filterByName(users, userFilter.search);
-  usersFiltered = filterByType(usersFiltered, userFilter.type);
+  const usersFiltered = useMemo(() => {
+    let usersFiltered = filterByName(users, userFilter.search);
+    usersFiltered = filterByType(usersFiltered, userFilter.type);
+    return usersFiltered;
+  }, [users, userFilter]);
+
   const handleDelete = async (id: string) => {
     await dispatch(deleteUser(id));
-    toast.success('User deleted successfully');
+    //TODO: show a modal to confirm the delete
   };
   useEffect(() => {
     const getAllUsers = async () => {
@@ -48,66 +53,73 @@ const UsersPage = () => {
     getAllUsers();
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
   return (
     <ContainerSection>
       <Header title={'Users'} />
-      <UserActions>
-        <div>
-          <FilterActive $active={userFilter.type === 0} onClick={() => setType(0)}>
-            All Employe
-          </FilterActive>
-          <FilterActive $active={userFilter.type === 1} onClick={() => setType(1)}>
-            Active
-          </FilterActive>
-          <FilterActive $active={userFilter.type === 2} onClick={() => setType(2)}>
-            Inactive
-          </FilterActive>
-        </div>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="search employee name..."
-          value={userFilter.search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <ButtonAction to="/admin/user-form">Create User +</ButtonAction>
-      </UserActions>
-      <Wrapper>
-        <Table columns={columns}>
-          {usersFiltered.map((employee) => (
-            <Row key={employee._id}>
-              <td>
-                <Link to={`/admin/users/${employee._id}`}>
-                  <TableGuest
-                    img={employee.image}
-                    id={employee._id}
-                    name={employee.firstName}
-                    lastName={employee.lastName}
-                    startDate={employee.startDate.slice(0, 10)}
-                  />
-                </Link>
-              </td>
-              <td>{employee.description}</td>
-              <td>
-                {employee.phone} {employee.email}
-              </td>
-              <TableStatus $status={employee.status}>{employee.status ? 'ACTIVE' : 'INACTIVE'} </TableStatus>
-              <td>
-                <TableActions>
-                  <Link to={`/admin/user-form/${employee._id}`}>
-                    <EditIcon className="edit" />
-                  </Link>
-                  <button onClick={() => handleDelete(employee._id)}>
-                    <DeleteIcon className="delete" />
-                  </button>
-                </TableActions>
-              </td>
-            </Row>
-          ))}
-        </Table>
-      </Wrapper>
+
+      {loading ? (
+        <TableSkeleton />
+      ) : (
+        <>
+          <UserActions>
+            <div>
+              <FilterActive $active={userFilter.type === 0} onClick={() => setType(0)}>
+                All Employe
+              </FilterActive>
+              <FilterActive $active={userFilter.type === 1} onClick={() => setType(1)}>
+                Active
+              </FilterActive>
+              <FilterActive $active={userFilter.type === 2} onClick={() => setType(2)}>
+                Inactive
+              </FilterActive>
+            </div>
+            <InputSearh
+              name="search"
+              id="search"
+              value={userFilter.search}
+              placeholder="search a booking...."
+              onChange={(event) => setSearch(event.target.value)}
+            />
+            <ButtonAction to="/admin/user-form">Create User +</ButtonAction>
+          </UserActions>
+          <Wrapper>
+            <Table columns={columns}>
+              {usersFiltered.map((employee) => (
+                <Row key={employee._id}>
+                  <td>
+                    <Link to={`/admin/users/${employee._id}`}>
+                      <TableGuest
+                        img={employee.image}
+                        id={employee._id}
+                        name={employee.firstName}
+                        lastName={employee.lastName}
+                        startDate={employee.startDate.slice(0, 10)}
+                      />
+                    </Link>
+                  </td>
+                  <td>{employee.description}</td>
+                  <td>
+                    {employee.phone} {employee.email}
+                  </td>
+                  <TableStatus $status={employee.status}>
+                    {employee.status ? 'ACTIVE' : 'INACTIVE'}{' '}
+                  </TableStatus>
+                  <td>
+                    <TableActions>
+                      <Link to={`/admin/user-form/${employee._id}`}>
+                        <EditIcon className="edit" />
+                      </Link>
+                      <button onClick={() => handleDelete(employee._id)}>
+                        <DeleteIcon className="delete" />
+                      </button>
+                    </TableActions>
+                  </td>
+                </Row>
+              ))}
+            </Table>
+          </Wrapper>
+        </>
+      )}
     </ContainerSection>
   );
 };
