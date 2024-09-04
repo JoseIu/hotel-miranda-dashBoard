@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { AppDispatch } from '../../app/store';
 import { addNewRoom, updateRoom } from '../../features/roomsSlice/roomsThunk';
 import { getRandomId } from '../../helpers/getRandomId';
@@ -55,13 +55,12 @@ const RoomForm = ({ room }: RoomFormProps) => {
       price: parseFloat(data.price),
       discount: parseFloat(data.discount),
       status: data.status === 'true' ? true : false,
-      roomImages:
-        'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/183.jpg',
       roomNumber: getRandomId(),
     };
-    console.log('ADDED');
     await dispatch(addNewRoom(roomToSend as RoomInterface));
-    toast.success('Added Successfully!');
+
+    //TODO: show a modal to confirm the delete
+    toast.success('Room added successfully');
     navigate('/admin/rooms');
   };
   const onHandleEdit: SubmitHandler<RoomSchema> = async (data) => {
@@ -76,8 +75,9 @@ const RoomForm = ({ room }: RoomFormProps) => {
       status: data.status === 'true' ? true : false,
       amenities: data.amenities as Amenity[],
     };
-    console.log('EDITED');
     await dispatch(updateRoom(roomToSend));
+    //TODO: show a modal to confirm the delete
+    toast.success('Room edited successfully');
   };
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const RoomForm = ({ room }: RoomFormProps) => {
     setValue('offerPrice', room.offerPrice.toString());
     setValue('discount', room.discount.toString());
     setValue('price', room.price.toString());
-    setValue('status', room.status.toString());
+    setValue('status', room.status ? 'true' : 'false');
     setValue('amenities', room.amenities);
   }, [room, setValue]);
   return (

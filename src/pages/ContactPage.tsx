@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -27,7 +26,7 @@ const ContactPage = () => {
   const handleDelete = async (id: string) => {
     await dispatch(deleteContact(id));
     console.log(id);
-    toast.success('Contact deleted');
+    //TODO: show a modal to confirm the delete
   };
 
   useEffect(() => {

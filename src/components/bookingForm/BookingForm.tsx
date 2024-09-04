@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { AppDispatch } from '../../app/store';
 import { addBooking, updateBooking } from '../../features/bookinsSlice/bookinsThunk';
 import { getRandomId } from '../../helpers/getRandomId';
@@ -31,8 +31,6 @@ const BookingForm = ({ booking }: BookingFormProps) => {
   });
 
   const onHandleSubmit: SubmitHandler<BookingSchema> = async (data) => {
-    console.log('ADDED');
-
     const bookingToSend: BookingToSendInterface = {
       guest: {
         name: data.name,
@@ -57,12 +55,12 @@ const BookingForm = ({ booking }: BookingFormProps) => {
     };
     console.log(bookingToSend);
     await dispatch(addBooking(bookingToSend));
-    toast.success('Added Successfully!');
+
+    toast.success('Booking added successfully');
+
     navigate('/admin/bookings');
   };
   const onHandleEdit: SubmitHandler<BookingSchema> = async (data) => {
-    console.log(data);
-    console.log('EDITED');
     const bookingToEdit: BookingInterface = {
       _id: booking!._id,
       guest: {
@@ -87,7 +85,8 @@ const BookingForm = ({ booking }: BookingFormProps) => {
       status: data.status as Status,
     };
     await dispatch(updateBooking(bookingToEdit));
-    toast.success('Added Successfully!');
+
+    toast.success('Booking updated successfully');
     navigate('/admin/bookings');
   };
 

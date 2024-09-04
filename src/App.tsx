@@ -1,6 +1,6 @@
+import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import './App.css';
 import { store } from './app/store';
 import { AuthProvider } from './context/authProvides';
@@ -58,17 +58,7 @@ const App = () => {
               <Route path="*" element={<Navigate to={routes[0].to} replace />} />
             </Route>
           </Routes>
-          <ToastContainer
-            position="top-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
+          <Toaster position="bottom-right" reverseOrder={false} />
         </AuthProvider>
       </BrowserRouter>
     </Provider>

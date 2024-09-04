@@ -12,7 +12,6 @@ const TableGuest = ({ img, name, lastName, id, startDate }: GuestProps) => {
   return (
     <GuestTd>
       {img && <img loading="lazy" src={img} alt={name} />}
-      {/* <img src={img} alt={name} /> */}
       <div>
         <span>
           {name} {lastName}
@@ -30,9 +29,9 @@ const GuestTd = styled.div`
   display: flex;
   gap: 0.6rem;
   img {
-    width: 2.5rem;
+    width: 3em;
+    height: 3em;
     border-radius: 0.3rem;
-    aspect-ratio: 1/1;
   }
   div {
     display: flex;

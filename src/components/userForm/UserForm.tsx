@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { addNewUser, updateUser } from '../../features/usersSlice/usersThunk';
@@ -27,7 +28,6 @@ const UserForm = ({ user }: UserFormProps) => {
       status: false,
     },
   });
-  console.log(errors);
   const onHandleSubmit: SubmitHandler<UserSchema> = async (data) => {
     const userToSend: EmployeeToSend = {
       ...data,
@@ -35,7 +35,8 @@ const UserForm = ({ user }: UserFormProps) => {
       role: data.role as Role,
     };
     await dispatch(addNewUser(userToSend));
-    console.log(userToSend);
+    //TODO: refactor toasts with prime toast
+    toast.success('User added successfully');
   };
   const onHandleEdit: SubmitHandler<UserSchema> = async (data) => {
     const userToSend: Employee = {
@@ -51,6 +52,10 @@ const UserForm = ({ user }: UserFormProps) => {
       description: data.description,
     };
     await dispatch(updateUser(userToSend));
+
+    //TODO: refactor toasts with prime toast
+
+    toast.success('User updated successfully');
   };
   useEffect(() => {
     if (!user) return;

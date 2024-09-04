@@ -19,7 +19,6 @@ const BookingsOrder = ({ type, setType }: BookingsOrderProps) => {
         Checking Out
       </FilterActive>
       <FilterActive $active={type === 3} onClick={() => setType(3)}>
-        {' '}
         In Progress
       </FilterActive>
     </BookingOrderContainer>
@@ -32,5 +31,4 @@ const BookingOrderContainer = styled.div`
   display: flex;
   gap: 1rem;
   padding: 0 0.5rem 1rem 0.5rem;
-  border-bottom: 0.0625rem solid var(--zinc-400);
 `;

@@ -14,7 +14,7 @@ const InputSearchContainer = styled.div`
   max-width: 100%;
   position: relative;
   border-radius: 0.3rem;
-  background-color: #202020;
+  background-color: var(--zinc-800);
 
   svg {
     position: absolute;
@@ -29,7 +29,9 @@ const InputSearch = styled.input`
   padding: 0.6rem 3rem;
   outline: none;
   &:focus {
-    box-shadow: 0px 5px 6px -6px rgba(255, 255, 255, 0.44);
+    outline: 2px solid var(--green);
+
+    border-radius: 0.3em;
   }
   &::placeholder {
     color: #d3d3d34e;
