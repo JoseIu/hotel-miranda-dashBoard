@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import loginFetch from '../helpers/loginFetch';
 import useAuth from '../hooks/useAuth';
+import { LoginRequest } from '../interfaces/loginRequest.interface';
 
 const LoginPage = () => {
   const { userData, dispatch } = useAuth();
@@ -13,7 +15,13 @@ const LoginPage = () => {
     event.preventDefault();
     if (form.email === '' || form.password === '') return;
 
-    const responseLogin = await loginFetch(form.email, form.password);
+    const data = loginFetch(form.email, form.password);
+    toast.promise<LoginRequest>(data, {
+      loading: 'Loading',
+      success: 'Login success',
+      error: 'Error when fetching',
+    });
+    const responseLogin = await data;
 
     if (responseLogin.error === false) {
       dispatch({
