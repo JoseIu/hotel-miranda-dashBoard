@@ -34,6 +34,7 @@ const BookingDetails = () => {
     getRoomByID();
   }, [bookin?.roomID, distpatch]);
   if (isLoading) return <p>Loading...</p>;
+  console.log(room);
 
   return (
     <ContainerSection>
@@ -94,7 +95,7 @@ const BookingDetails = () => {
           </BookingInfo>
 
           <RoomImages>
-            <img src={room?.roomImages} alt="" />
+            <img src="/images/room.webp" alt="" />
           </RoomImages>
         </BookingDetail>
       </BookingContainer>
@@ -110,7 +111,6 @@ const BookingDetail = styled.article`
   padding: 2rem;
   border-radius: 0.5rem;
   background-color: #18181b;
-  /* background-color: linear-gradient(145deg, #161618, #1a1a1d); */
 
   box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
   display: grid;
@@ -203,6 +203,7 @@ const AmenitiesList = styled.ul`
 const RoomImages = styled.div`
   align-self: flex-end;
   img {
-    max-width: 30rem;
+    aspect-ratio: 16/11;
+    border-radius: 0.3em;
   }
 `;
