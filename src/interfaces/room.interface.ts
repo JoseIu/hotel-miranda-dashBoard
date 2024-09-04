@@ -5,7 +5,6 @@ export interface RoomInterfaceRequest {
 
 export interface RoomInterface {
   _id: string;
-  roomImages: string;
   roomNumber: string;
   roomType: RoomType;
   description: string;
@@ -17,7 +16,6 @@ export interface RoomInterface {
   amenities: Amenity[];
 }
 export interface RoomToSend {
-  roomImages: string;
   roomNumber: string;
   roomType: RoomType;
   description: string;

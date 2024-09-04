@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
@@ -16,6 +15,7 @@ import {
   TableStatus,
   Wrapper,
 } from '../components/shared/StyledComponets';
+import { TableSkeleton } from '../components/shared/skeleton/TableSkeleton';
 import TableGuest from '../components/table/TableGuest';
 import { deleteRoom, getAllRooms } from '../features/roomsSlice/roomsThunk';
 import { roomsSorted, useRoomFilters } from '../hooks/useRoomsFilters';
@@ -34,11 +34,12 @@ const RoomsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { setTypeSort, filters } = useRoomFilters();
-  const roomsFiltered = roomsSorted(rooms, filters.typeSort);
+
+  const roomsSortered = useMemo(() => roomsSorted(rooms, filters.typeSort), [rooms, filters.typeSort]);
 
   const handleDelete = async (id: string) => {
     await dispatch(deleteRoom(id));
-    toast.success('Deleted Successfully!');
+    //TODO: show a modal to confirm the delete
   };
 
   useEffect(() => {
@@ -49,60 +50,59 @@ const RoomsPage = () => {
     getRooms();
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <ContainerSection>
       <Header title={'Rooms'} />
-      <RoomsSort>
-        <FilterActive $active={filters.sortActive === 0} onClick={() => setTypeSort(0)}>
-          All Rooms
-        </FilterActive>
-        <FilterActive $active={filters.sortActive === 1} onClick={() => setTypeSort(1)}>
-          Status
-        </FilterActive>
-        <FilterActive $active={filters.sortActive === 2} onClick={() => setTypeSort(2)}>
-          Price
-        </FilterActive>
 
-        <ButtonAction to={'/admin/rooms-form'}>ADD</ButtonAction>
-      </RoomsSort>
-      <Wrapper>
-        <Table columns={columns}>
-          {roomsFiltered.map((room) => (
-            <Row key={room._id}>
-              <td>
-                <Link to={`/admin/rooms/${room._id}`}>
-                  <TableGuest
-                    img={room.roomImages}
-                    id={room._id}
-                    name={room.roomType}
-                    lastName={room.roomNumber}
-                  />
-                </Link>
-              </td>
-              <td>{room.roomType}</td>
-              <td> {room.amenities} </td>
+      {loading ? (
+        <TableSkeleton />
+      ) : (
+        <>
+          <RoomsSort>
+            <FilterActive $active={filters.sortActive === 0} onClick={() => setTypeSort(0)}>
+              All Rooms
+            </FilterActive>
+            <FilterActive $active={filters.sortActive === 1} onClick={() => setTypeSort(1)}>
+              Status
+            </FilterActive>
+            <FilterActive $active={filters.sortActive === 2} onClick={() => setTypeSort(2)}>
+              Price
+            </FilterActive>
 
-              <td>{room.price} </td>
+            <ButtonAction to={'/admin/rooms-form'}>New Room +</ButtonAction>
+          </RoomsSort>
+          <Wrapper>
+            <Table columns={columns}>
+              {roomsSortered.map((room) => (
+                <Row key={room._id}>
+                  <td>
+                    <Link to={`/admin/rooms/${room._id}`}>
+                      <TableGuest id={room._id} name={room.roomType} lastName={room.roomNumber} />
+                    </Link>
+                  </td>
+                  <td>{room.roomType}</td>
+                  <td> {room.amenities} </td>
 
-              <td>{room.offerPrice == 0 ? 'No Offer' : room.offerPrice} </td>
-              <TableStatus $status={room.status}>{room.status ? 'Disponible' : 'Ocupada'} </TableStatus>
-              <td>
-                <TableActions>
-                  <Link to={`/admin/rooms-form/${room._id}`}>
-                    <EditIcon className="edit" />
-                  </Link>
-                  <button onClick={() => handleDelete(room._id)}>
-                    <DeleteIcon className="delete" />
-                  </button>
-                </TableActions>
-              </td>
-            </Row>
-          ))}
-        </Table>
-      </Wrapper>
+                  <td>{room.price} </td>
+
+                  <td>{room.offerPrice == 0 ? 'No Offer' : room.offerPrice} </td>
+                  <TableStatus $status={room.status}>{room.status ? 'Disponible' : 'Ocupada'} </TableStatus>
+                  <td>
+                    <TableActions>
+                      <Link to={`/admin/rooms-form/${room._id}`}>
+                        <EditIcon className="edit" />
+                      </Link>
+                      <button onClick={() => handleDelete(room._id)}>
+                        <DeleteIcon className="delete" />
+                      </button>
+                    </TableActions>
+                  </td>
+                </Row>
+              ))}
+            </Table>
+          </Wrapper>
+        </>
+      )}
     </ContainerSection>
   );
 };
