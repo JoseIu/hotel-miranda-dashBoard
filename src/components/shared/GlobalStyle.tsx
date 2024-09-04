@@ -60,14 +60,20 @@ export const Error = styled.span`
 `;
 
 export const ButtonAction = styled(Link)`
-  /* width: 8rem; */
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
   font-weight: 600;
   cursor: pointer;
 
   background: var(--bg-gradient);
-  box-shadow: var(--box-shadow);
+  outline: 1px solid var(--zinc-400);
+  transition: outline 0.3s ease-in;
+  &:focus {
+    outline: 2px solid var(--green);
+  }
+  &:hover {
+    outline: 2px solid var(--green);
+  }
 `;
 
 export const Actions = styled.div`
@@ -95,6 +101,6 @@ export const ContainerDiv = styled.div`
 `;
 export const FilterActive = styled.button<{ $active: boolean }>`
   cursor: pointer;
-  font-weight: 500;
-  color: ${(props) => (props.$active ? 'var(--zinc-200)' : 'var(--zinc-400)')};
+  font-weight: 600;
+  color: ${(props) => (props.$active ? 'var(--green)' : 'var(--zinc-400)')};
 `;
