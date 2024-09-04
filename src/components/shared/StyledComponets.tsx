@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerSection = styled.section`
+  position: relative;
   background-color: var(--zinc-900);
   max-height: 100%;
 `;
