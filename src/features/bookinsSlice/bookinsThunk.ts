@@ -18,7 +18,6 @@ export const addBooking = createAsyncThunk(
   'booking/add',
   async (guest: BookingToSendInterface): Promise<BookingInterface> => {
     const response = await apiFetch('booking', 'POST', null, guest);
-    console.log(response);
     return response.data as BookingInterface;
   }
 );

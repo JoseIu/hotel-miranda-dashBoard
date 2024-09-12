@@ -11,25 +11,19 @@ export const getAllRooms = createAsyncThunk('rooms/get', async (): Promise<RoomI
 
 export const getRomById = createAsyncThunk('room/get', async (id: string): Promise<RoomInterface> => {
   const response = await apiFetch('room', 'GET', id);
-  console.log(response);
 
   return response.data as RoomInterface;
 });
 
 export const addNewRoom = createAsyncThunk('room/post', async (room: RoomToSend) => {
-  const response = await apiFetch('room', 'POST', null, room);
-  console.log(response);
+  await apiFetch('room', 'POST', null, room);
 });
 
 export const deleteRoom = createAsyncThunk('room/delete', async (id: string): Promise<string> => {
-  const response = await apiFetch('room', 'DELETE', id);
-  console.log(response);
+  await apiFetch('room', 'DELETE', id);
   return id;
 });
 
 export const updateRoom = createAsyncThunk('room/update', async (room: RoomInterface) => {
-  const response = await apiFetch('room', 'PUT', room._id, room);
-  console.log(room);
-
-  console.log(response);
+  await apiFetch('room', 'PUT', room._id, room);
 });

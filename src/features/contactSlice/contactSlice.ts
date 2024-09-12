@@ -35,7 +35,6 @@ export const contactSlice = createSlice({
       state.loading = 'pending';
     });
     builder.addCase(deleteContact.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.contacts.filter((contact) => contact._id !== action.payload);
     });
     builder.addCase(deleteContact.rejected, (state) => {

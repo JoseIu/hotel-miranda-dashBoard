@@ -25,7 +25,6 @@ const ContactPage = () => {
 
   const handleDelete = async (id: string) => {
     await dispatch(deleteContact(id));
-    console.log(id);
     //TODO: show a modal to confirm the delete
   };
 

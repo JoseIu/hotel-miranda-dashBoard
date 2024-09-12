@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { BookingInterface } from '../../interfaces/booking.interface';
-import { addBooking, deleteBooking, getAllBookings, getBooking, updateBooking } from './bookinsThunk';
+import { addBooking, deleteBooking, getAllBookings, getBooking } from './bookinsThunk';
 
 interface Bookings {
   bookins: BookingInterface[];
@@ -47,9 +47,8 @@ export const bookinsSlice = createSlice({
     builder.addCase(addBooking.fulfilled, (state, action) => {
       state.bookins.push(action.payload);
     });
-    builder.addCase(updateBooking.fulfilled, (state, action) => {
-      console.log(state);
-      console.log(action);
-    });
+    // builder.addCase(updateBooking.fulfilled, (state, action) => {
+    //   console.log(action);
+    // });
   },
 });

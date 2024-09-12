@@ -20,7 +20,6 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const { contacts } = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch<AppDispatch>();
-  console.log(contacts);
 
   useEffect(() => {
     const getContactsMessage = async () => {
