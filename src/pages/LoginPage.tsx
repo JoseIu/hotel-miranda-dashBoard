@@ -34,45 +34,59 @@ const LoginPage = () => {
       });
       navigate('/admin');
     }
-
-    console.log(responseLogin);
   };
 
   useEffect(() => {
-    console.log(userData.isAuthenticated);
     if (userData.isAuthenticated) navigate('/admin');
   }, [userData.isAuthenticated, navigate]);
 
   return (
     <LoginContainer>
-      <LoginImage></LoginImage>
-      <LoginDiv>
-        <div>
-          <h2>Hotel Miranda Dashboard</h2>
+      <LoginContent>
+        <LoginLeft>
+          <h1>Hotel Miranda</h1>
+          <span>Experience luxury and comfort</span>
+          <ul>
+            <li>Elegant Accommodations</li>
+            <li> World-class Service</li>
+            <li>Exquisite Dining</li>
+            <li>Prime Locations</li>
+          </ul>
+        </LoginLeft>
+        <LoginRight>
+          <h2>Dashboard Login</h2>
+          <span>Enter your credentials to access the management system</span>
 
           <LoginForm onSubmit={handleSumit}>
-            <input
-              type="email"
-              placeholder="email"
-              name="email"
-              id="email"
-              autoComplete="email"
-              value={form.email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="password"
-              name="password"
-              id="password"
-              autoComplete="current-password"
-              value={form.password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
+            <label htmlFor="email">
+              Email*
+              <input
+                type="email"
+                placeholder="email"
+                name="email"
+                id="email"
+                autoComplete="email"
+                value={form.email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </label>
+
+            <label htmlFor="password">
+              Password*
+              <input
+                type="password"
+                placeholder="password"
+                name="password"
+                id="password"
+                autoComplete="current-password"
+                value={form.password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </label>
             <button type="submit">Login</button>
           </LoginForm>
-        </div>
-      </LoginDiv>
+        </LoginRight>
+      </LoginContent>
     </LoginContainer>
   );
 };
@@ -94,50 +108,73 @@ const useForm = () => {
 const LoginContainer = styled.section`
   background-color: #18181b;
   height: 100dvh;
-  display: grid;
-  grid-template-columns: 50rem auto;
 
-  h2 {
-    max-width: 30rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: clamp(2rem, 3vw, 3.5rem);
-    margin-bottom: 3rem;
-  }
-`;
-const LoginImage = styled.div`
-  background-image: url('images/login-image-2.webp');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-`;
-const LoginDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const LoginForm = styled.form`
-  width: 50rem;
-  padding: 2rem;
-  margin-inline: auto;
-
-  background-color: linear-gradient(145deg, #161618, #1a1a1d);
-  box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
+const LoginContent = styled.div`
   border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
+const LoginLeft = styled.div`
+  padding: 3rem;
+  background-color: var(--green);
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  h1 {
+    font-weight: 600;
+    font-size: clamp(2rem, 3vw, 2.3rem);
+  }
+  ul {
+    padding: 0 1rem;
+  }
+  li {
+    margin-bottom: 0.3rem;
+    list-style: disc;
+  }
+`;
+const LoginRight = styled.div`
+  padding: 3rem;
+  background: var(--bg-gradient);
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  h2 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 600;
+  }
+`;
+const LoginForm = styled.form`
+  label {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
   input {
     width: 100%;
     padding: 0.5rem 1rem;
     margin-bottom: 1.5rem;
     border-radius: 0.3rem;
     outline: none;
-    box-shadow: 2px 2px 5px #141417, -0.5px -0.5px 3px #1c1c1f;
+    box-shadow: var(--box-shadow);
+
     &:focus {
-      box-shadow: 3px 3px 10px #1c1c1f, -1px -1px 6px #141417;
+      outline: 1px solid var(--green);
+      box-shadow: var(--box-shadow);
     }
   }
   button {
-    box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
+    width: 100%;
+    background-color: var(--green);
+
     padding: 0.5rem 2rem;
     border-radius: 0.3rem;
     margin-inline: auto;
