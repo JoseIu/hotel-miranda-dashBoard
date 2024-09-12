@@ -18,6 +18,6 @@ export const updateUser = createAsyncThunk('users/put', async (user: Employee): 
 });
 
 export const deleteUser = createAsyncThunk('users/delete', async (id: string): Promise<string> => {
-  const response = await apiFetch('employee', 'Delete', id);
+  await apiFetch('employee', 'Delete', id);
   return id;
 });
