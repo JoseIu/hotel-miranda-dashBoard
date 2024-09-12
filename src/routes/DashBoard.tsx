@@ -86,6 +86,7 @@ const AsideUl = styled.ul`
 `;
 const StyledNavLink = styled(NavLink)`
   font-size: 1.1em;
+  color: var(--zinc-400);
   display: grid;
   grid-template-columns: 60px 1fr;
   align-items: center;
@@ -94,9 +95,9 @@ const StyledNavLink = styled(NavLink)`
   transition: all 0.3s ease;
 
   &.active {
-    color: red;
+    color: var(--green);
     .icon {
-      color: red;
+      color: var(--green);
     }
   }
 `;

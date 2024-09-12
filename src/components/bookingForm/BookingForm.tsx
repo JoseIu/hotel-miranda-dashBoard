@@ -53,7 +53,6 @@ const BookingForm = ({ booking }: BookingFormProps) => {
       specialRequest: data.specialRequest,
       status: data.status as Status,
     };
-    console.log(bookingToSend);
     await dispatch(addBooking(bookingToSend));
 
     toast.success('Booking added successfully');

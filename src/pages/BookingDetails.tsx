@@ -27,14 +27,12 @@ const BookingDetails = () => {
   useEffect(() => {
     const getRoomByID = async () => {
       if (bookin?.roomID) {
-        console.log('GOLAAA');
         await distpatch(getRomById(bookin?.roomID));
       }
     };
     getRoomByID();
   }, [bookin?.roomID, distpatch]);
   if (isLoading) return <p>Loading...</p>;
-  console.log(room);
 
   return (
     <ContainerSection>
