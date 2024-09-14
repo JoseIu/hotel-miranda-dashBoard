@@ -24,8 +24,8 @@ const DashBoard = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <MainLayout $isActived={isActived}>
-      <Aside>
+    <MainLayout>
+      <Aside $isActived={isActived}>
         <Logo isActived={isActived} />
         <nav>
           <AsideUl>
@@ -52,52 +52,54 @@ const DashBoard = () => {
 
 export default DashBoard;
 
-const Aside = styled.aside`
-  padding: 1rem 2rem;
+const Aside = styled.aside<{ $isActived: boolean }>`
+  width: ${(props) => (props.$isActived ? '90px' : '280px')};
+  padding: 1.2rem;
+  transition: width 0.3s ease;
   background: linear-gradient(145deg, #161618, #1a1a1d);
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  text-wrap: nowrap;
 `;
 
-const MainLayout = styled.main<{ $isActived: boolean }>`
+const MainLayout = styled.main`
   display: grid;
-  transition: all 0.3s ease;
-  grid: ${(props) => (props.$isActived ? '1fr / 94px auto' : '1fr / 280px auto')};
-
+  grid-template-columns: auto 1fr;
   height: 100dvh;
 `;
 
 const AsideUl = styled.ul`
   margin-bottom: 3rem;
-  height: 100%;
+  font-weight: 600;
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  font-weight: 600;
-
   gap: 1rem;
-  li {
-    padding: 0.8rem 0;
-  }
   .icon {
     width: 1.5rem;
-    color: #686868;
+    flex-shrink: 0;
+    color: var(--zinc-400);
   }
 `;
 const StyledNavLink = styled(NavLink)`
+  padding: 0.8rem;
+  border-radius: 0.5rem;
   font-size: 1.1em;
   color: var(--zinc-400);
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  align-items: center;
-  gap: 0.3rem;
 
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &.active {
-    color: var(--green);
+    width: 100%;
+    background-color: var(--green);
+    color: var(--zinc-100);
     .icon {
-      color: var(--green);
+      color: var(--zinc-100);
     }
   }
 `;
