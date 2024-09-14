@@ -16,12 +16,12 @@ const Logo = ({ isActived }: LogoProps) => {
 export default Logo;
 
 const LogoContainer = styled.div<{ $isActived: boolean }>`
-  padding: 1rem 0;
-  display: grid;
-  grid-template-columns: 70px 1fr;
+  padding: 0.8rem;
+  display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 1.3rem;
   svg {
+    flex-shrink: 0;
     width: 2.3rem;
     color: #1c7a61;
   }
