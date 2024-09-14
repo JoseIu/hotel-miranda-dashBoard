@@ -3,3 +3,10 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.swiper-button-prev {
+  color: var(--green) !important;
+}
+.swiper-button-next {
+  color: var(--green) !important;
+}
