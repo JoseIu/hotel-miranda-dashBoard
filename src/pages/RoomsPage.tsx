@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import Header from '../components/Header';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
 import EditIcon from '../components/icons/EditIcon';
+import { ModalDelete } from '../components/modal/ModalDelete';
 import { ButtonAction, FilterActive } from '../components/shared/GlobalStyle';
 import {
   ContainerSection,
@@ -32,14 +34,20 @@ const RoomsPage = () => {
   const [loading, setLoading] = useState(true);
   const { rooms } = useSelector((state: RootState) => state.rooms);
   const dispatch = useDispatch<AppDispatch>();
+  const [modal, setModal] = useState({
+    isOpen: false,
+    id: '',
+  });
 
   const { setTypeSort, filters } = useRoomFilters();
 
   const roomsSortered = useMemo(() => roomsSorted(rooms, filters.typeSort), [rooms, filters.typeSort]);
 
-  const handleDelete = async (id: string) => {
-    await dispatch(deleteRoom(id));
-    //TODO: show a modal to confirm the delete
+  const handleDelete = async () => {
+    console.log(modal.id);
+    await dispatch(deleteRoom(modal.id));
+    toast.success('Booking deleted successfully');
+    setModal({ isOpen: false, id: '' });
   };
 
   useEffect(() => {
@@ -92,7 +100,7 @@ const RoomsPage = () => {
                       <Link to={`/admin/rooms-form/${room._id}`}>
                         <EditIcon className="edit" />
                       </Link>
-                      <button onClick={() => handleDelete(room._id)}>
+                      <button onClick={() => setModal({ isOpen: true, id: room._id })}>
                         <DeleteIcon className="delete" />
                       </button>
                     </TableActions>
@@ -101,6 +109,7 @@ const RoomsPage = () => {
               ))}
             </Table>
           </Wrapper>
+          <ModalDelete isOpen={modal.isOpen} setModal={setModal} handleDelete={handleDelete} />
         </>
       )}
     </ContainerSection>
