@@ -30,5 +30,4 @@ export default BookingsOrder;
 const BookingOrderContainer = styled.div`
   display: flex;
   gap: 1rem;
-  padding: 0 0.5rem 1rem 0.5rem;
 `;
