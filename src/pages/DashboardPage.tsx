@@ -14,6 +14,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { AppDispatch, RootState } from '../app/store';
+import { MessageSkeleton } from '../components/shared/skeleton/MessageSkeleton';
 import { getAllContacts } from '../features/contactSlice/contactThunk';
 
 const DashboardPage = () => {
@@ -29,9 +30,6 @@ const DashboardPage = () => {
     getContactsMessage();
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <ContainerSection>
       <Header title={'Dashboard'} />
@@ -45,18 +43,23 @@ const DashboardPage = () => {
 
         <LastMessages>
           <LastMessagesTitle>Last messages</LastMessagesTitle>
-          <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
-            {contacts.map((message) => (
-              <SwiperSlide key={message._id}>
-                <MessageCard>
-                  <h2>
-                    {message.customer.name} {message.customer.name}
-                  </h2>
-                  <p>{message.comment}</p>
-                </MessageCard>
-              </SwiperSlide>
-            ))}
-          </SwipertSyled>
+
+          {loading ? (
+            <MessageSkeleton />
+          ) : (
+            <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
+              {contacts.map((message) => (
+                <SwiperSlide key={message._id}>
+                  <MessageCard>
+                    <h2>
+                      {message.customer.name} {message.customer.name}
+                    </h2>
+                    <p>{message.comment}</p>
+                  </MessageCard>
+                </SwiperSlide>
+              ))}
+            </SwipertSyled>
+          )}
         </LastMessages>
       </Wrapper>
     </ContainerSection>
