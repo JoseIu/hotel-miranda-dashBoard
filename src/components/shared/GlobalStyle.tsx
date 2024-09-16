@@ -61,6 +61,7 @@ export const Error = styled.span`
 
 export const ButtonAction = styled(Link)`
   padding: 0.5rem 1rem;
+
   border-radius: 0.4rem;
   font-weight: 600;
   cursor: pointer;
