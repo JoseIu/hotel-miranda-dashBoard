@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,9 +9,13 @@ import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
+import { ModalDelete } from '../components/modal/ModalDelete';
 import { ContainerSection, Row, TableActions, Wrapper2 } from '../components/shared/StyledComponets';
+import { MessageSkeleton } from '../components/shared/skeleton/MessageSkeleton';
+import { TableSkeleton } from '../components/shared/skeleton/TableSkeleton';
 import TableGuest from '../components/table/TableGuest';
 import { deleteContact, getAllContacts } from '../features/contactSlice/contactThunk';
+import { useModal } from '../hooks/useModal';
 
 const columns = [
   { label: 'Date', key: 'date ' },
@@ -22,10 +27,12 @@ const ContactPage = () => {
   const [loading, setLoading] = useState(true);
   const { contacts } = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch<AppDispatch>();
+  const { modal, setModal } = useModal();
 
-  const handleDelete = async (id: string) => {
-    await dispatch(deleteContact(id));
-    //TODO: show a modal to confirm the delete
+  const handleDelete = async () => {
+    await dispatch(deleteContact(modal.id));
+    toast.success('Contact deleted successfully');
+    setModal({ isOpen: false, id: '' });
   };
 
   useEffect(() => {
@@ -36,56 +43,64 @@ const ContactPage = () => {
     getContactsMessage();
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <ContainerSection>
       <Header title={'Contact'} />
       <LastMessages>
         <LastMessagesTitle>Last messages</LastMessagesTitle>
-        <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
-          {contacts.map((message) => (
-            <SwiperSlide key={message._id}>
-              <MessageCard>
-                <h2>
-                  {message.customer.name} {message.customer.name}
-                </h2>
-                <p>{message.comment}</p>
-              </MessageCard>
-            </SwiperSlide>
-          ))}
-        </SwipertSyled>
+        {loading ? (
+          <MessageSkeleton />
+        ) : (
+          <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
+            {contacts.map((message) => (
+              <SwiperSlide key={message._id}>
+                <MessageCard>
+                  <h2>
+                    {message.customer.name} {message.customer.name}
+                  </h2>
+                  <p>{message.comment}</p>
+                </MessageCard>
+              </SwiperSlide>
+            ))}
+          </SwipertSyled>
+        )}
       </LastMessages>
 
-      <Wrapper2>
-        <Table columns={columns}>
-          {contacts.slice(0, 10).map((message) => (
-            <Row key={message._id}>
-              <td>
-                <Link to={`/admin/rooms/${message._id}`}>
-                  <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
-                </Link>
-              </td>
-              <td>
-                <TableGuest
-                  name={message.customer.name}
-                  lastName={message.customer.phone}
-                  id={message.customer.email}
-                />
-              </td>
-              <td>{message.subject}</td>
-              <td>
-                <TableActions>
-                  <button onClick={() => handleDelete(message._id)}>
-                    <DeleteIcon className="delete" />
-                  </button>
-                </TableActions>
-              </td>
-            </Row>
-          ))}
-        </Table>
-      </Wrapper2>
+      {loading ? (
+        <TableSkeleton rows={4} />
+      ) : (
+        <>
+          <Wrapper2>
+            <Table columns={columns}>
+              {contacts.slice(0, 10).map((message) => (
+                <Row key={message._id}>
+                  <td>
+                    <Link to={`/admin/rooms/${message._id}`}>
+                      <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
+                    </Link>
+                  </td>
+                  <td>
+                    <TableGuest
+                      name={message.customer.name}
+                      lastName={message.customer.phone}
+                      id={message.customer.email}
+                    />
+                  </td>
+                  <td>{message.subject}</td>
+                  <td>
+                    <TableActions>
+                      <button onClick={() => setModal({ isOpen: true, id: message._id })}>
+                        <DeleteIcon className="delete" />
+                      </button>
+                    </TableActions>
+                  </td>
+                </Row>
+              ))}
+            </Table>
+          </Wrapper2>
+          <ModalDelete isOpen={modal.isOpen} setModal={setModal} handleDelete={handleDelete} />
+        </>
+      )}
     </ContainerSection>
   );
 };
@@ -113,16 +128,15 @@ const MessageCard = styled.article`
 `;
 
 const SwipertSyled = styled(Swiper)`
-  max-width: 100%;
+  width: 100%;
 `;
 
 const LastMessages = styled.section`
   max-width: 87.5rem;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem 2rem;
 
-  padding: 1em 2rem;
-  border-radius: 0.5rem;
   color: #e8f2ef;
 
   display: flex;

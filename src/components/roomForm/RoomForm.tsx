@@ -59,7 +59,6 @@ const RoomForm = ({ room }: RoomFormProps) => {
     };
     await dispatch(addNewRoom(roomToSend as RoomInterface));
 
-    //TODO: show a modal to confirm the delete
     toast.success('Room added successfully');
     navigate('/admin/rooms');
   };
@@ -82,6 +81,7 @@ const RoomForm = ({ room }: RoomFormProps) => {
 
   useEffect(() => {
     if (!room) return;
+    console.log(room);
     setValue('roomType', room.roomType);
     setValue('description', room.description);
     setValue('offer', room.offer);
@@ -92,7 +92,7 @@ const RoomForm = ({ room }: RoomFormProps) => {
     setValue('amenities', room.amenities);
   }, [room, setValue]);
   return (
-    <Form onSubmit={handleSubmit(room !== null ? onHandleEdit : onHandleSubmit)}>
+    <Form onSubmit={handleSubmit(room ? onHandleEdit : onHandleSubmit)}>
       <Select label="Romm Type" id="roomType" error={errors['roomType']} {...register('roomType')}>
         {ROOMTYPE.map((roomType) => (
           <SelectOption key={roomType} value={roomType}>

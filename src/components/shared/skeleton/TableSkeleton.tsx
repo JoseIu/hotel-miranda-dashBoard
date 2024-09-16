@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-export const TableSkeleton = () => {
+
+type TableSkeletonProps = {
+  rows?: number;
+};
+export const TableSkeleton = ({ rows = 7 }: TableSkeletonProps) => {
   return (
     <>
       <TableSkletonFilters></TableSkletonFilters>
       <WrapperSkeleton>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
-        <TableSkeletonRown></TableSkeletonRown>
+        {Array.from({ length: rows }).map((_, index) => (
+          <TableSkeletonRown key={index} />
+        ))}
       </WrapperSkeleton>
     </>
   );
@@ -43,9 +43,9 @@ const TableSkeletonRown = styled.div`
 `;
 const TableSkletonFilters = styled.div`
   width: 98%;
+  padding: 2em;
   margin-inline: auto;
   margin-bottom: 1.2em;
-  padding: 2em;
   border-radius: 0.3em;
 
   animation: skeleton-loading 1s infinite alternate;

@@ -17,9 +17,9 @@ const LoginPage = () => {
 
     const data = loginFetch(form.email, form.password);
     toast.promise<LoginRequest>(data, {
-      loading: 'Loading',
+      loading: 'logging in...',
       success: 'Login success',
-      error: 'Error when fetching',
+      error: 'Error, try again',
     });
     const responseLogin = await data;
 

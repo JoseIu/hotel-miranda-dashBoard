@@ -36,7 +36,7 @@ const BookingForm = ({ booking }: BookingFormProps) => {
         name: data.name,
         lastName: data.lastName,
         reservationID: getRandomId(),
-        img: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/183.jpg',
+        img: 'https://loremflickr.com/cache/resized/65535_53040718893_00db18560c_b_640_480_nofilter.jpg',
       },
       orderDate: data.orderDate,
       checkin: {

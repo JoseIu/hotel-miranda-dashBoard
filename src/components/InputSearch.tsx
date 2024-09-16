@@ -19,14 +19,14 @@ const InputSearchContainer = styled.div`
   svg {
     position: absolute;
     width: 1rem;
-    top: 27%;
+    top: 30%;
     left: 0.8rem;
     pointer-events: none;
   }
 `;
 const InputSearch = styled.input`
   width: 100%;
-  padding: 0.6rem 3rem;
+  padding: 0.5rem 3rem;
   outline: none;
   &:focus {
     outline: 2px solid var(--green);
