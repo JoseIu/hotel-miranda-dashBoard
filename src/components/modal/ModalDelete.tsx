@@ -1,39 +1,26 @@
-import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { AppDispatch } from '../../app/store';
-import { deleteBooking } from '../../features/bookinsSlice/bookinsThunk';
 
 type ModalProps = {
   isOpen: boolean;
-  id: string;
   setModal: (modal: { isOpen: boolean; id: string }) => void;
+  handleDelete: () => void;
 };
 
-export const ModalDelete = ({ isOpen, id, setModal }: ModalProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const handleDelete = async () => {
-    await dispatch(deleteBooking(id));
-    toast.success('Booking deleted successfully');
-    setModal({ isOpen: false, id: '' });
-  };
-
-  return (
-    <ModalAction $isOpen={isOpen}>
-      <div className="modal">
-        Are you sure you want to delete this?
-        <div className="modal__btns">
-          <button className="modal__btn modal__btn--no" onClick={() => setModal({ isOpen: false, id: '' })}>
-            No
-          </button>
-          <button className="modal__btn modal__btn--yes" onClick={handleDelete}>
-            Yes
-          </button>
-        </div>
+export const ModalDelete = ({ isOpen, setModal, handleDelete }: ModalProps) => (
+  <ModalAction $isOpen={isOpen}>
+    <div className="modal">
+      Are you sure you want to delete this?
+      <div className="modal__btns">
+        <button className="modal__btn modal__btn--no" onClick={() => setModal({ isOpen: false, id: '' })}>
+          No
+        </button>
+        <button className="modal__btn modal__btn--yes" onClick={handleDelete}>
+          Yes
+        </button>
       </div>
-    </ModalAction>
-  );
-};
+    </div>
+  </ModalAction>
+);
 
 const ModalAction = styled.div<{ $isOpen: boolean }>`
   position: absolute;
