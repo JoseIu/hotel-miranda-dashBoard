@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -20,7 +21,7 @@ import {
 } from '../components/shared/StyledComponets';
 import { TableSkeleton } from '../components/shared/skeleton/TableSkeleton';
 import TableGuest from '../components/table/TableGuest';
-import { getAllBookings } from '../features/bookinsSlice/bookinsThunk';
+import { deleteBooking, getAllBookings } from '../features/bookinsSlice/bookinsThunk';
 import { filterByName, filterByType, orderBy, useBookingsFilters } from '../hooks/useBookingsFilters';
 const columns = [
   { label: 'Guest', key: 'guest' },
@@ -50,7 +51,12 @@ const BookingsPage = () => {
     bookingsFiltered = orderBy(bookingsFiltered, bookingFilter.orderBy);
     return bookingsFiltered;
   }, [bookins, bookingFilter]);
-
+  const handleDelete = async () => {
+    console.log(modal.id);
+    await dispatch(deleteBooking(modal.id));
+    toast.success('Room deleted successfully');
+    setModal({ isOpen: false, id: '' });
+  };
   useEffect(() => {
     const getBookings = async () => {
       await dispatch(getAllBookings()).unwrap();
@@ -130,7 +136,7 @@ const BookingsPage = () => {
             </Table>
           </Wrapper>
 
-          <ModalDelete isOpen={modal.isOpen} id={modal.id} setModal={setModal} />
+          <ModalDelete isOpen={modal.isOpen} setModal={setModal} handleDelete={handleDelete} />
         </>
       )}
     </ContainerSection>
@@ -140,7 +146,7 @@ const BookingsPage = () => {
 export default BookingsPage;
 
 const BookingsFilter = styled.div`
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
