@@ -159,13 +159,13 @@ const Check = styled.div`
   }
 `;
 
-const RoomInfo = styled.div`
+export const RoomInfo = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
 `;
 
-const RoomData = styled.div`
+export const RoomData = styled.div`
   display: flex;
   justify-content: space-between;
 
@@ -181,12 +181,12 @@ const RoomData = styled.div`
     }
   }
 `;
-const BookingRow = styled.div`
+export const BookingRow = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
 `;
-const AmenitiesList = styled.ul`
+export const AmenitiesList = styled.ul`
   display: flex;
   gap: 1rem;
   li {

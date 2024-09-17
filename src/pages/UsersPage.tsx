@@ -87,20 +87,19 @@ const UsersPage = () => {
               {usersFiltered.map((employee) => (
                 <Row key={employee._id}>
                   <td>
-                    <Link to={`/admin/users/${employee._id}`}>
-                      <TableGuest
-                        img={employee.image}
-                        id={employee._id}
-                        name={employee.firstName}
-                        lastName={employee.lastName}
-                        startDate={employee.startDate.slice(0, 10)}
-                      />
-                    </Link>
+                    <TableGuest
+                      img={employee.image}
+                      id={employee._id}
+                      name={employee.firstName}
+                      lastName={employee.lastName}
+                      startDate={employee.startDate.slice(0, 10)}
+                    />
                   </td>
                   <td>{employee.description}</td>
-                  <td>
-                    {employee.phone} {employee.email}
-                  </td>
+                  <ContactData>
+                    <span>{employee.phone}</span>
+                    <span className="email">{employee.email}</span>
+                  </ContactData>
                   <TableStatus $status={employee.status}>
                     {employee.status ? 'ACTIVE' : 'INACTIVE'}{' '}
                   </TableStatus>
@@ -135,5 +134,12 @@ const UserActions = styled.div`
   div {
     display: flex;
     gap: 1rem;
+  }
+`;
+const ContactData = styled.td`
+  display: flex;
+  flex-direction: column;
+  .email {
+    color: var(--green);
   }
 `;

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -75,9 +74,7 @@ const ContactPage = () => {
               {contacts.slice(0, 10).map((message) => (
                 <Row key={message._id}>
                   <td>
-                    <Link to={`/admin/rooms/${message._id}`}>
-                      <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
-                    </Link>
+                    <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
                   </td>
                   <td>
                     <TableGuest
