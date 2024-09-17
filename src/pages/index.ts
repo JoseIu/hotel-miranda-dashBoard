@@ -6,4 +6,3 @@ export { default as RoomsPage } from './RoomsPage';
 export { default as UsersPage } from './UsersPage';
 
 export { default as LoginPage } from './LoginPage';
-export { default as UserDetails } from './UserDetails';
