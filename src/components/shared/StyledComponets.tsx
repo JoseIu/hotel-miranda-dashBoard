@@ -60,7 +60,7 @@ export const Row = styled.tr`
   border-bottom: 0.0625rem solid #3d3d3d;
 
   td {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     vertical-align: middle;
     text-align: start;
     max-width: 12rem;
@@ -83,8 +83,8 @@ export const TableStatus = styled.td<{ $status: boolean }>`
 `;
 
 export const TableActions = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  gap: 1rem;
   .edit,
   .delete {
     width: 1.5rem;
