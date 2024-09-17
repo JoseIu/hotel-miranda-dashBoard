@@ -12,7 +12,6 @@ import {
   LoginPage,
   RoomDetails,
   RoomsPage,
-  UserDetails,
   UsersPage,
 } from './pages';
 import BookingDeleteAdd from './pages/BookingDeleteAdd';
@@ -54,7 +53,6 @@ const App = () => {
 
               <Route path="bookings/:id" element={<BookingDetails />} />
               <Route path="rooms/:id" element={<RoomDetails />} />
-              <Route path="users/:id" element={<UserDetails />} />
               <Route path="*" element={<Navigate to={routes[0].to} replace />} />
             </Route>
           </Routes>
