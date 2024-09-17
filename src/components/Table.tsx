@@ -31,8 +31,6 @@ export default Table;
 const TableContainer = styled.div`
   height: 100%;
   table {
-    /* max-height: 100%; */
-
     color: #e8f2ef;
     width: 100%;
     border-top-left-radius: 0.5rem;
@@ -40,9 +38,6 @@ const TableContainer = styled.div`
 
     background: var(--bg-gradient);
     box-shadow: var(--box-shadow);
-    td {
-      /* width: 20rem; */
-    }
   }
 `;
 const TableHead = styled.tr`
