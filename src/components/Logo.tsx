@@ -23,11 +23,12 @@ const LogoContainer = styled.div<{ $isActived: boolean }>`
   svg {
     flex-shrink: 0;
     width: 2.3rem;
-    color: #1c7a61;
+    color: var(--text-dark);
   }
 
   h1 {
-    color: #ebebeb;
+    color: var(--text-dark);
     font-weight: 600;
+    display: ${(props) => (props.$isActived ? 'none' : 'block')};
   }
 `;

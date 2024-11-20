@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AppDispatch, RootState } from '../app/store';
 import Header from '../components/Header';
+import ArrowLeft from '../components/icons/ArrowLeft';
+import { ButtonGoBack } from '../components/shared/GlobalStyle';
 import { ContainerSection } from '../components/shared/StyledComponets';
 import { getBooking } from '../features/bookinsSlice/bookinsThunk';
 import { getRomById } from '../features/roomsSlice/roomsThunk';
@@ -15,6 +17,8 @@ const BookingDetails = () => {
 
   const { id } = useParams<{ id: string }>();
   const distpatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getBookingByID = async () => {
@@ -32,12 +36,17 @@ const BookingDetails = () => {
     };
     getRoomByID();
   }, [bookin?.roomID, distpatch]);
+
   if (isLoading) return <p>Loading...</p>;
 
   return (
     <ContainerSection>
       <Header title={'Bookings Details'} />
       <BookingContainer>
+        <ButtonGoBack onClick={() => navigate(-1)}>
+          <ArrowLeft />
+          Back
+        </ButtonGoBack>
         <BookingDetail>
           <BookingInfo>
             <UserInfo>
@@ -104,13 +113,17 @@ const BookingDetails = () => {
 export default BookingDetails;
 const BookingContainer = styled.div`
   padding: 3em 4em 3em 4em;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 const BookingDetail = styled.article`
   padding: 2rem;
   border-radius: 0.5rem;
-  background-color: #18181b;
+  background-color: var(--white-color);
+  border: 0.0625rem solid var(--text-dark);
 
-  box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
+  box-shadow: var(--box-shadow);
   display: grid;
   gap: 4rem;
   grid-template-columns: repeat(2, 1fr);
@@ -134,6 +147,8 @@ const UseData = styled.div`
   img {
     border-radius: 0.5rem;
     max-width: 10rem;
+    border: 0.0625rem solid var(--text-dark);
+    box-shadow: var(--box-shadow);
   }
   h2 {
     display: flex;
@@ -160,6 +175,14 @@ const Check = styled.div`
 `;
 
 export const RoomInfo = styled.div`
+  align-self: center;
+  min-width: 40rem;
+  padding: 1.5rem;
+  border: 0.0625rem solid var(--text-dark);
+  border-radius: 0.3rem;
+  background-color: var(--white-color);
+  box-shadow: var(--box-shadow);
+
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
@@ -185,6 +208,16 @@ export const BookingRow = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+  color: var(--text-dark);
+  span {
+    font-size: 1.25em;
+    font-weight: 600;
+  }
+  h2 {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+  }
 `;
 export const AmenitiesList = styled.ul`
   display: flex;
@@ -193,8 +226,9 @@ export const AmenitiesList = styled.ul`
     padding: 0.2rem 0.5rem;
     border-radius: 0.5rem;
     font-size: 0.9em;
-    background-color: white;
-    color: black;
+    background-color: var(--white-color);
+    background-color: var(--hover-color);
+    border: 0.0625rem solid var(--text-dark);
   }
 `;
 
@@ -203,5 +237,7 @@ const RoomImages = styled.div`
   img {
     aspect-ratio: 16/11;
     border-radius: 0.3em;
+    border: 0.0625rem solid var(--text-dark);
+    box-shadow: var(--box-shadow);
   }
 `;

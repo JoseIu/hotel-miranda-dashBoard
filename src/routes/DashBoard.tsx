@@ -33,7 +33,8 @@ const DashBoard = () => {
               <li key={to}>
                 <StyledNavLink className={({ isActive }) => (isActive ? 'active' : '')} to={to}>
                   {Icon && <Icon className="icon" />}
-                  {name}
+
+                  <AsideTitle $isActived={isActived}>{name}</AsideTitle>
                 </StyledNavLink>
               </li>
             ))}
@@ -53,14 +54,20 @@ const DashBoard = () => {
 export default DashBoard;
 
 const Aside = styled.aside<{ $isActived: boolean }>`
-  width: ${(props) => (props.$isActived ? '90px' : '280px')};
   padding: 1.2rem;
+  width: 100%;
+  width: ${(props) => (props.$isActived ? '90px' : '280px')};
+  border-right: 0.0625rem solid var(--text-dark);
   transition: width 0.3s ease;
-  background: linear-gradient(145deg, #161618, #1a1a1d);
+  background: var(--bg-color);
+  text-wrap: nowrap;
+
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  text-wrap: nowrap;
+`;
+const AsideTitle = styled.span<{ $isActived: boolean }>`
+  display: ${(props) => (props.$isActived ? 'none' : 'block')};
 `;
 
 const MainLayout = styled.main`
@@ -70,9 +77,9 @@ const MainLayout = styled.main`
 `;
 
 const AsideUl = styled.ul`
+  width: 100%;
   margin-bottom: 3rem;
   font-weight: 600;
-  overflow: hidden;
 
   display: flex;
   flex-direction: column;
@@ -80,23 +87,30 @@ const AsideUl = styled.ul`
   .icon {
     width: 1.5rem;
     flex-shrink: 0;
-    color: var(--zinc-400);
+    color: var(--text-dark);
   }
 `;
 const StyledNavLink = styled(NavLink)`
   padding: 0.8rem;
   border-radius: 0.5rem;
   font-size: 1.1em;
-  color: var(--zinc-400);
+  color: var(--text-dark);
+  border: 0.0625rem solid transparent;
 
   display: flex;
   align-items: center;
   gap: 1.3rem;
   transition: background-color 0.3s ease, color 0.3s ease;
+  &:hover {
+    background-color: var(--hover-color);
+    box-shadow: var(--box-shadow);
+    border: 0.0625rem solid var(--text-dark);
+  }
 
   &.active {
     width: 100%;
-    background-color: var(--green);
+    border: 0.0625rem solid var(--text-dark);
+    background-color: var(--hover-color);
     color: var(--zinc-100);
     .icon {
       color: var(--zinc-100);

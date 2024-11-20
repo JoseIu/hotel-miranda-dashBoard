@@ -5,4 +5,4 @@ export { default as RoomDetails } from './RoomDetails';
 export { default as RoomsPage } from './RoomsPage';
 export { default as UsersPage } from './UsersPage';
 
-export { default as LoginPage } from './LoginPage';
+export { default as LoginPage } from './login/LoginPage';

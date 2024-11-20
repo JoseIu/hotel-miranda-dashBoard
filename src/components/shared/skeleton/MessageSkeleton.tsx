@@ -26,14 +26,16 @@ const MessageCardSkeleton = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
+  border: 0.0625rem solid var(--text-dark);
+  box-shadow: var(--box-shadow);
 
   animation: skeleton-loading 1s infinite alternate;
   @keyframes skeleton-loading {
     0% {
-      background-color: var(--zinc-900);
+      background-color: var(--white-color);
     }
     100% {
-      background-color: var(--zinc-800);
+      background-color: #c2c2c2;
     }
   }
 `;

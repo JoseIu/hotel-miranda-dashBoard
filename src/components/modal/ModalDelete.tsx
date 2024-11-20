@@ -23,8 +23,11 @@ export const ModalDelete = ({ isOpen, setModal, handleDelete }: ModalProps) => (
 );
 
 const ModalAction = styled.div<{ $isOpen: boolean }>`
-  position: absolute;
+  position: fixed;
+  z-index: 1;
   top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
@@ -38,7 +41,9 @@ const ModalAction = styled.div<{ $isOpen: boolean }>`
   justify-content: center;
 
   .modal {
-    background-color: var(--zinc-900);
+    background-color: var(--white-color);
+    border: 1px solid var(--text-dark);
+    box-shadow: var(--box-shadow);
     padding: 2em;
     border-radius: 0.3em;
     display: flex;
@@ -54,9 +59,15 @@ const ModalAction = styled.div<{ $isOpen: boolean }>`
       text-align: center;
       &--no {
         background-color: red;
+        &:hover {
+          box-shadow: var(--box-shadow);
+        }
       }
       &--yes {
-        background-color: var(--green);
+        background-color: var(--hover-color);
+        &:hover {
+          box-shadow: var(--box-shadow);
+        }
       }
     }
   }

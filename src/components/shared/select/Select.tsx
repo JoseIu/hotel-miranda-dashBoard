@@ -35,14 +35,15 @@ const InputRow = styled.div`
 `;
 
 const InputLabel = styled.label<{ $error: boolean }>`
-  color: ${(props) => (props.$error ? 'rgb(237, 74, 74)' : '#f4f4f5')};
+  color: ${(props) => (props.$error ? 'rgb(237, 74, 74)' : 'var(--text-dark)')};
   font-weight: 600;
 `;
 const InputContainer = styled.div<{ $error: boolean }>`
-  border: ${(props) => (props.$error ? '0.125rem solid rgb(237, 74, 74)' : '0.125rem solid transparent')};
+  border: ${(props) =>
+    props.$error ? '0.125rem solid rgb(237, 74, 74)' : '0.125rem solid var(--text-dark)'};
   padding: 0 1rem;
   border-radius: 0.3125rem;
-  background: var(--bg-gradient);
+  background: var(--white-color);
   box-shadow: var(--box-shadow);
   display: flex;
   justify-content: space-between;

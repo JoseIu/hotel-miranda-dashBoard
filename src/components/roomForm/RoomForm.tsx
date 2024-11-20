@@ -75,13 +75,11 @@ const RoomForm = ({ room }: RoomFormProps) => {
       amenities: data.amenities as Amenity[],
     };
     await dispatch(updateRoom(roomToSend));
-    //TODO: show a modal to confirm the delete
     toast.success('Room edited successfully');
   };
 
   useEffect(() => {
     if (!room) return;
-    console.log(room);
     setValue('roomType', room.roomType);
     setValue('description', room.description);
     setValue('offer', room.offer);

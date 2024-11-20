@@ -34,7 +34,7 @@ const ButtonToogle = styled.button`
   }
   svg {
     width: 1.75rem;
-    color: #ffffff;
+    color: var(--text-dark);
   
 
 `;

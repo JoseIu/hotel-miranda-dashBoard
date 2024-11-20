@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import loginFetch from '../helpers/loginFetch';
-import useAuth from '../hooks/useAuth';
-import { LoginRequest } from '../interfaces/loginRequest.interface';
+import { loginFetch } from '../../helpers';
+import { useAuth } from '../../hooks';
+import { LoginRequest } from '../../interfaces/loginRequest.interface';
+import { LoginContainer, LoginContent, LoginForm, LoginLeft, LoginRight } from './loginStyles';
 
 const LoginPage = () => {
   const { userData, dispatch } = useAuth();
@@ -104,84 +104,3 @@ const useForm = () => {
 
   return { form, setEmail, setPassword };
 };
-
-const LoginContainer = styled.section`
-  background-color: #18181b;
-  height: 100dvh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const LoginContent = styled.div`
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: var(--box-shadow);
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`;
-const LoginLeft = styled.div`
-  padding: 3rem;
-  background-color: var(--green);
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-  h1 {
-    font-weight: 600;
-    font-size: clamp(2rem, 3vw, 2.3rem);
-  }
-  ul {
-    padding: 0 1rem;
-  }
-  li {
-    margin-bottom: 0.3rem;
-    list-style: disc;
-  }
-`;
-const LoginRight = styled.div`
-  padding: 3rem;
-  background: var(--bg-gradient);
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-
-  h2 {
-    font-size: clamp(1.5rem, 2vw, 2rem);
-    font-weight: 600;
-  }
-`;
-const LoginForm = styled.form`
-  label {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-  }
-  input {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 0.3rem;
-    outline: none;
-    box-shadow: var(--box-shadow);
-
-    &:focus {
-      outline: 1px solid var(--green);
-      box-shadow: var(--box-shadow);
-    }
-  }
-  button {
-    width: 100%;
-    background-color: var(--green);
-
-    padding: 0.5rem 2rem;
-    border-radius: 0.3rem;
-    margin-inline: auto;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-`;

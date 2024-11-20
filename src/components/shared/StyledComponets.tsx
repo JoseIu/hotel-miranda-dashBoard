@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ContainerSection = styled.section`
-  position: relative;
   background-color: var(--zinc-900);
   max-height: 100%;
 `;
@@ -10,52 +9,7 @@ export const FormsContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const Wrapper = styled.div`
-  position: relative;
 
-  padding: 1rem 1rem 0 1rem;
-  max-height: 74dvh;
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--zinc-900);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--zinc-400);
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-`;
-export const Wrapper2 = styled.div`
-  position: relative;
-
-  padding: 1rem 1rem 0 1rem;
-  max-height: 57dvh;
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--zinc-900);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--zinc-400);
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-`;
 export const Row = styled.tr`
   border-bottom: 0.0625rem solid #3d3d3d;
 
@@ -75,7 +29,7 @@ export const FormRow = styled.div`
 
 export const BookingStatus = styled.td<{ $status?: 'Check In' | 'Check Out' | 'In Progress' }>`
   color: ${(props) =>
-    props.$status === 'Check In' ? '#4CAF50' : props.$status === 'Check Out' ? '#F44336' : '#FFC107'};
+    props.$status === 'Check In' ? '#018b06' : props.$status === 'Check Out' ? '#F44336' : '#804000'};
 `;
 
 export const TableStatus = styled.td<{ $status: boolean }>`
@@ -90,7 +44,7 @@ export const TableActions = styled.div`
     width: 1.5rem;
   }
   .edit {
-    color: #bebeff;
+    color: var(--text-dark);
   }
   .delete {
     color: #ff0000;

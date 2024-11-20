@@ -29,19 +29,19 @@ const Table = ({ columns, children }: TableProps) => {
 export default Table;
 
 const TableContainer = styled.div`
-  height: 100%;
+  padding: 1rem 2rem;
+  min-height: auto;
   table {
-    color: #e8f2ef;
     width: 100%;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-
-    background: var(--bg-gradient);
+    border-radius: 0.3rem;
+    color: var(--text-dark);
+    background-color: var(--white-color);
     box-shadow: var(--box-shadow);
+    outline: 0.0625rem solid var(--text-dark);
   }
 `;
 const TableHead = styled.tr`
-  border-bottom: 0.0625rem solid #3d3d3d;
+  border-bottom: 0.0625rem solid var(--text-dark);
 
   th {
     padding: 1.3rem 1rem;

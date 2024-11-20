@@ -22,14 +22,13 @@
 }
 :root {
   /* Colores */
-  --zinc-100: #f4f4f5;
-  --zinc-400: #a1a1aa;
-  --zinc-900: #18181b;
-  --zinc-700: #4f4fb4;
-  --green: #135846;
-  --zinc-800: #27272a;
-  --bg-gradient: linear-gradient(145deg, #161618, #1a1a1d);
-  --box-shadow: 5px 5px 10px #141417, -5px -5px 10px #1c1c1f;
+  --bg-color: #f5f5f5;
+  --white-color: #ffffff;
+  --text-dark: #000000;
+  --hover-color: #ffee8c;
+
+  --box-shadow: 5px 6px 0 0 var(--text-dark);
+  --box-shadow-small: 3px 3px 0 0 var(--text-dark);
   /* Tipografía */
   --tipo-principal: 'Poppins', sans-serif;
 }
@@ -155,8 +154,8 @@ body {
   min-height: 100vh;
   font-size: 100%;
   font-family: var(--tipo-principal);
-  color: var(--zinc-100);
-  background-color: var(--zinc-900);
+  color: var(--text-dark);
+  background-color: var(--bg-color);
   /* (Opcional) */
   hyphens: auto;
   /* (Opcional) */
