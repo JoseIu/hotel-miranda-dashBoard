@@ -35,17 +35,20 @@ const InputRow = styled.div`
 `;
 
 const InputLabel = styled.label<{ $error: boolean }>`
-  color: ${(props) => (props.$error ? 'rgb(237, 74, 74)' : '#f4f4f5')};
+  color: ${(props) => (props.$error ? 'rgb(237, 74, 74)' : 'var(--text-dark)')};
   font-weight: 600;
 `;
 const InputContainer = styled.div<{ $error: boolean }>`
-  border: ${(props) => (props.$error ? '0.125rem solid rgb(237, 74, 74)' : '0.125rem solid transparent')};
   padding: 0 1rem;
   border-radius: 0.3125rem;
-  background: var(--bg-gradient);
+  background-color: var(--white-color);
   box-shadow: var(--box-shadow);
+  border: 0.0625rem solid ${(props) => (props.$error ? 'rgb(237, 74, 74)' : 'var(--text-dark)')};
   display: flex;
   justify-content: space-between;
+  &:focus-within {
+    background-color: var(--hover-color);
+  }
   input {
     width: 100%;
     outline: 0.125rem solid transparent;

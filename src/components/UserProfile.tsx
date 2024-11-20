@@ -22,9 +22,9 @@ export default UserProfile;
 const UserCard = styled.article<{ $isActived: boolean }>`
   padding: 2.1rem 1.5rem;
   position: relative;
-  background: var(--bg-gradient);
+  background: var(--white-color);
   box-shadow: var(--box-shadow);
-  color: var(--zinc-100);
+  border: 0.0625rem solid var(--text-dark);
 
   border-radius: 1.125rem;
   display: ${(props) => (props.$isActived ? 'none' : 'flex')};
@@ -38,6 +38,7 @@ const UserCard = styled.article<{ $isActived: boolean }>`
     width: 4.375rem;
     height: 4.375rem;
     border-radius: 0.4rem;
+    border: 0.0625rem solid var(--text-dark);
   }
   div {
     padding-top: 1rem;
@@ -58,7 +59,10 @@ const UserCard = styled.article<{ $isActived: boolean }>`
     padding: 1rem 2.5rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
-    background-color: #135846;
+    background-color: var(--hover-color);
+    box-shadow: var(--box-shadow);
+    border: 0.0625rem solid var(--text-dark);
+
     transition: all 0.3s ease;
     cursor: pointer;
     &:hover {

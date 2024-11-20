@@ -28,6 +28,11 @@ const BookingsOrder = ({ type, setType }: BookingsOrderProps) => {
 export default BookingsOrder;
 
 const BookingOrderContainer = styled.div`
+  background-color: var(--white-color);
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
+  border: 0.0625rem solid var(--text-dark);
+
   display: flex;
-  gap: 1rem;
+  overflow: hidden;
 `;

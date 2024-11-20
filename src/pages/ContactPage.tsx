@@ -5,15 +5,18 @@ import styled from 'styled-components';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AppDispatch, RootState } from '../app/store';
+import { PaginationTable } from '../components';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import DeleteIcon from '../components/icons/DeleteIcon';
 import { ModalDelete } from '../components/modal/ModalDelete';
-import { ContainerSection, Row, TableActions, Wrapper2 } from '../components/shared/StyledComponets';
+import { ContainerSection, Row, TableActions } from '../components/shared/StyledComponets';
 import { MessageSkeleton } from '../components/shared/skeleton/MessageSkeleton';
 import { TableSkeleton } from '../components/shared/skeleton/TableSkeleton';
 import TableGuest from '../components/table/TableGuest';
 import { deleteContact, getAllContacts } from '../features/contactSlice/contactThunk';
+import { paginationTable } from '../helpers';
+import { useTablePagination } from '../hooks';
 import { useModal } from '../hooks/useModal';
 
 const columns = [
@@ -27,6 +30,11 @@ const ContactPage = () => {
   const { contacts } = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch<AppDispatch>();
   const { modal, setModal } = useModal();
+
+  const { page, setPage, itemsPerPage } = useTablePagination({ page: 1, itemsPerPage: 5 });
+  const toalPages = Math.ceil(contacts.length / itemsPerPage);
+
+  const contactsPageinated = paginationTable(contacts, page, itemsPerPage);
 
   const handleDelete = async () => {
     await dispatch(deleteContact(modal.id));
@@ -66,35 +74,35 @@ const ContactPage = () => {
       </LastMessages>
 
       {loading ? (
-        <TableSkeleton rows={4} />
+        <TableSkeleton rows={5} />
       ) : (
         <>
-          <Wrapper2>
-            <Table columns={columns}>
-              {contacts.slice(0, 10).map((message) => (
-                <Row key={message._id}>
-                  <td>
-                    <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
-                  </td>
-                  <td>
-                    <TableGuest
-                      name={message.customer.name}
-                      lastName={message.customer.phone}
-                      id={message.customer.email}
-                    />
-                  </td>
-                  <td>{message.subject}</td>
-                  <td>
-                    <TableActions>
-                      <button onClick={() => setModal({ isOpen: true, id: message._id })}>
-                        <DeleteIcon className="delete" />
-                      </button>
-                    </TableActions>
-                  </td>
-                </Row>
-              ))}
-            </Table>
-          </Wrapper2>
+          <Table columns={columns}>
+            {contactsPageinated.slice(0, 10).map((message) => (
+              <Row key={message._id}>
+                <td>
+                  <TableGuest startDate={message.date.slice(0, 10)} id={message.messageID} />
+                </td>
+                <td>
+                  <TableGuest
+                    name={message.customer.name}
+                    lastName={message.customer.phone}
+                    id={message.customer.email}
+                  />
+                </td>
+                <td>{message.subject}</td>
+                <td>
+                  <TableActions>
+                    <button onClick={() => setModal({ isOpen: true, id: message._id })}>
+                      <DeleteIcon className="delete" />
+                    </button>
+                  </TableActions>
+                </td>
+              </Row>
+            ))}
+          </Table>
+          <PaginationTable page={page} totalPages={toalPages} setPage={setPage} />
+
           <ModalDelete isOpen={modal.isOpen} setModal={setModal} handleDelete={handleDelete} />
         </>
       )}
@@ -108,7 +116,8 @@ const MessageCard = styled.article`
   padding: 1rem;
   border-radius: 0.3rem;
   aspect-ratio: 16/9;
-  background: var(--bg-gradient);
+  background: var(--white-color);
+  border: 0.0625rem solid var(--text-dark);
   box-shadow: var(--box-shadow);
 
   display: flex;
@@ -133,8 +142,6 @@ const LastMessages = styled.section`
   margin-left: auto;
   margin-right: auto;
   padding: 1rem 2rem;
-
-  color: #e8f2ef;
 
   display: flex;
   flex-direction: column;

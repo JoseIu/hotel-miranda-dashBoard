@@ -5,8 +5,8 @@
 }
 
 .swiper-button-prev {
-  color: var(--green) !important;
+  color: var(--text-dark) !important;
 }
 .swiper-button-next {
-  color: var(--green) !important;
+  color: var(--text-dark) !important;
 }

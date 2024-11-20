@@ -6,7 +6,7 @@ import ArrowBoxLeft from '../components/icons/ArrowBoxLeft';
 import ArrowBoxRight from '../components/icons/ArrowBoxRight';
 import BedIcon from '../components/icons/BedIcon';
 import CalendarIcon from '../components/icons/CalendarIcon';
-import { ContainerSection, Wrapper } from '../components/shared/StyledComponets';
+import { ContainerSection } from '../components/shared/StyledComponets';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,35 +33,34 @@ const DashboardPage = () => {
   return (
     <ContainerSection>
       <Header title={'Dashboard'} />
-      <Wrapper>
-        <BookingSummaryContainer>
-          <BookingSummary Icon={BedIcon} number={150} title={'Reservations Received'} />
-          <BookingSummary Icon={CalendarIcon} number={50} title={'Occupation'} />
-          <BookingSummary Icon={ArrowBoxLeft} number={80} title={'Check-ins'} />
-          <BookingSummary Icon={ArrowBoxRight} number={70} title={'Check-outs'} />
-        </BookingSummaryContainer>
 
-        <LastMessages>
-          <LastMessagesTitle>Last messages</LastMessagesTitle>
+      <BookingSummaryContainer>
+        <BookingSummary Icon={BedIcon} number={150} title={'Reservations Received'} />
+        <BookingSummary Icon={CalendarIcon} number={50} title={'Occupation'} />
+        <BookingSummary Icon={ArrowBoxLeft} number={80} title={'Check-ins'} />
+        <BookingSummary Icon={ArrowBoxRight} number={70} title={'Check-outs'} />
+      </BookingSummaryContainer>
 
-          {loading ? (
-            <MessageSkeleton />
-          ) : (
-            <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
-              {contacts.map((message) => (
-                <SwiperSlide key={message._id}>
-                  <MessageCard>
-                    <h2>
-                      {message.customer.name} {message.customer.name}
-                    </h2>
-                    <p>{message.comment}</p>
-                  </MessageCard>
-                </SwiperSlide>
-              ))}
-            </SwipertSyled>
-          )}
-        </LastMessages>
-      </Wrapper>
+      <LastMessages>
+        <LastMessagesTitle>Last messages</LastMessagesTitle>
+
+        {loading ? (
+          <MessageSkeleton />
+        ) : (
+          <SwipertSyled slidesPerView={4} spaceBetween={30} navigation={true} modules={[Navigation]}>
+            {contacts.map((message) => (
+              <SwiperSlide key={message._id}>
+                <MessageCard>
+                  <h2>
+                    {message.customer.name} {message.customer.name}
+                  </h2>
+                  <p>{message.comment}</p>
+                </MessageCard>
+              </SwiperSlide>
+            ))}
+          </SwipertSyled>
+        )}
+      </LastMessages>
     </ContainerSection>
   );
 };
@@ -83,7 +82,9 @@ const MessageCard = styled.article`
   padding: 1rem;
   border-radius: 0.3rem;
   aspect-ratio: 16/9;
-  background: var(--bg-gradient);
+  background-color: var(--white-color);
+
+  border: 0.0625rem solid var(--text-dark);
   box-shadow: var(--box-shadow);
 
   display: flex;
@@ -95,12 +96,12 @@ const MessageCard = styled.article`
   }
   p {
     font-size: 0.8em;
-    color: var(--zinc-400);
   }
 `;
 
 const SwipertSyled = styled(Swiper)`
   max-width: 100%;
+  padding: 1rem;
 `;
 
 const LastMessages = styled.section`
@@ -110,7 +111,7 @@ const LastMessages = styled.section`
 
   padding: 1em 2rem;
   border-radius: 0.5rem;
-  color: #e8f2ef;
+  color: var(--text-dark);
 
   display: flex;
   flex-direction: column;

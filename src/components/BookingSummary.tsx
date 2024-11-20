@@ -26,18 +26,18 @@ export default BookingSummary;
 const BookinCard = styled.article`
   padding: 2rem 2rem;
   border-radius: 0.6rem;
-  background: var(--bg-gradient);
+  background: var(--white-color);
   box-shadow: var(--box-shadow);
+  color: var(--text-dark);
+  border: 0.0625rem solid var(--text-dark);
 
   display: flex;
   gap: 1rem;
   svg {
     width: 1.75rem;
-    color: #e23428;
   }
   span {
     font-size: 2em;
-    color: #ffedec;
   }
   h2 {
     font-size: 0.875em;
@@ -47,5 +47,5 @@ const BookinCard = styled.article`
 const IconContainer = styled.div`
   padding: 1rem;
   border-radius: 0.3rem;
-  background-color: #e234281c;
+  background-color: var(--hover-color);
 `;

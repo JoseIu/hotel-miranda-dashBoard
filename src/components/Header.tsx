@@ -42,7 +42,7 @@ export default Header;
 
 const HeaderContainer = styled.header`
   padding: 2rem 2rem;
-  background: linear-gradient(145deg, #161618, #1a1a1d);
+  border-bottom: 0.0625rem solid var(--text-dark);
   display: flex;
   justify-content: space-between;
 `;
@@ -51,7 +51,7 @@ const DashboardTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 2.3rem;
-  color: #ffffff;
+  color: var(--text-dark);
 
   h2 {
     font-size: 1.75em;
@@ -64,16 +64,16 @@ const DashboardOptions = styled.div`
   align-items: center;
   gap: 3rem;
   button {
-    padding: 0.3rem;
-    background-color: #e234281c;
-    border-radius: 0.3rem;
+    padding: 0.5rem;
+    background-color: var(--white-color);
+    border: 0.0625rem solid var(--text-dark);
+    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
     svg {
-      color: #e23428;
+      color: var(--text-dark);
     }
     &:hover {
-      transform: scale(1.2);
+      box-shadow: 3px 2px 0 0 var(--text-dark);
     }
   }
 `;
@@ -83,7 +83,7 @@ const DashboardUl = styled.ul`
   align-items: center;
   gap: 2rem;
   svg {
-    color: #135846;
+    color: var(--text-dark);
     width: 1.625rem;
   }
 `;

@@ -5,7 +5,8 @@ export const Form = styled.form`
   width: 60rem;
   border-radius: 0.4rem;
 
-  background: var(--bg-gradient);
+  background: var(--white-color);
+  border: 0.0625rem solid var(--text-dark);
   box-shadow: var(--box-shadow);
   padding: 2rem;
 
@@ -25,7 +26,8 @@ export const FormSubmmit = styled.button`
   font-weight: 600;
   cursor: pointer;
   margin-inline: auto;
-  background: var(--bg-gradient);
+  background: var(--hover-color);
+
   box-shadow: var(--box-shadow);
 `;
 export const SelectOption = styled.option`
@@ -49,8 +51,9 @@ export const Ship = styled.span<{ $selected: boolean }>`
   border-radius: 0.3rem;
   cursor: pointer;
 
-  background-color: ${(props) => (props.$selected ? 'rgb(64, 0, 241)' : 'white')};
-  color: ${(props) => (props.$selected ? 'rgba(255, 255, 255, 0.959)' : 'black')};
+  background-color: ${(props) => (props.$selected ? 'var(--hover-color)' : 'var(--white-color)')};
+  border: 0.0625rem solid var(--text-dark);
+  color: ${(props) => (props.$selected ? 'var(--text-dark)' : 'black')};
 `;
 export const Error = styled.span`
   font-size: 0.75rem;
@@ -66,14 +69,14 @@ export const ButtonAction = styled(Link)`
   font-weight: 600;
   cursor: pointer;
 
-  background: var(--bg-gradient);
-  outline: 1px solid var(--zinc-400);
+  background: var(--white-color);
+  outline: 0.0625rem solid var(--text-dark);
   transition: outline 0.3s ease-in;
-  &:focus {
-    outline: 2px solid var(--green);
-  }
+
+  &:focus,
   &:hover {
-    outline: 2px solid var(--green);
+    background-color: var(--hover-color);
+    box-shadow: var(--box-shadow);
   }
 `;
 
@@ -85,7 +88,7 @@ export const Actions = styled.div`
     width: 1.5rem;
   }
   .edit {
-    color: #bebeff;
+    color: var(--text-dark);
   }
   .delete {
     cursor: pointer;
@@ -101,7 +104,31 @@ export const ContainerDiv = styled.div`
   justify-content: center;
 `;
 export const FilterActive = styled.button<{ $active: boolean }>`
+  padding: 0.3rem 1rem;
   cursor: pointer;
+  font-weight: 500;
+  color: ${(props) => props.$active && 'var(--text-dark)'};
+  background-color: ${(props) => props.$active && 'var(--hover-color)'};
+  border-right: 0.0625rem solid var(--text-dark);
+
+  &:last-child {
+    border-right: none;
+  }
+`;
+
+export const ButtonGoBack = styled.button`
+  max-width: 8rem;
+  background-color: var(--hover-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
   font-weight: 600;
-  color: ${(props) => (props.$active ? 'var(--green)' : 'var(--zinc-400)')};
+  cursor: pointer;
+  border: 0.0625rem solid var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  &:hover {
+    box-shadow: var(--box-shadow);
+  }
 `;

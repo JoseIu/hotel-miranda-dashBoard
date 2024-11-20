@@ -5,56 +5,45 @@ type TableSkeletonProps = {
 };
 export const TableSkeleton = ({ rows = 7 }: TableSkeletonProps) => {
   return (
-    <>
-      <TableSkletonFilters></TableSkletonFilters>
+    <TableSkeletonContainer>
       <WrapperSkeleton>
         {Array.from({ length: rows }).map((_, index) => (
           <TableSkeletonRown key={index} />
         ))}
       </WrapperSkeleton>
-    </>
+    </TableSkeletonContainer>
   );
 };
+const TableSkeletonContainer = styled.div`
+  padding: 2rem;
+`;
 
 const WrapperSkeleton = styled.div`
-  position: relative;
+  padding: 1rem 2rem;
+  max-height: auto;
+  background-color: var(--white-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.3rem;
+  border: 0.0625rem solid var(--text-dark);
 
-  padding: 1rem 1rem 0 1rem;
-  max-height: 74dvh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  row-gap: 1.4em;
+  row-gap: 1rem;
 `;
 
 const TableSkeletonRown = styled.div`
-  padding: 2.2em;
+  padding: 1.7em;
   border-radius: 0.3em;
+  box-shadow: var(--box-shadow);
+  border: 0.0625rem solid var(--text-dark);
 
   animation: skeleton-loading 1s infinite alternate;
   @keyframes skeleton-loading {
     0% {
-      background-color: var(--zinc-900);
+      background-color: var(--white-color);
     }
     100% {
-      background-color: var(--zinc-800);
-    }
-  }
-`;
-const TableSkletonFilters = styled.div`
-  width: 98%;
-  padding: 2em;
-  margin-inline: auto;
-  margin-bottom: 1.2em;
-  border-radius: 0.3em;
-
-  animation: skeleton-loading 1s infinite alternate;
-  @keyframes skeleton-loading {
-    0% {
-      background-color: var(--zinc-900);
-    }
-    100% {
-      background-color: var(--zinc-800);
+      background-color: #c2c2c2;
     }
   }
 `;
