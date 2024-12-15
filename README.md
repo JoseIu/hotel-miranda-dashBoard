@@ -17,12 +17,16 @@ Sigue los pasos a continuación para ejecutar el proyecto en tu entorno local:
    cd portfolio
    ```
 
-2. **Crear y configurar el archivo de entorno**
+2. **Levantar la API**
+   Este proyecto depende de un backend para funcionar correctamente. Asegúrate de clonar y levantar el repositorio del backend en otro directorio:
+   [API](https://github.com/JoseIu/dashboard_api/tree/main).
+
+3. **Crear y configurar el archivo de entorno**
    - Crea una copia del archivo `.env.template`.
    - Renómbralo a `.env`.
    - Actualiza las variables de entorno con los valores necesarios.
 
-3. **Instalar dependencias**
+4. **Instalar dependencias**
 
    ```bash
    npm install
@@ -30,7 +34,7 @@ Sigue los pasos a continuación para ejecutar el proyecto en tu entorno local:
    pnpm install
    ```
 
-4. **Levantar el proyecto**
+5. **Levantar el proyecto**
 
    ```bash
    npm run dev
