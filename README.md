@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
+# Bienvenido a [Joselu.dev](https://joselu-portfolio.vercel.app/)!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![alt text](image.png)
 
-Currently, two official plugins are available:
+Este es un proyecto de portfolio desarrollado con **Astro**, **TypeScript**, **React**, y **CSS**. Este repositorio muestra mi trayectoria como Desarrollador Front-end, ofreciendo una plataforma para compartir mis proyectos y avances.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Instrucciones para Desarrollo
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Sigue los pasos a continuación para ejecutar el proyecto en tu entorno local:
 
-- Configure the top-level `parserOptions` property like this:
+1. **Clonar el repositorio**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+   ```bash
+   git clone https://github.com/tu_usuario/portfolio.git
+   cd portfolio
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Crear y configurar el archivo de entorno**
+   - Crea una copia del archivo `.env.template`.
+   - Renómbralo a `.env`.
+   - Actualiza las variables de entorno con los valores necesarios.
+
+3. **Instalar dependencias**
+
+   ```bash
+   npm install
+   # o
+   pnpm install
+   ```
+
+4. **Levantar el proyecto**
+
+   ```bash
+   npm run dev
+   # o
+   pnpm dev
+   ```
+
+---
+
+## Tecnologías Utilizadas
+
+- **React**
+- **TypeScript**
+- **Redux**
+- **Styled components**
+
+---
+
+## Contacto
+
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
+
+- Autor: [Jose Luis](https://www.linkedin.com/in/j0selu/)
+- Email: <joseluissgz97@gmail.com>
