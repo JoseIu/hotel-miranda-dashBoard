@@ -1,8 +1,8 @@
-# Bienvenido a [Joselu.dev](https://joselu-portfolio.vercel.app/)!
+# Bienvenido a [Hotel Miranda Dashboard](https://hotel-miranda-dash-board.vercel.app/)!
 
 ![alt text](image.png)
 
-Este es un proyecto de portfolio desarrollado con **Astro**, **TypeScript**, **React**, y **CSS**. Este repositorio muestra mi trayectoria como Desarrollador Front-end, ofreciendo una plataforma para compartir mis proyectos y avances.
+Este es un sistema de gestión desarrollado para el **Hotel Miranda**, enfocado en ser intuitivo, eficiente y funcional. El panel está diseñado para facilitar la administración de reservas, habitaciones, usuarios y contactos por parte del personal del hotel.
 
 ---
 
@@ -13,7 +13,7 @@ Sigue los pasos a continuación para ejecutar el proyecto en tu entorno local:
 1. **Clonar el repositorio**
 
    ```bash
-   git clone https://github.com/tu_usuario/portfolio.git
+   git clone https://github.com/JoseIu/hotel-miranda-dashBoard.git
    cd portfolio
    ```
 
